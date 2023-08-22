@@ -1,0 +1,58 @@
+﻿@model Category;
+
+<form id="CategoryForm">
+    <input type="hidden" name="tempId" value="@(Model?.CategoryId)" />
+    <div class="card card-flush py-4">
+        <div class="card-body pt-0">
+            <div class="fv-row fv-plugins-icon-container">
+                <label class="required form-label">Adı</label>
+                <input type="text" name="Name" class="form-control mb-2" placeholder="Kategori adı" value="@(Model?.Name)" />
+                <div class="fv-plugins-message-container invalid-feedback"></div>
+            </div>
+
+            <div class="fv-row fv-plugins-icon-container">
+                <label class="required form-label">Üst Kategori</label>
+                <div class="">
+                    <select class="form-control selectpicker" name="ParentId">
+                        
+                        @foreach (var item in MetaData.baseCategory())
+                        {
+                            var slc = item.CategoryId == Model?.ParentId ? "selected" : "";
+                            <!option @slc value="@item.CategoryId">@item.Name</!option>
+                        }
+                    </select>
+                </div>
+            </div>
+            
+            <div class="fv-row fv-plugins-icon-container">
+                <label class="required form-label">Grup</label>
+                <div class="">
+                    <select class="form-control selectpicker" name="CategoryGroupId">
+                        
+                        @foreach (var item in MetaData.baseCategoryGroup())
+                        {
+                            var slc = item.CategoryGroupId == Model?.CategoryGroupId ? "selected" : "";
+                            <!option @slc value="@item.CategoryGroupId">@item.Name</!option>
+                        }
+
+                         
+
+                    </select>
+                    
+                </div>
+            </div>
+
+            <div class="fv-row fv-plugins-icon-container">
+                <label class="required form-label">Sıra</label>
+                <input type="text" name="Sira" class="form-control mb-2" placeholder="Sıra" value="@(Model?.Sira)" />
+                <div class="fv-plugins-message-container invalid-feedback"></div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+    $(document).ready(function () {
+        $('.selectpicker').select2();
+    });
+</script>

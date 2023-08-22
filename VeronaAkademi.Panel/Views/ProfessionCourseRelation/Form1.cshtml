@@ -1,0 +1,26 @@
+﻿@model ProfessionCourseRelation;
+
+<form id="ProfessionCourseRelationForm">
+    <input type="hidden" name="tempId" value="@(Model?.ProfessionCourseRelationId)" />
+    <input type="hidden" name="tempId" value="@(Model?.CourseId)" />
+
+    <div class="card card-flush py-4">
+        <div class="card-body pt-0">
+
+            <div class="fv-row fv-plugins-icon-container">
+                <label class="required form-label">Uzmanlık Alanı</label>
+                <div class="col-md-10">
+                    <select class="form-control selectpicker" name="ProfessionId">
+                        <option value="">İlişkilendirilecek Uzmanlık Alanı Seçiniz</option>
+                        @foreach (var item in MetaData.baseProfession())
+                        {
+                            var slc = item.ProfessionId == Model?.ProfessionId ? "selected" : "";
+                            <!option @slc value="@item.ProfessionId">@item.Name</!option>
+                        }
+                    </select>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</form>

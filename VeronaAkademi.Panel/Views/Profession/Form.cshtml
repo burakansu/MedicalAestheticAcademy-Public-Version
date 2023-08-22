@@ -1,0 +1,29 @@
+﻿@model Profession;
+@{
+    int id = ViewBag.relationId;
+}
+<form id="ProfessionForm">
+    <input type="hidden" name="tempId" value="@(Model?.ProfessionId)" />
+    <input type="hidden" name="Image" value="@(Model?.Image)" />
+    <div class="card card-flush py-4">
+        <div class="card-body pt-0">
+            <div class="fv-row fv-plugins-icon-container">
+                <label class="required form-label">Adı</label>
+                <input type="text" name="Name" class="form-control mb-2" placeholder="Uzmanlık Alanı Adı" value="@(Model?.Name)" />
+                <div class="fv-plugins-message-container invalid-feedback"></div>
+            </div>
+            <div class="fv-row fv-plugins-icon-container">
+                <label class="required form-label">Sıra</label>
+                <input type="text" name="Sira" class="form-control mb-2" placeholder="Sıra" value="@(Model?.Sira)" />
+                <div class="fv-plugins-message-container invalid-feedback"></div>
+            </div>
+
+            @if (id != 0)
+            {
+                <select class="form-control  manytomany" relationName="ProfessionCourseRelation" propertyName="CourseId" multiple style="display:none;">
+                    <!option value="@(id)" selected>0</!option>
+                </select>
+            }
+        </div>
+    </div>
+</form>

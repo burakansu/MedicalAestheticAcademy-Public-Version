@@ -1,0 +1,15 @@
+﻿@model TestEntity;
+
+<form id="TestForm">
+    <input type="hidden" name="tempId" value="@(Model?.Id)"/>
+    <div class="card card-flush py-4">
+        <div class="card-body pt-0">
+            <div class="fv-row fv-plugins-icon-container">
+                <label class="required form-label">Adı</label>
+                <input type="text" name="Name" class="form-control mb-2" placeholder="adı" value="@(Model?.Name)" />
+                <div class="fv-plugins-message-container invalid-feedback"></div>
+            </div>
+        </div>
+    </div>
+</form>
+

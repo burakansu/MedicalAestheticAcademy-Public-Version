@@ -1,0 +1,213 @@
+﻿@model Course
+@{
+    int id = ViewBag.relationId;
+}
+<form id="CourseForm">
+    <input type="hidden" name="tempId" value="@(Model?.CourseId)" />
+    <input type="hidden" name="CourseId" value="@(Model?.CourseId)" />
+    <input type="hidden" name="Image" value="@(Model?.Image)" />
+
+
+
+    <div class="rbt-accordion-style rbt-accordion-04 accordion">
+        <div class="accordion" id="accordionExamplec3">
+
+            <div class="accordion-item card">
+                <h2 class="accordion-header card-header" id="headingThree1">
+                    <button class="accordion-button h2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree1" aria-expanded="true" aria-controls="collapseThree1">
+                        Kurs Bilgileri
+                    </button>
+                </h2>
+                <div id="collapseThree1" class="accordion-collapse collapse show" aria-labelledby="headingThree1" data-bs-parent="#accordionExamplec3">
+
+                    <div class="accordion-body card-body">
+                        <div class="card card-flush py-4">
+                            <div class="card-body pt-0">
+                                <div class="fv-row fv-plugins-icon-container">
+                                    <label class="required form-label">Adı</label>
+                                    <input type="text" name="Name" class="form-control mb-2" placeholder="Kurs adı" value="@(Model?.Name)" />
+                                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                                </div>
+
+                                <div class="fv-row fv-plugins-icon-container">
+                                    <label class="required form-label">Açıklama</label>
+                                    <input type="text" name="Description" class="form-control mb-2" value="@(Model?.Description)" />
+                                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                                </div>
+
+                                <div class="fv-row fv-plugins-icon-container">
+                                    <label class="required form-label">Para Birimi</label>
+                                    <div class="">
+                                        <select class="form-control selectpicker" name="CurrencyId">
+                                            
+                                            @foreach (var item in MetaData.baseCurrency())
+                                            {
+                                                var slc = item.CurrencyId == Model?.CurrencyId ? "selected" : "";
+                                                <!option @slc value="@item.CurrencyId">@item.Name</!option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="fv-row fv-plugins-icon-container">
+                                    <label class="required form-label">Eğitmenler</label>
+
+                                        <select class="form-control selectpicker manytomany" relationName="LecturerCourseRelation" propertyName="LecturerId" multiple>
+                                            
+                                            @foreach (var item in MetaData.baseLecturer())
+                                            {
+                                                var fromDb = Model?.LecturerCourseRelation?.Select(i => i.LecturerId)?.ToList();
+                                                var slc = (fromDb != null && fromDb.Contains(item.LecturerId)) ? "selected" : "";
+
+                                                @if (fromDb != null && !fromDb.Contains(item.LecturerId))
+                                                {
+                                                    <option value="@item?.LecturerId">@item?.Name</option>
+                                                }
+                                                else
+                                                {
+                                                    <!option @slc value="@item?.LecturerId">@item?.Name</!option>
+                                                }
+                                            }
+                                        </select>
+
+                                </div>
+
+                                <div class="fv-row fv-plugins-icon-container">
+                                    <label class="required form-label">Uzmanlık Alanları</label>
+                                    <div class="">
+                                        <select class="form-control selectpicker manytomany" relationName="ProfessionCourseRelation" propertyName="ProfessionId" multiple>
+                                            
+                                            @foreach (var item in MetaData.baseProfession())
+                                            {
+                                                var fromDb = Model?.ProfessionCourseRelation?.Select(i => i.ProfessionId)?.ToList();
+                                                var slc = (fromDb != null && fromDb.Contains(item.ProfessionId)) ? "selected" : "";
+
+                                                @if (fromDb != null && !fromDb.Contains(item.ProfessionId))
+                                                {
+                                                    <option value="@item?.ProfessionId">@item?.Name</option>
+                                                }
+                                                else
+                                                {
+                                                    <!option @slc value="@item?.ProfessionId">@item?.Name</!option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="fv-row fv-plugins-icon-container">
+                                    <label class="required form-label">Beceriler</label>
+                                    <div class="">
+                                        <select class="form-control selectpicker manytomany" relationName="SkillCourseRelation" propertyName="SkillId" multiple>
+                                            
+                                            @foreach (var item in MetaData.baseSkill())
+                                            {
+                                                var fromDb = Model?.SkillCourseRelation?.Select(i => i.SkillId)?.ToList();
+                                                var slc = (fromDb != null && fromDb.Contains(item.SkillId)) ? "selected" : "";
+
+                                                @if (fromDb != null && !fromDb.Contains(item.SkillId))
+                                                {
+                                                    <option value="@item?.SkillId">@item?.Name</option>
+                                                }
+                                                else
+                                                {
+                                                    <!option @slc value="@item?.SkillId">@item?.Name</!option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="fv-row fv-plugins-icon-container">
+                                    <label class="required form-label">Ücret</label>
+                                    <input type="text" name="Price" class="form-control mb-2" value="@(Model?.Price)" />
+                                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                                </div>
+
+                                <div class="fv-row fv-plugins-icon-container">
+                                    <label class="required form-label">Video Kaynak</label>
+                                    <input type="text" name="Source" class="form-control mb-2" value="@(Model?.Source)" />
+                                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                                </div>
+
+                                <div class="fv-row fv-plugins-icon-container">
+                                    <label class="required form-label">Kategori</label>
+                                    <div class="">
+                                        <select class="form-control selectpicker" name="CategoryId">
+                                            
+                                            @foreach (var item in MetaData.baseCategory())
+                                            {
+                                                var slc = item.CategoryId == Model?.CategoryId ? "selected" : "";
+                                                <!option @slc value="@item.CategoryId">@item.Name</!option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="fv-row fv-plugins-icon-container">
+                                    <label class="required form-label">Sıra</label>
+                                    <input type="text" name="Sira" class="form-control mb-2" value="@(Model?.Sira)" />
+                                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            @if (id != 0)
+            {
+                <div class="accordion-item card">
+                    <h2 class="accordion-header card-header" id="headingThree2">
+                        <button class="accordion-button collapsed h2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree2" aria-expanded="false" aria-controls="collapseThree2">
+                            Paket İçin Başlama Ve Bitirme Tarihleri
+                        </button>
+                    </h2>
+                    <div id="collapseThree2" class="accordion-collapse collapse" aria-labelledby="headingThree2" data-bs-parent="#accordionExamplec3">
+
+                        <div class="accordion-body card-body">
+
+                            <div class="card card-flush py-4">
+                                <div class="card-body pt-0">
+
+                                    <div class="fv-row fv-plugins-icon-container" style="display:none;">
+                                        <label class="required form-label">Paket</label>
+                                        <div class="">
+                                            <select class="form-control selectpicker manytomany" relationName="PackageCourseRelation" propertyName="PackageId" multiple>
+                                                <!option value="@(id)" selected>0</!option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="fv-row fv-plugins-icon-container">
+                                        <label class="required form-label">Başlama Tarihi</label>
+                                        <input type="date" class="form-control mb-2" relationName="PackageCourseRelation" propertyName="StartDate" />
+                                        <div class="fv-plugins-message-container invalid-feedback"></div>
+                                    </div>
+                                    <div class="fv-row fv-plugins-icon-container">
+                                        <label class="required form-label">Bitiş Tarihi</label>
+                                        <input type="date" class="form-control mb-2" relationName="PackageCourseRelation" propertyName="FinishDate" />
+                                        <div class="fv-plugins-message-container invalid-feedback"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            }
+
+
+        </div>
+    </div>
+</form>
+
+<script>
+    $(document).ready(function () {
+        $('.selectpicker').select2();
+    });
+</script>

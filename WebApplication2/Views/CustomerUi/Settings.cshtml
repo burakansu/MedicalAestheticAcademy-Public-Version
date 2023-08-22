@@ -1,0 +1,214 @@
+﻿@{
+    Layout = null;
+    var Customer = MetaData.baseCustomer().Find(x => x.CustomerId == MetaData.baseCustomerId());
+}
+
+<div class="content">
+    <div class="section-title">
+        <h4 class="rbt-title-style-3">Ayarlar</h4>
+    </div>
+    <div class="advance-tab-button mb--30">
+        <ul class="nav nav-tabs tab-button-style-2 justify-content-start" id="settinsTab-4" role="tablist">
+            <li role="presentation">
+                <a href="#" class="tab-button active" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" role="tab" aria-controls="profile" aria-selected="true">
+                    <span class="title">Profil</span>
+                </a>
+            </li>
+            <li role="presentation">
+                <a href="#" class="tab-button" id="password-tab" data-bs-toggle="tab" data-bs-target="#password" role="tab" aria-controls="password" aria-selected="false">
+                    <span class="title">Parola</span>
+                </a>
+            </li>
+            <li role="presentation">
+                <a href="#" class="tab-button" id="image-tab" data-bs-toggle="tab" data-bs-target="#image" role="tab" aria-controls="image" aria-selected="false">
+                    <span class="title">Resim</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="tab-content">
+        <div class="tab-pane fade active show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+
+            <!-- Start Profile Row  -->
+            <form id="profileForm" class="rbt-profile-row rbt-default-form row row--15">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="rbt-form-group">
+                        <label>Ad Soyad</label>
+                        <input name="NameSurname" type="text" value="@Customer?.NameSurname">
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="rbt-form-group">
+                        <label>Email</label>
+                        <input name="Email" type="text" value="@Customer?.Email">
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="rbt-form-group">
+                        <label>Telefon Numarası</label>
+                        <input name="PhoneNumber" type="tel" value="@Customer?.PhoneNumber">
+                    </div>
+                </div>
+                <div class="col-12 mt--20">
+                    <div class="rbt-form-group">
+                        <a id="profileSaveButton" class="rbt-btn btn-gradient" href="#">Kaydet</a>
+                    </div>
+                </div>
+            </form>
+            <!-- End Profile Row  -->
+
+        </div>
+        <div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
+
+            <!-- Start Password Row  -->
+            <form id="passwordForm" class="rbt-profile-row rbt-default-form row row--15">
+                <div class="col-12">
+                    <div class="rbt-form-group">
+                        <label>Parola</label>
+                        <input name="Password" type="password" placeholder="@Customer?.Password">
+                    </div>
+                </div>
+                <div class="col-12 mt--10">
+                    <div class="rbt-form-group">
+                        <a id="passwordSaveButton" class="rbt-btn btn-gradient" href="#">Kaydet</a>
+                    </div>
+                </div>
+            </form>
+            <!-- End Password Row  -->
+
+        </div>
+        <div class="tab-pane fade" id="image" role="tabpanel" aria-labelledby="image-tab">
+
+            <!-- Start image Row  -->
+            <form id="imageForm" class="rbt-profile-row rbt-default-form row row--15">
+                <label class="required form-label">Resim</label>
+                <div class="col-sm-10">
+                    <input type="file" name="file" class="form-control" style="float:left" />
+                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                </div>
+                <div class="col-sm-1">
+                    <img src="/assets/Images/Customer/@Customer?.Image" alt="Kayıtlı Resim Yok" style="height:50px;">
+                </div>
+
+                <div class="col-12 mt--10">
+                    <div class="rbt-form-group">
+                        <a id="imageSaveButton" class="rbt-btn btn-gradient" href="#">Kaydet</a>
+                    </div>
+                </div>
+            </form>
+            <!-- End image Row  -->
+
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        $("#profileSaveButton").click(function (e) {
+            e.preventDefault();
+            saveProfile();
+        });
+
+        $("#passwordSaveButton").click(function (e) {
+            e.preventDefault();
+            savePassword();
+        });
+
+        $("#imageSaveButton").click(function (e) {
+            e.preventDefault();
+            saveImage();
+        });
+
+        function saveProfile() {
+            var formData = new FormData($("#profileForm")[0]);
+
+            $.ajax({
+                url: "/CustomerUi/SaveProfile",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Başarılı',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                },
+                error: function (xhr, status, error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Hata',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                }
+            });
+        }
+
+        function savePassword() {
+            var formData = new FormData($("#passwordForm")[0]);
+
+            $.ajax({
+                url: "/CustomerUi/SavePassword",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Başarılı',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                },
+                error: function (xhr, status, error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Hata',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                }
+            });
+        }
+
+        function saveImage() {
+            var formData = new FormData($("#imageForm")[0]);
+
+            // Dosya elemanını doğru şekilde seçin
+            var fileInput = $('[name="file"]');
+            if (fileInput.length > 0 && fileInput[0].files.length > 0) {
+                var file = fileInput[0].files[0];
+                formData.append('file', file);
+            }
+
+            $.ajax({
+                url: "/CustomerUi/SaveImage",
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Başarılı',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                },
+                error: function (xhr, status, error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Hata',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                }
+            });
+        }
+    });
+</script>

@@ -1,0 +1,1358 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Views\Shared\_Layout.cshtml.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\Basket\Cart.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Basket\Checked.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Basket\SideBarBasket.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Basket\Table.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\CourseUi\Detail.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\CourseUi\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\CourseUi\Reviews.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\CourseUi\SideBarLesson.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\CourseUi\ViewCourse.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\CustomerUi\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\CustomerUi\MyLessons.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\CustomerUi\MyOrderHistory.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\CustomerUi\MyReviews.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\CustomerUi\Profile.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\CustomerUi\Settings.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\LoginUi\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\RegisterUi\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\css\plugins\all.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\css\plugins\animation.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\css\plugins\bootstrap-select.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\css\plugins\euclid-circulara.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\css\plugins\feather.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\css\plugins\fontawesome.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\css\plugins\jquery-ui.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\css\plugins\magnify.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\css\plugins\magnigy-popup.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\css\plugins\odometer.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\css\plugins\plyr.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\css\plugins\sal.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\css\plugins\swiper.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\css\style.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\css\vendor\bootstrap.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\css\vendor\slick-theme.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\css\vendor\slick.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\EuclidCircularA-Bold.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\EuclidCircularA-Bold.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\EuclidCircularA-BoldItalic.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\EuclidCircularA-BoldItalic.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\EuclidCircularA-Italic.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\EuclidCircularA-Italic.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\EuclidCircularA-Light.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\EuclidCircularA-Light.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\EuclidCircularA-LightItalic.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\EuclidCircularA-LightItalic.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\EuclidCircularA-Medium.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\EuclidCircularA-Medium.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\EuclidCircularA-MediumItalic.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\EuclidCircularA-MediumItalic.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\EuclidCircularA-Regular.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\EuclidCircularA-Regular.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\EuclidCircularA-SemiBold.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\EuclidCircularA-SemiBold.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\EuclidCircularA-SemiBoldItalic.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\EuclidCircularA-SemiBoldItalic.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\Feather.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\Feather.ttf" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\Feather.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\fontawesome-free\webfonts\fa-brands-400.eot" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\fontawesome-free\webfonts\fa-brands-400.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\fontawesome-free\webfonts\fa-brands-400.ttf" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\fontawesome-free\webfonts\fa-brands-400.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\fontawesome-free\webfonts\fa-brands-400.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\fontawesome-free\webfonts\fa-regular-400.eot" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\fontawesome-free\webfonts\fa-regular-400.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\fontawesome-free\webfonts\fa-regular-400.ttf" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\fontawesome-free\webfonts\fa-regular-400.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\fontawesome-free\webfonts\fa-regular-400.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\fontawesome-free\webfonts\fa-solid-900.eot" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\fontawesome-free\webfonts\fa-solid-900.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\fontawesome-free\webfonts\fa-solid-900.ttf" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\fontawesome-free\webfonts\fa-solid-900.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\fontawesome-free\webfonts\fa-solid-900.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\fontawesome-webfont.eot" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\fontawesome-webfont.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\fontawesome-webfont.ttf" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\fontawesome-webfont.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\fontawesome-webfont.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\FontAwesome.otf" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\about\about-01.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\about\about-01.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\about\about-02.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\about\about-02.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\about\about-03.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\about\about-03.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\about\about-04.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\about\about-05.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\about\about-06.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\about\about-07.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\about\about-07.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\about\about-08.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\about\about-09.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\about\about-10.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\about\about-11.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\about\about-12.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\about\about-13.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\about\about-14.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\about\about-university.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\about\contact-2.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\about\contact.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\banner\banner-01-old.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\banner\banner-01.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\banner\banner-02.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\banner\banner-group-image.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\banner\banner-shape.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\banner\banner-small-01.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\banner\banner-small-02.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\banner\banner-small-03.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\banner\gallery-banner-01.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\banner\gallery-banner-02.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\banner\gallery-banner-03.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\banner\histudy-text.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\banner\HiStudy.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\banner\hi_1.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\banner\hi_2.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\banner\hi_3.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\banner\language-club.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\banner\offer-badge-shape.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\banner\right-shape.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\banner\text-image.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\banner\top-03.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\banner\top-04.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\banner\top-shape-02.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\banner\top-shape.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\banner\wave.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\banner\wave.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\banner\white-shape.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\bg\banner-bg-shape-1.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\bg\banner-bg-shape-1.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\bg\bg-g1.webp" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\bg\bg-image-1.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\bg\bg-image-10.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\bg\bg-image-11.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\bg\bg-image-12.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\bg\bg-image-13.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\bg\bg-image-14.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\bg\bg-image-15.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\bg\bg-image-16.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\bg\bg-image-17.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\bg\bg-image-18.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\bg\bg-image-19.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\bg\bg-image-2.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\bg\bg-image-20.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\bg\bg-image-21.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\bg\bg-image-22.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\bg\bg-image-23.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\bg\bg-image-3.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\bg\bg-image-4.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\bg\bg-image-5.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\bg\bg-image-6.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\bg\bg-image-7 - Copy.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\bg\bg-image-7.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\bg\bg-image-8.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\bg\bg-image-9.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\bg\top-banner.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\blog\author-14.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\blog\author-b1.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\blog\author-b2.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\blog\author-b3.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\blog\blog-bl-02.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\blog\blog-card-01.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\blog\blog-card-02.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\blog\blog-card-03.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\blog\blog-card-04.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\blog\blog-card-05.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\blog\blog-card-06.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\blog\blog-card-07.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\blog\blog-gallery-01.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\blog\blog-gallery-02.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\blog\blog-gallery-03.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\blog\blog-grid-01.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\blog\blog-grid-02.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\blog\blog-grid-03.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\blog\blog-grid-04.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\blog\blog-grid-05.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\blog\blog-grid-06.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\blog\blog-md-01.jpeg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\blog\blog-meta-01.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\blog\blog-single-01.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\blog\blog-single-02.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\blog\blog-single-03.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\blog\blog-single-04.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\blog\kindergarten-01.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\blog\kindergarten-02.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\blog\kindergarten-03.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\blog\kindergarten-04.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\blog\lms-01.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\blog\lms-02.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\blog\lms-03.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\brand\brand-01.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\brand\brand-02.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\brand\brand-03.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\brand\brand-04.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\brand\brand-05.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\brand\brand-06.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\brand\brand-07.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\brand\brand-08.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\brand\partner-1.webp" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\brand\partner-2.webp" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\brand\partner-3.webp" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\brand\partner-4.webp" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\brand\partner-5.webp" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\brand\partner-6.webp" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\brand\partner-7.webp" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\brand\partner-8.webp" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\brand\partner-9.webp" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\category\category-01.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\category\design 6.48.07 PM.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\category\design.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\category\graphic-designer 6.48.07 PM.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\category\graphic-designer.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\category\image\arts.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\category\image\finance.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\category\image\graphic-design.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\category\image\mobile.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\category\image\personal-development.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\category\image\sales.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\category\image\software.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\category\image\web-design.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\category\infographic 6.48.07 PM.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\category\infographic.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\category\motivation 6.48.07 PM.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\category\motivation.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\category\paint-palette 6.48.07 PM.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\category\paint-palette.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\category\pantone 6.48.07 PM.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\category\pantone.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\category\personal.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\category\server 6.48.07 PM.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\category\server.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\category\small-01.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\category\smartphone 6.48.07 PM.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\category\smartphone.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\category\web-design 6.48.07 PM.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\category\web-design.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\client\avatar-02.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\client\avatar-03.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\client\avatar-04.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\client\avatar-05.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\client\avater-01.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\client\client-1.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\client\client-2.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\client\client-3.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\client\user.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\category-1.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\category-10.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\category-2.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\category-3.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\category-4.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\category-5.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\category-6.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\category-7.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\category-8.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\category-9.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\classic-lms-01.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\classic-lms-02.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\classic-lms-03.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\classic-lms-04.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\classic-lms-05.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\classic-lms-06.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\course-01.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\course-02.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\course-03.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\course-04.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\course-05.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\course-06.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\course-category-01.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\course-content.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\course-elegant-01.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\course-elegant-02.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\course-elegant-03.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\course-elegant-04.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\course-elegant-05.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\course-elegant-06.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\course-feature-01.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\course-feature-02.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\course-feature-03.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\course-list-01.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\course-list-02.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\course-list-03.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\course-list-04.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\course-list-05.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\course-list-06.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\course-online-01.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\course-online-02.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\course-online-03.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\course-online-04.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\course-online-05.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\course-online-06.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\course-single-01.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\gym-01.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\gym-02.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\gym-03.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\gym-04.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\gym-05.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\gym-06.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\gym-program-01.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\gym-program-02.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\gym-program-03.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\gym-program-04.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\gym-program-05.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\gym-program-06.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\gym-program-07.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\gym-program-08.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\kindergarten-course-01.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\kindergarten-course-02.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\kindergarten-course-03.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\language-academy-01.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\language-academy-02.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\language-academy-03.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\language-academy-04.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\language-academy-05.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\language-academy-06.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\single-course-02.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\single-course-04.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\single-course-05.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\single-course-06.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\single-course-07.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\single-course-08.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\course\single-course-09.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\customer\AvatarNull.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\customer\c2d20b45-06b0-4292-b4c9-9b56f57c1a90.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\event\grid-type-01.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\event\grid-type-02.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\event\grid-type-03.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\event\grid-type-04.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\event\grid-type-05.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\event\grid-type-06.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\event\gym-01.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\event\gym-02.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\event\gym-03.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\event\gym-04.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\favicon.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\flip\kindergarten-01-back.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\flip\kindergarten-01-front.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\flip\kindergarten-02-back.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\flip\kindergarten-02-front.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\flip\kindergarten-03-back.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\flip\kindergarten-03-front.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\flip\kindergarten-04-back.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\flip\kindergarten-04-front.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\gallery\gallery-01.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\gallery\gallery-02.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\gallery\gallery-03.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\gallery\gallery-04.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\gallery\gallery-05.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\gallery\gallery-big.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\gallery\gallery-thumb-01.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\gallery\gallery-thumb-02.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\gallery\gallery-thumb-03.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\gallery\gallery-thumb-04.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\gallery\gallery-thumb-05.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\gallery\gallery-thumb-06.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\gallery\gallery-thumb-07.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\gallery\gallery-thumb-08.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\gallery\gallery-thumb-09.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\gallery\gallery-thumb-10.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\gallery\gallery-thumb-11.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\gallery\gallery-thumb-12.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\gallery\kindergarten-thumb-01.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\gallery\kindergarten-thumb-02.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\gallery\kindergarten-thumb-03.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\gallery\kindergarten-thumb-04.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\gallery\kindergarten-thumb-05.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\gallery\kindergarten-thumb-06.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\gallery\kindergarten-thumb-07.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\gallery\kindergarten-thumb-08.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\gallery\kindergarten-thumb-09.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\gallery\kindergarten-thumb-10.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\gallery\kindergarten-thumb-11.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\gallery\kindergarten-thumb-12.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\gallery\kindergarten-thumb-13.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\001-bulb.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\002-hat.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\003-id-card.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\004-pass.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\005-diamond.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\arrow-down.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\arrow-right.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\arrow.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\badge-bg-shape.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\best-seller-icon.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\bing.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\card-icon-1.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\card-icon-10.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\card-icon-11.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\card-icon-12.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\card-icon-2.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\card-icon-3.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\card-icon-4.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\card-icon-5.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\card-icon-6.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\card-icon-7.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\card-icon-8.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\card-icon-9.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\certificate-none-portrait.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\certificate-none.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\counter-01.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\counter-02.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\counter-03.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\counter-04.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\dashboard.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\de.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\documentation.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\elite.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\elite.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\en-us.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\facebook.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\fr.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\gif-01.gif" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\google-white.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\google.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\hand-emojji.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\hire.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\hubs.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\icon-cat-01.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\icons-01.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\icons-02.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\icons-03.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\icons-04.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\line-shape.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\logout.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\offer-badge-bg-color.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\offer-badge-bg-image.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\offer-badge-bg.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\power.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\pricing-icon-01.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\pricing-icon-02.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\pricing-icon-03.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\quote.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\rating-2.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\runner.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\settings.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\shape-bg.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\support.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\three-shape.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\tree-shape.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\trophy.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\twitter.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\yelp.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\yes.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\youtube.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\instagram\instagram-01.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\instagram\instagram-02.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\instagram\instagram-03.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\instagram\instagram-04.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\instagram\instagram-05.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\instagram\instagram-06.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\logo-verona.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\logo\logo copy.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\logo\logo-2x@2x.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\logo\logo-black.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\logo\logo-full-black.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\logo\logo-full-white.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\logo\logo-white.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\logo\logo.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\others\header.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\others\kids-video-01.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\others\preview-01.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\others\preview-02.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\others\preview-03.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\others\preview-04.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\others\preview-05.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\others\preview-06.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\others\preview-port-01.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\others\preview-port-02.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\others\preview-port-03.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\others\preview-port-04.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\others\preview-port-05.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\others\preview-port-06.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\others\thumbnail-placeholder.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\others\video-01.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\others\video-02.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\others\video-03.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\others\video-04.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\others\video-05.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\others\video-06.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\others\video-07.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\others\video-08.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\product\1.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\product\2.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\product\3.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\product\4.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\product\5.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\product\6.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\product\7.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\product\8.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\service\cat-01.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\service\mobile-cat.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\service\service-01.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\service\service-02.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\service\service-03.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\service\service-04.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\service\service-05.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\service\service-06.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\shape\airdrop.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\shape\backpack.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\shape\ball.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\shape\bg-image-2.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\shape\creativity-2.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\shape\creativity.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\shape\cta-2.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\shape\cta-3.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\shape\cta-4.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\shape\cta-icon.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\shape\cta-text.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\shape\cta.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\shape\dots-white.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\shape\dots.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\shape\dots.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\shape\france.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\shape\germany.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\shape\icon-01.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\shape\icon-02.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\shape\icon-03.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\shape\icon-04.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\shape\icon-05.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\shape\icon-06.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\shape\icon-07.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\shape\icon-08.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\shape\idea.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\shape\italy.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\shape\japan.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\shape\notes.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\shape\quote.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\shape\school.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\shape\service-01.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\shape\service-02.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\shape\service-03.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\shape\service-04.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\shape\service-05.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\shape\shape-01.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\shape\shape-02.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\shape\signature.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\shape\south-korea.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\shape\studying.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\shape\united-kingdom.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\shape\workout.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\banner-group-image.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\bg\bg-1.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\bg\bg-1.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\bg\bg-2.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\bg\gradient-1.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\bg\gradient-2.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\bg\gradient-3.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\bg\left-right-line-1.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\bg\left-right-line-small.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\bg\left-right-line.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\bg\right-left-line.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\code.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\coming-soon-01.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\coming-soon-02.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\coming-soon-03.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\courses-layout.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\cta-01.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\demo-1.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\demo-10.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\demo-11.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\demo-12.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\demo-13.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\demo-14.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\demo-15.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\demo-2.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\demo-3.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\demo-4.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\demo-5.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\demo-6.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\demo-7.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\demo-8.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\demo-9.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\demo-mobile-1.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\demo-mobile-10.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\demo-mobile-11.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\demo-mobile-12.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\demo-mobile-13.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\demo-mobile-14.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\demo-mobile-15.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\demo-mobile-2.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\demo-mobile-3.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\demo-mobile-4.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\demo-mobile-5.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\demo-mobile-6.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\demo-mobile-7.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\demo-mobile-8.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\demo-mobile-9.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\demo\coming-soon-1.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\demo\coming-soon-2.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\demo\coming-soon-3.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\demo\h1.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\demo\h10.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\demo\h11.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\demo\h12.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\demo\h13.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\demo\h14.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\demo\h15.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\demo\h2.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\demo\h3.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\demo\h4.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\demo\h5.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\demo\h6.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\demo\h7.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\demo\h8.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\demo\h9.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\elements.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\feature\feature-01.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\feature\feature-01.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\feature\feature-03.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\feature\feature-04.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\feature\feature-05.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\feature\feature-06.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\feature\feature-07.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\feature\feature-08.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\feature\feature-09.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\header-layout-old.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\header-layout.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\icons\benefit-01.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\icons\benefit-02.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\icons\benefit-03.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\icons\benefit-04.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\icons\benefit-05.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\icons\course-format.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\icons\curve.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\icons\envato-logo-icon.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\icons\envato.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\icons\group-image.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\icons\header.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\icons\line-shape.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\icons\map.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\icons\online-course.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\icons\post-format.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\icons\rating.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\icons\shape-1.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\icons\shape-2.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\icons\shape-3.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\icons\shape-4.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\icons\shape-5.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\icons\shape-6.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\icons\shape-7.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\icons\sun-shadow-right-2.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\icons\sun-shadow-right-3.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\icons\sun-shadow-right.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\icons\web-programming.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\innerlayout\blog-layout-01.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\innerlayout\blog-layout-02.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\innerlayout\blog-layout-03.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\innerlayout\blog-layout-04.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\innerlayout\blog-layout-05.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\innerlayout\blog-layout-06.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\innerlayout\blog-layout-07.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\innerlayout\blog-layout-08.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\innerlayout\blog-layout-09.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\innerlayout\course-layout-01.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\innerlayout\course-layout-02.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\innerlayout\course-layout-03.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\innerlayout\course-layout-04.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\innerlayout\course-layout-05.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\innerlayout\course-layout-06.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\innerlayout\course-layout-07.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\innerlayout\course-layout-08.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\innerlayout\course-layout-09.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\innerlayout\course-layout-10.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\innerlayout\course-layout-11.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\innerlayout\event-layout-01.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\innerlayout\event-layout-02.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\innerlayout\event-layout-03.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\innerlayout\event-layout-04.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\innerlayout\shop-layout-01.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\innerlayout\shop-layout-02.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\innerlayout\shop-layout-03.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\innerlayout\shop-layout-04.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\innerlayout\shop-layout-05.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\innerlayout\shop-layout-06.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\plugin\animation.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\plugin\bootstrap.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\plugin\contact.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\plugin\font.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\plugin\instagram.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\plugin\isotop.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\plugin\mainchimp.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\plugin\popup.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\plugin\ratina.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\plugin\seo.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\plugin\slider.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\plugin\support.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\plugin\validation.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\topfeature\01.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\topfeature\02.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\splash\topfeature\03.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\split\split-01.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\split\split-02.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\tab\Image 10.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\tab\tabs-01.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\tab\tabs-02.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\tab\tabs-03.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\tab\tabs-04.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\tab\tabs-05.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\tab\tabs-06.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\tab\tabs-07.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\tab\tabs-08.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\tab\tabs-09.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\tab\tabs-10.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\team\avatar-2.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\team\avatar.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\team\team-01.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\team\team-02.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\team\team-03.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\team\team-04.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\team\team-05.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\team\team-06.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\team\team-07.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\team\team-08.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\team\team-09.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\team\team-10.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\testimonial\client-01.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\testimonial\client-02.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\testimonial\client-03.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\testimonial\client-04.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\testimonial\client-05.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\testimonial\client-06.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\testimonial\client-07.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\testimonial\client-08.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\testimonial\client-09.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\testimonial\client-10.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\testimonial\client-11.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\testimonial\client-12.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\testimonial\image-1.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\testimonial\testimonial-1.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\testimonial\testimonial-2.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\testimonial\testimonial-3.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\testimonial\testimonial-4.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\testimonial\testimonial-5.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\testimonial\testimonial-6.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\testimonial\testimonial-7.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\testimonial\testimonial-8.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\js\bootbox\bootbox.all.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\js\bootbox\bootbox.all.min.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\js\bootbox\bootbox.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\js\bootbox\bootbox.locales.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\js\bootbox\bootbox.locales.min.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\js\bootbox\bootbox.min.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\js\custom\AjaxError.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\js\custom\Form.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\js\custom\Global.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\js\custom\jquery.serializejson.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\js\custom\Nav.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\js\custom\Pager.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\js\custom\Post.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\js\custom\ValidationFields.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\js\main.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\js\PageScripts\Basket.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\js\PageScripts\Register.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\js\scripts.bundle.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\js\vendor\backtotop.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\js\vendor\bootstrap-select.min.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\js\vendor\bootstrap.min.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\js\vendor\countdown.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\js\vendor\easypie.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\js\vendor\imageloaded.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\js\vendor\isotop.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\js\vendor\jquery-appear.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\js\vendor\jquery-one-page-nav.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\js\vendor\jquery-ui.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\js\vendor\jquery.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\js\vendor\magnify-popup.min.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\js\vendor\magnify.min.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\js\vendor\modernizr.min.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\js\vendor\odometer.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\js\vendor\paralax-scroll.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\js\vendor\paralax.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\js\vendor\paralax.min.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\js\vendor\plyr.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\js\vendor\sal.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\js\vendor\slick.min.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\js\vendor\swiper.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\js\vendor\text-type.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\js\vendor\waypoint.min.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\js\vendor\wow.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\js\widgets.bundle.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\maps\style.css.map" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\ckeditor\ckeditor-balloon-block.bundle.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\ckeditor\ckeditor-balloon.bundle.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\ckeditor\ckeditor-classic.bundle.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\ckeditor\ckeditor-document.bundle.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\ckeditor\ckeditor-inline.bundle.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\cookiealert\cookiealert.bundle.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\cookiealert\cookiealert.bundle.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\cropper\cropper.bundle.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\cropper\cropper.bundle.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\datatables\datatables.bundle.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\datatables\datatables.bundle.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\draggable\draggable.bundle.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\flotcharts\flotcharts.bundle.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\formrepeater\formrepeater.bundle.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\fslightbox\fslightbox.bundle.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\fullcalendar\fullcalendar.bundle.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\fullcalendar\fullcalendar.bundle.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\jkanban\jkanban.bundle.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\jkanban\jkanban.bundle.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\jstree\images\jstree\32px.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\jstree\images\jstree\throbber.gif" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\jstree\jstree.bundle.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\jstree\jstree.bundle.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\leaflet\leaflet.bundle.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\leaflet\leaflet.bundle.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\prismjs\prismjs.bundle.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\prismjs\prismjs.bundle.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\tinymce\skins\content\dark\content.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\tinymce\skins\content\dark\content.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\tinymce\skins\content\default\content.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\tinymce\skins\content\default\content.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\tinymce\skins\content\document\content.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\tinymce\skins\content\document\content.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\tinymce\skins\content\writer\content.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\tinymce\skins\content\writer\content.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\tinymce\skins\ui\oxide-dark\content.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\tinymce\skins\ui\oxide-dark\content.inline.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\tinymce\skins\ui\oxide-dark\content.inline.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\tinymce\skins\ui\oxide-dark\content.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\tinymce\skins\ui\oxide-dark\content.mobile.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\tinymce\skins\ui\oxide-dark\content.mobile.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\tinymce\skins\ui\oxide-dark\skin.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\tinymce\skins\ui\oxide-dark\skin.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\tinymce\skins\ui\oxide-dark\skin.mobile.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\tinymce\skins\ui\oxide-dark\skin.mobile.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\tinymce\skins\ui\oxide-dark\skin.shadowdom.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\tinymce\skins\ui\oxide-dark\skin.shadowdom.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\tinymce\skins\ui\oxide\content.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\tinymce\skins\ui\oxide\content.inline.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\tinymce\skins\ui\oxide\content.inline.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\tinymce\skins\ui\oxide\content.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\tinymce\skins\ui\oxide\content.mobile.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\tinymce\skins\ui\oxide\content.mobile.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\tinymce\skins\ui\oxide\skin.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\tinymce\skins\ui\oxide\skin.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\tinymce\skins\ui\oxide\skin.mobile.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\tinymce\skins\ui\oxide\skin.mobile.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\tinymce\skins\ui\oxide\skin.shadowdom.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\tinymce\skins\ui\oxide\skin.shadowdom.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\tinymce\tinymce.bundle.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\typedjs\typedjs.bundle.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\vis-timeline\vis-timeline.bundle.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\custom\vis-timeline\vis-timeline.bundle.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\global\fonts\@fortawesome\fa-brands-400.ttf" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\global\fonts\@fortawesome\fa-brands-400.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\global\fonts\@fortawesome\fa-regular-400.ttf" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\global\fonts\@fortawesome\fa-regular-400.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\global\fonts\@fortawesome\fa-solid-900.ttf" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\global\fonts\@fortawesome\fa-solid-900.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\global\fonts\@fortawesome\fa-v4compatibility.ttf" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\global\fonts\@fortawesome\fa-v4compatibility.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\global\fonts\bootstrap-icons\bootstrap-icons.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\global\fonts\bootstrap-icons\bootstrap-icons.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\global\fonts\keenicons\keenicons-duotone.eot" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\global\fonts\keenicons\keenicons-duotone.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\global\fonts\keenicons\keenicons-duotone.ttf" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\global\fonts\keenicons\keenicons-duotone.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\global\fonts\keenicons\keenicons-outline.eot" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\global\fonts\keenicons\keenicons-outline.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\global\fonts\keenicons\keenicons-outline.ttf" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\global\fonts\keenicons\keenicons-outline.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\global\fonts\keenicons\keenicons-solid.eot" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\global\fonts\keenicons\keenicons-solid.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\global\fonts\keenicons\keenicons-solid.ttf" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\global\fonts\keenicons\keenicons-solid.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\global\fonts\line-awesome\la-brands-400.eot" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\global\fonts\line-awesome\la-brands-400.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\global\fonts\line-awesome\la-brands-400.ttf" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\global\fonts\line-awesome\la-brands-400.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\global\fonts\line-awesome\la-brands-400.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\global\fonts\line-awesome\la-regular-400.eot" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\global\fonts\line-awesome\la-regular-400.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\global\fonts\line-awesome\la-regular-400.ttf" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\global\fonts\line-awesome\la-regular-400.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\global\fonts\line-awesome\la-regular-400.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\global\fonts\line-awesome\la-solid-900.eot" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\global\fonts\line-awesome\la-solid-900.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\global\fonts\line-awesome\la-solid-900.ttf" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\global\fonts\line-awesome\la-solid-900.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\global\fonts\line-awesome\la-solid-900.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\global\plugins.bundle.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\global\plugins.bundle.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\plugins\global\sourcemaps\tiny-slider.css.map" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\blog\_blog-details.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\blog\_blog.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\blog\_post-default.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\blog\_sidebar.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\blog\_unit-test.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\default\_animations.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\default\_edu-common.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\default\_extend.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\default\_forms.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\default\_mixins.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\default\_reset.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\default\_shortcode.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\default\_spacing.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\default\_text-animation.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\default\_typography.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\default\_variables.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\elements\_404.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\elements\_about.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\elements\_accordion.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\elements\_advance-tab.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\elements\_backtotop.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\elements\_badge.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\elements\_brand.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\elements\_brands.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\elements\_breadcrumb.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\elements\_button.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\elements\_callto-action.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\elements\_card-example.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\elements\_card.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\elements\_cart.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\elements\_category-box.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\elements\_category.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\elements\_check-blog-section.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\elements\_checkout.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\elements\_connect-area.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\elements\_contact.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\elements\_countdown.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\elements\_counterdown-area.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\elements\_counterup.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\elements\_course-filter.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\elements\_course-meta.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\elements\_feature.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\elements\_image-gallery.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\elements\_instagram.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\elements\_lesson.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\elements\_list.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\elements\_modal.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\elements\_newsletterform.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\elements\_pagination.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\elements\_portfolio.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\elements\_pricingtable.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\elements\_progressbar.html" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\elements\_progressbar.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\elements\_search.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\elements\_section-title.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\elements\_service.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\elements\_slider.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\elements\_social.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\elements\_split.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\elements\_swiper.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\elements\_teacher-section.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\elements\_team.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\elements\_testimonial.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\elements\_testimonials.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\elements\_video.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\footer\_back-to-top.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\footer\_copyright.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\footer\_dark.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\footer\_footer.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\header\common\_header-common.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\header\common\_headertop.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\header\common\_offertopbar.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\header\headermiddle\_headermid.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\header\topoffer\_offertopbar.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\header\_header-common.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\header\_header.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\header\_headertop.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\header\_headertopbar.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\header\_mega-menu.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\header\_mobilemenu.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\header\_nav.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\header\_offcanbas.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\header\_offcanvas.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\header\_offertopbar.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\header\_one-page-navigation.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\header\_search.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\header\_social-share.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\shop\_cart.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\shop\_checkout.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\shop\_minicart.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\shop\_my-account.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\shop\_product-details.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\shop\_shop.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\style.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\template\_about-us.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\template\_banner.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\template\_blog-details.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\template\_connect-area.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\template\_contact-page.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\template\_contact.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\template\_course-action-bottom.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\template\_course-details.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\template\_course-sidebar.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\template\_course-slidebar.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\template\_error-page.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\template\_events-details.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\template\_events-page.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\template\_grid-course.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\template\_instructor-dashboard.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\template\_lesson.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\template\_list-course.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\template\_login-page.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\template\_my-account.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\template\_preview.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\template\_product-details.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\template\_profile-page.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\template\_register-page.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\template\_shop-details.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\template\_shop-page.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\template\_shop.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\template\_sidebar.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\template\_single-zoom-section.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\template\_teacher-details.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\variation-page\_color.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\variation-page\_demo-page.scss" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\VeronaAkademi.Core\VeronaAkademi.Core.csproj" />
+    <ProjectReference Include="..\VeronaAkademi.Data\VeronaAkademi.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Views\Home\Index.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Home\NavBar.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Shared\Error.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Shared\_ValidationScriptsPartial.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\_ViewImports.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\css\site.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\favicon.ico">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\js\site.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.map">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css.map">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css.map">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css.map">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css.map">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css.map">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css.map">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.css.map">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css.map">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css.map">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css.map">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\css\bootstrap.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\css\bootstrap.css.map">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\css\bootstrap.min.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.css.map">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.min.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.min.css.map">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js.map">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js.map">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js.map">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\js\bootstrap.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\js\bootstrap.js.map">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js.map">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\LICENSE">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\jquery-validation-unobtrusive\LICENSE.txt">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\jquery-validation\dist\additional-methods.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\jquery-validation\dist\additional-methods.min.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\jquery-validation\dist\jquery.validate.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\jquery-validation\dist\jquery.validate.min.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\jquery-validation\LICENSE.md">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\jquery\dist\jquery.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\jquery\dist\jquery.min.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\jquery\dist\jquery.min.map">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\jquery\LICENSE.txt">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Basket\Cart.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Basket\Checked.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Basket\SideBarBasket.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Basket\Table.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\CourseUi\Detail.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\CourseUi\Index.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\CourseUi\Reviews.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\CourseUi\SideBarLesson.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\CourseUi\ViewCourse.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\CustomerUi\Index.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\CustomerUi\MyLessons.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\CustomerUi\MyOrderHistory.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\CustomerUi\MyReviews.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\CustomerUi\Profile.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\CustomerUi\Settings.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\RegisterUi\Index.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\LoginUi\Index.cshtml" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,21 @@
+﻿@model Customer;
+
+<form id="CustomerForm">
+    <input type="hidden" name="tempId" value="@(Model?.CustomerId)" />
+    <input type="hidden" name="Image" value="@(Model?.Image)" />
+    <div class="card card-flush py-4">
+        <div class="card-body pt-0">
+            <div class="fv-row fv-plugins-icon-container">
+                <label class="required form-label">Adı</label>
+                <input type="text" name="NameSurname" class="form-control mb-2" placeholder="Müşteri adı" value="@(Model?.NameSurname)" />
+                <div class="fv-plugins-message-container invalid-feedback"></div>
+            </div>
+
+            <div class="fv-row fv-plugins-icon-container">
+                <label class="required form-label">Email</label>
+                <input type="email" name="Email" class="form-control mb-2" value="@(Model?.Email)" />
+                <div class="fv-plugins-message-container invalid-feedback"></div>
+            </div>
+        </div>
+    </div>
+</form>

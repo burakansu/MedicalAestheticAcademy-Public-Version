@@ -1,0 +1,246 @@
+﻿@{
+    Layout = null;
+    var lessons = (List<Lesson>)ViewBag.lessons;
+    var packages = (List<Package>)ViewBag.packages;
+    var advisors = (List<Advisor>)ViewBag.advisors;
+    int total = ViewBag.total;
+    string typestring = "";
+}
+
+@if (lessons.Count() > 0)
+{
+    foreach (var g in lessons.GroupBy(x => new { x.Course.Name, x.Course.CourseId }, (key, group) => new
+    {
+        Name = key.Name,
+        Id = key.CourseId,
+        Result = group.ToList()
+    }))
+    {
+        <h4>@g.Name</h4>
+        <div class="cart-table table-responsive mb--60">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="pro-thumbnail">Resim</th>
+                        <th class="pro-title">Ders</th>
+                        <th class="pro-title">Açıklama</th>
+                        <th class="pro-price">Fiyat</th>
+                        <th style="width:50px;" class="pro-remove">Sil</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var lesson in g.Result)
+                    {
+                        <tr>
+                            <td class="pro-thumbnail">
+                                <img src="@MetaData.baseAssetsPath()/Lesson/@lesson.Image">
+                            </td>
+                            <td class="pro-title"><a href="#">@lesson.Name</a></td>
+                            <td class="pro-title"><a href="#">@lesson.Description</a></td>
+                            <td class="pro-price"><span>@lesson.Price  </span></td>
+                            <td class="pro-remove">
+                                <button class="rbt-round-btn removeCart w-100" id="lssn" data-lesson-id="@lesson.LessonId"><i class="feather-x"></i></button>
+                            </td>
+                        </tr>
+                    }
+                    <tr>
+                        <td class="pro-title"></td>
+                        <td class="pro-title"></td>
+                        <td class="pro-title"></td>
+
+                        <td class="pro-price">
+                            <span>
+                                Toplam :
+                                @if (!(g.Result.Count == MetaData.baseCourse().Single(x => x.CourseId == g.Id).Lesson.Count()))
+                                {
+                                    @g.Result.Sum(x => x.Price)
+                                }
+                                else
+                                {
+                                    @MetaData.baseCourse().Single(x => x.CourseId == g.Id).Price
+                                }
+                            </span>
+                        </td>
+                        <td class="pro-remove"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    }
+}
+@if (packages.Count() > 0)
+{
+    foreach (var package in packages)
+    {
+        <h4>@package.Name</h4>
+        <div class="cart-table table-responsive mb--60">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="pro-title">Açıklama</th>
+                        <th class="pro-title">Kurslar</th>
+                        <th class="pro-title">Danışmanlıklar</th>
+                        <th class="pro-title">Pratik Dersleri</th>
+                        <th class="pro-price">Fiyat</th>
+                        <th style="width:50px;" class="pro-remove">Sil</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr>
+                        <td><span>@package.Description</span></td>
+                        <td>
+                            <ul>
+                                @foreach (var i in package.PackageAdvisorRelation.Select(i => i.Advisor))
+                                {
+                                    if (i.Type == 1)
+                                    {
+                                        @Html.Raw("<li>Şeffaf Plak Danışmanlığı</li>")
+                                    }
+                                    else
+                                    {
+                                        @Html.Raw("<li>Vaka Danışmanlığı</li>")
+                                    }
+
+                                }
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                @foreach (var i in package.PackageCourseRelation.Select(i => i.Course))
+                                {
+                                    @Html.Raw("<li>"+ i.Name +"</li>")
+                                }
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                @foreach (var i in package.PackagePracticeLessonRelation.Select(i => i.PracticeLesson))
+                                {
+                                    @Html.Raw("<li>"+ i.Name +"</li>")
+                                }
+                            </ul>
+                        </td>
+
+                        <td class="pro-price"><span>@package.Price  </span></td>
+                        <td class="pro-remove">
+                            <button class="rbt-round-btn removeCart w-100" id="pck" data-package-id="@package.PackageId"><i class="feather-x"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    }
+}
+@if (advisors.Count() > 0)
+{
+    foreach (var advisor in advisors)
+    {
+        <h4>@advisor.Name</h4>
+        <div class="cart-table table-responsive mb--60">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="pro-title">Danışmanlık Tipi</th>
+                        <th class="pro-title">Bitmesi Gereken Kurslar</th>
+                        <th class="pro-title">Eğitmen</th>
+                        <th class="pro-price">Fiyat</th>
+                        <th style="width:50px;" class="pro-remove">Sil</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr>
+                        @{
+                            if (advisor.Type == 1)
+                            {
+                                typestring = "Şeffaf Plak Danışmanlığı";
+                            }
+                            if (advisor.Type == 2)
+                            {
+                                typestring = "Vaka Danışmanlığı";
+                            }
+                        }
+                        <td>
+                            @typestring
+                        </td>
+                        <td>
+                            <ul>
+                                @foreach (var lec in advisor.AdvisorCourseRelation.Select(i => i.Course))
+                                {
+                                    @Html.Raw("<li>"+ lec.Name +"</li>")
+                                }
+                            </ul>
+                        </td>
+
+                        <td>
+                            <ul>
+                                @foreach (var pro in MetaData.baseLecturer().Where(x => x.LecturerId == advisor.LecturerId))
+                                {
+                                    @Html.Raw("<li>"+ pro.Name +"</li>")
+                                }
+                            </ul>
+                        </td>
+
+                        <td>@advisor.Price</td>
+
+                        <td class="pro-remove">
+                            <button class="rbt-round-btn removeCart w-100" id="adv" data-advisor-id="@advisor.AdvisorId"><i class="feather-x"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    }
+}
+
+<div class="cart-summary">
+    <div class="cart-summary-wrap">
+        <div class="section-title text-start">
+            <h4 class="title mb--30">Sepet Özeti</h4>
+        </div>
+        <p>
+            Sepet Toplamı
+            <span>
+
+                @total TL
+
+            </span>
+        </p>
+        <p>
+            Diğer Giderler
+            <span>
+                0.00 TL
+            </span>
+        </p>
+        <h2>
+            Toplam Ödenecek
+            <span>
+
+                @total TL
+
+            </span>
+        </h2>
+    </div>
+
+    <div class="cart-submit-btn-group">
+
+        @if (MetaData.baseBasket().Where(x => x.CustomerId == MetaData.baseCustomerId()).Count() > 0)
+        {
+            <div class="single-button w-100">
+                <button id="Checked" class="rbt-btn btn-gradient rbt-switch-btn rbt-switch-y w-100">
+                    <span data-text="Öde">Sepeti Onayla ve Öde</span>
+                </button>
+            </div>
+        }
+        else
+        {
+            <div class="single-button w-100">
+                <a asp-action="Index" asp-controller="CourseUi" class="rbt-btn btn-gradient rbt-switch-btn rbt-switch-y w-100">
+                    <span data-text="Kurslara Göz At">Kurslara Göz At</span>
+                </a>
+            </div>
+        }
+        
+    </div>
+</div>

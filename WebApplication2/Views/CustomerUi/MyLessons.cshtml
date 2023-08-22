@@ -1,0 +1,153 @@
+﻿@{
+    Layout = null;
+    int CookieCustomerId = MetaData.baseCustomerId();
+    var baseReview = MetaData.baseReview();
+    List<Lesson> customerLessons = new List<Lesson>(); var lessonRelations = MetaData.baseCustomerLessonRelation().Where(x => x.CustomerId == CookieCustomerId);
+    List<Course> customerCourses = new List<Course>(); var courseRelations = MetaData.baseCustomerCourseRelation().Where(x => x.CustomerId == CookieCustomerId);
+    var baseCourse = MetaData.baseCourse();
+    var baseLesson = MetaData.baseLesson();
+
+    foreach (var item in courseRelations)
+    {
+        customerCourses.Add(baseCourse.Single(x => x.CourseId == item.CourseId));
+    }
+    foreach (var item in lessonRelations)
+    {
+        customerLessons.Add(baseLesson.Single(x => x.LessonId == item.LessonId));
+    }
+}
+
+<div class="content">
+
+    <div class="section-title">
+        <h4 class="rbt-title-style-3">
+            Kurslarım Ve Derslerim
+        </h4>
+    </div>
+
+    <div class="advance-tab-button mb--30">
+        <ul class="nav nav-tabs tab-button-style-2 justify-content-start" id="myTab-4" role="tablist">
+            <li role="presentation">
+                <a href="#" class="tab-button active" id="publish-tab-1" data-bs-toggle="tab" data-bs-target="#publish-1" role="tab" aria-controls="publish-1" aria-selected="true">
+                    <span class="title">Kurslar</span>
+                </a>
+            </li>
+            <li role="presentation">
+                <a href="#" class="tab-button" id="publish-tab-2" data-bs-toggle="tab" data-bs-target="#publish-2" role="tab" aria-controls="publish-2" aria-selected="false">
+                    <span class="title">Dersler</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="tab-content">
+
+        <div class="tab-pane fade active show" id="publish-1" role="tabpanel" aria-labelledby="publish-tab-1">
+            <div class="row g-5">
+
+
+                @foreach (var item in customerCourses)
+                {
+                    <!-- Start Single Course  -->
+                    <div class="col-lg-4 col-md-6 col-12">
+                        <div class="rbt-card variation-01 rbt-hover">
+                            <div class="rbt-card-img">
+                                <a asp-action="Detail" asp-controller="CourseUi" asp-route-id="@item.CourseId">
+                                    <img class="w-100" src="@MetaData.baseAssetsPath()/Course/@item.Image">
+                                </a>
+                            </div>
+                            <div class="rbt-card-body">
+                                <div class="rbt-card-top">
+                                    <div class="rbt-review">
+                                        <div class="rating">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                        <span class="rating-count"> (@baseReview.Where(x=>x.Lesson.CourseId == item.CourseId).Count() Yorum)</span>
+                                    </div>
+                                    <div class="rbt-bookmark-btn">
+                                    </div>
+                                </div>
+                                <h4 class="rbt-card-title">
+                                    <a asp-action="Detail" asp-controller="CourseUi" asp-route-id="@item.CourseId">@item.Name</a>
+                                </h4>
+                                <ul class="rbt-meta">
+                                    <li><i class="feather-book"></i>@baseLesson.Where(x=>x.CourseId == item.CourseId).Count() Ders</li>
+                                </ul>
+
+                                <div class="rbt-card-bottom">
+                                    <div class="rbt-price">
+                                        <span class="current-price">
+                                            @item.Price @item.Currency.Name.ToLower()
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Single Course  -->
+                }
+
+
+            </div>
+        </div>
+
+        <div class="tab-pane fade active" id="publish-2" role="tabpanel" aria-labelledby="publish-tab-2">
+            <div class="row g-5">
+
+
+                @foreach (var item in customerLessons)
+                {
+                    <!-- Start Single Course  -->
+                    <div class="col-lg-4 col-md-6 col-12">
+                        <div class="rbt-card variation-01 rbt-hover">
+                            <div class="rbt-card-img">
+                                <a asp-action="ViewCourse" asp-controller="CourseUi" asp-route-lessonid="@item.LessonId">
+                                    <img class="w-100" src="@MetaData.baseAssetsPath()/lesson/@item.Image">
+                                </a>
+                            </div>
+                            <div class="rbt-card-body">
+                                <div class="rbt-card-top">
+                                    <div class="rbt-review">
+                                        <div class="rating">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                        <span class="rating-count"> (@baseReview.Where(x=>x.Lesson.LessonId == item.LessonId).Count() Yorum)</span>
+                                    </div>
+                                    <div class="rbt-bookmark-btn">
+                                    </div>
+                                </div>
+                                <h4 class="rbt-card-title">
+                                    <a asp-action="ViewCourse" asp-controller="CourseUi" asp-route-lessonid="@item.LessonId">@item.Name</a>
+                                </h4>
+                                <ul class="rbt-meta">
+                                    <li><i class="feather-clock"></i>@item.Duration dk</li>
+                                </ul>
+
+                                <div class="rbt-card-bottom">
+                                    <div class="rbt-price">
+                                        <span class="current-price">
+                                            @item.Price @item.Currency.Name.ToLower()
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Single Course  -->
+                }
+
+
+            </div>
+        </div>
+
+    </div>
+
+</div>

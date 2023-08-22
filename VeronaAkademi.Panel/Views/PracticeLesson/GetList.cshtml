@@ -1,0 +1,216 @@
+﻿@model List<PracticeLesson>
+@{
+    Pager pager = new Pager();
+    int pageNo = 0;
+    if (ViewBag.Pager != null)
+    {
+        pager = ViewBag.Pager;
+        pageNo = pager.CurrentPage;
+    }
+    int adet = Convert.ToInt32(pager.PageSize);
+    string orderIcon = pager.OrderWay == "Asc" ? "fa-solid fa-caret-up" : "fa-solid fa-caret-down";
+}
+<style>
+    .orderIcon {
+        display: inline-block;
+        position: relative;
+        right: -10px;
+        line-height: 0;
+        vertical-align: middle;
+        font-size: 1.1rem;
+        color: black !important;
+    }
+
+    .sortable {
+        cursor: pointer;
+    }
+</style>
+
+
+
+<!--begin::Table-->
+<div class="table-responsive">
+    @if (Model.Count() > 0)
+    {
+        <table class="table table-bordered mb-200">
+            <thead>
+                <tr>
+                    <th style="width:50px;">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="PagerTopluSecim" />
+                        </div>
+                    </th>
+                    <th scope="col" class="sortable" event="sortable" order="PackageId">
+                        # <i class="@orderIcon orderIcon" style="@(pager.OrderBy=="Id"?"":"display:none;")"></i>
+                    </th>
+                    <th scope="col" class="sortable" event="sortable" order="Name">
+                        Adı <i class="@orderIcon orderIcon" style="@(pager.OrderBy=="Name"?"":"display:none;")"></i>
+                    </th>
+                    <th scope="col" class="sortable" event="sortable" order="Description">
+                        Açıklama <i class="@orderIcon orderIcon" style="@(pager.OrderBy=="Description"?"":"display:none;")"></i>
+                    </th>
+                    <th scope="col" class="sortable" event="sortable" order="CourseId">
+                        Bitmesi Gereken Kurslar <i class="@orderIcon orderIcon" style="@(pager.OrderBy=="CourseId"?"":"display:none;")"></i>
+                    </th>
+                    <th scope="col" class="sortable" event="sortable" order="Sira">
+                        Pakete Dahil <i class="@orderIcon orderIcon" style="@(pager.OrderBy=="Sira"?"":"display:none;")"></i>
+                    </th>
+                    <th scope="col" class="sortable" event="sortable" order="Date">
+                        Tarih <i class="@orderIcon orderIcon" style="@(pager.OrderBy=="Sira"?"":"display:none;")"></i>
+                    </th>
+                    <th scope="col" class="sortable" event="sortable" order="Sira">
+                        Sıra <i class="@orderIcon orderIcon" style="@(pager.OrderBy=="Sira"?"":"display:none;")"></i>
+                    </th>
+
+                    <th scope="col" style="width:65px;">durum</th>
+                    <th scope="col" style="width:75px;">İşlem</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <div class="form-check">
+                                <input class="form-check-input pager_toplu_secim" type="checkbox" value="@item.PracticeLessonId" />
+                            </div>
+                        </td>
+
+                        <td>@item.PracticeLessonId</td>
+                        <td>@item.Name</td>
+                        <td>@item.Description</td>
+
+                        <td>
+                            <ul>
+                                @foreach (var i in item.PracticeLessonCourseRelation.Select(i => i.Course))
+                                {
+                                    @Html.Raw("<li>"+ i.Name +"</li>")
+                                }
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                @foreach (var i in item.PackagePracticeLessonRelation.Select(i => i.Package))
+                                {
+                                    @Html.Raw("<li>"+ i.Name +"</li>")
+                                }
+                            </ul>
+                        </td>
+
+                        <td>@item.Date.ToString("dd/MM/yyyy")</td>
+                        <td>@item.Sira</td>
+
+                        <td>
+                            <div class="badge badge-light-@(item.Aktif ? "success" : "danger")">
+                                @(item.Aktif ? "Aktif" : "Pasif")
+                            </div>
+                        </td>
+                        <!--begin::Action=-->
+                        <td>
+                            <!-- Example single danger button -->
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    İşlemler
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a class="dropdown-item" asp-action="Detail" asp-controller="PracticeLesson" asp-route-id="@item.PracticeLessonId">Detay</a>
+                                        <a class="dropdown-item" event="PracticeLessonFormPopup" params='{"id":"@item.PracticeLessonId"}' href="#">Düzenle</a>
+                                        <a class="dropdown-item" event="PracticeLessonImageFormPopup" params='{"id":"@item.PracticeLessonId"}' href="#">Resim Ekle</a>
+                                        <a class="dropdown-item" event="BaseDurum" params='{"id":@item.PracticeLessonId, "url":"/Package/durum", "title":"@(item.Aktif?"Pasif Yap":"Aktif Yap")"}' href="#">
+                                            @(item.Aktif ? "Pasif Yap" : "Aktif Yap")
+                                        </a>
+                                        <a class="dropdown-item" event="BaseSil" params='{"id":@item.PracticeLessonId, "url":"/Package/sil", "title":"Sil"}' href="#">
+                                            Sil
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                        <!--end::Action=-->
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    @if (Model.Count() == 0)
+    {
+        <div class="alert alert-warning">
+            kayıt bulunamadı
+        </div>
+    }
+</div>
+
+@Html.Partial("/views/shared/_pager.cshtml",pager)
+
+<!--end::Table-->
+<script>
+    $(document).on('click', '[event="PracticeLessonImageFormPopup"]', function (e) {
+        e.preventDefault();
+        debugger;
+        var params = jQuery.parseJSON($(this).attr("params"));
+
+        $.get("/PracticeLesson/ImageForm/" + params.id, function (data) {
+            Swal.fire({
+                html: data,
+                showCloseButton: true,
+                showConfirmButton: false,
+                customClass: {
+                    container: 'swal-container',
+                    content: 'swal-content'
+                },
+                width: '50%',
+                padding: '1rem',
+                grow: 'fullscreen',
+                position: 'top'
+            });
+        });
+
+        $(document).on('click', '.swal-container .swal-close', function () {
+            Swal.close();
+        });
+
+
+
+
+        $(document).on('submit', '#myForm3', function (e) {
+            e.preventDefault();
+            debugger;
+
+            var formData = new FormData(this);
+            var PracticeLessonId = $('[name="PracticeLessonId"]').val();
+
+            formData.append('PracticeLessonId', PracticeLessonId);
+
+            var fileInput = $('[name="file"]');
+            if (fileInput.length > 0 && fileInput[0].files.length > 0) {
+                var file = fileInput[0].files[0];
+                formData.append('file', file);
+            }
+
+            $.ajax({
+                url: '/PracticeLesson/Upload',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    Swal.fire({
+                        title: "Kayıt Başarılı",
+                        text: "Resim başarıyla kaydedildi.",
+                        icon: "success"
+                    });
+                },
+                error: function (xhr, status, error) {
+                    Swal.fire({
+                        title: "Hata Oluştu",
+                        text: "Resim kaydedilirken bir hata oluştu.",
+                        icon: "error"
+                    });
+                }
+            });
+        });
+
+
+    });
+</script>

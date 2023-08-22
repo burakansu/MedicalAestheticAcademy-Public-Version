@@ -1,0 +1,273 @@
+﻿@model Advisor
+@{
+    int CookieCustomerId = MetaData.baseCustomerId();
+
+    List<CustomerCourseRelation> customercompletedcourses = new List<CustomerCourseRelation>();
+    var basecustomercourserelation = MetaData.baseCustomerCourseRelation();
+    int completed = 0;
+    int haved = MetaData.baseCustomerAdvisorRelation().Where(x => x.CustomerId == CookieCustomerId && x.AdvisorId == Model.AdvisorId).Count();
+
+    if (Model.AdvisorCourseRelation.Count() > 0)
+    {
+        foreach (var item in Model.AdvisorCourseRelation)
+        {
+            if (basecustomercourserelation.Where(x => x.CourseId == item.CourseId && x.Completed == 1 && x.CustomerId == CookieCustomerId).Count() > 0)
+            {
+                var customercourse = basecustomercourserelation.Single(x => x.CourseId == item.CourseId && x.Completed == 1 && x.CustomerId == CookieCustomerId);
+                customercompletedcourses.Add(customercourse);
+            }
+        }
+        if (customercompletedcourses.Count() == Model.AdvisorCourseRelation.Count())
+            completed = 1;
+    }
+    else
+        completed = 1;
+}
+
+<div class="rbt-page-banner-wrapper">
+    <!-- Start Banner BG Image  -->
+    <div class="rbt-banner-image"></div>
+    <!-- End Banner BG Image  -->
+    <div class="rbt-banner-content">
+        <!-- Start Banner Content Top  -->
+        <div class="rbt-banner-content-top rbt-breadcrumb-style-3">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 offset-lg-2">
+                        <div class="content text-center">
+
+                            <h2 class="title theme-gradient">@Model.Name</h2>
+
+                            <ul class="rbt-meta">
+                                <li><i class="feather-calendar"></i>Son Güncelleme @Model.GuncellemeTarihi</li>
+                                <li><i class="feather-globe"></i>Türkçe</li>
+                                <li><i class="feather-award"></i>Onaylı Danışmanlık</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Banner Content Top  -->
+    </div>
+</div>
+
+<div class="rbt-section-overlayping-top rbt-section-gapBottom">
+    <div class="inner">
+        <div class="container">
+            <div class="col-lg-12">
+
+                <div class="row row--30 gy-5 pt--60">
+
+                    <div class="col-lg-4">
+                        <div class="course-sidebar sticky-top rbt-shadow-box rbt-gradient-border">
+                            <div class="inner">
+                                <div class="content-item-content">
+                                    <div class="rbt-price-wrapper d-flex flex-wrap align-items-center justify-content-between">
+                                        <div class="rbt-price">
+                                            <span class="current-price">@Model.Price @Model.Currency.Name</span>
+                                        </div>
+                                        <div class="discount-time">
+                                            <span class="rbt-badge color-danger bg-color-danger-opacity">
+                                                <i class="feather-clock"></i> Kısa Süreli!
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    @if (CookieCustomerId != 0)
+                                    {
+                                        @if (completed == 1)
+                                        {
+                                            @if (haved > 0)
+                                            {
+                                                <div class="buy-now-btn mt--15">
+                                                    <a class="rbt-btn btn-border icon-hover w-100 d-block text-center">
+                                                        <span class="btn-text">Satın Alınmış</span>
+                                                        <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+                                                    </a>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="add-to-card-button mt--15">
+                                                    <a id="AllBasket" class="rbt-btn btn-gradient icon-hover w-100 d-block text-center" href="#">
+                                                        <span class="btn-text">Sepete Ekle</span>
+                                                        <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+                                                    </a>
+                                                </div>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <div class="buy-now-btn mt--15">
+                                                <a class="rbt-btn btn-border icon-hover w-100 d-block text-center">
+                                                    <span class="btn-text">Gereksinimleri Karşılamıyorsunuz</span>
+                                                    <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+                                                </a>
+                                            </div>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <div class="buy-now-btn mt--15">
+                                            <a asp-action="Index" asp-controller="LoginUi" class="rbt-btn btn-border icon-hover w-100 d-block text-center">
+                                                <span class="btn-text">Giriş Yap</span>
+                                                <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+                                            </a>
+                                        </div>
+                                    }
+
+                                    <span class="subtitle">
+                                        <i class="feather-rotate-ccw"></i> Güvenli Ödeme
+                                    </span>
+
+
+                                    <div class="rbt-widget-details has-show-more">
+                                        <ul class="has-show-more-inner-content rbt-course-details-list-wrapper">
+
+                                            <li><span>Danışman</span><span class="rbt-feature-value rbt-badge-5">@Model.Lecturer.Name</span></li>
+
+                                            @foreach (var item in Model.AdvisorCourseRelation)
+                                            {
+                                                <li><span>Bitirilmesi Zorunlu</span><span class="rbt-feature-value rbt-badge-10">@item.Course.Name</span></li>
+                                            }
+                                            @if (Model.AdvisorCourseRelation.Count() == 0)
+                                            {
+                                                <li><span>Ön Koşullar</span><span class="rbt-feature-value rbt-badge-5">Yok</span></li>
+                                            }
+                                            @if (Model.PackageAdvisorRelation.Count() > 0)
+                                            {
+                                                <li><span>Pakete Dahil</span><span class="rbt-feature-value rbt-badge-5">Evet</span></li>
+                                            }
+                                            else
+                                            {
+                                                <li><span>Pakete Dahil</span><span class="rbt-feature-value rbt-badge-5">Hayır</span></li>
+                                            }
+
+                                        </ul>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-8">
+                        <!-- Start Course Details  -->
+                        <div class="course-details-content">
+                            <div class="rbt-inner-onepage-navigation sticky-top">
+                                <nav class="mainmenu-nav onepagenav">
+                                    <ul class="mainmenu">
+                                        <li class="current">
+                                            <a href="#overview">Danışmanlık Detayları</a>
+                                        </li>
+                                        <li>
+                                            <a href="#coursecontent">Barındırılan Hizmetler</a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+
+                            <!-- Start Course Feature Box  -->
+                            <div class="rbt-course-feature-box overview-wrapper rbt-shadow-box mt--30 has-show-more" id="overview">
+                                <div class="rbt-course-feature-inner has-show-more-inner-content">
+                                    <div class="section-title">
+                                        <h4 class="rbt-title-style-3">Danışmanlık Açıklamaları</h4>
+                                    </div>
+                                    <p>
+                                        @Model.Name
+                                    </p>
+                                </div>
+                            </div>
+                            <!-- End Course Feature Box  -->
+                            <!-- Start Course Content  -->
+                            <div class="course-content rbt-shadow-box coursecontent-wrapper mt--30" id="coursecontent">
+                                <div class="rbt-course-feature-inner">
+                                    <div class="section-title">
+                                        <h4 class="rbt-title-style-3">Barındırılan Hizmetler</h4>
+                                    </div>
+                                    <div class="rbt-accordion-style rbt-accordion-02 accordion">
+                                        <div class="accordion" id="accordionExampleb2">
+
+                                            <div class="accordion-item card">
+                                                <h2 class="accordion-header card-header" id="headingTwo2">
+                                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo2" aria-expanded="false" aria-controls="collapseTwo2">
+                                                        Öncesinde Bitmesi Gereken Kurslar<span class="rbt-badge-5 ml--10">@Model.AdvisorCourseRelation.Count() Kurs</span>
+                                                    </button>
+                                                </h2>
+                                                <div id="collapseTwo2" class="accordion-collapse collapse" aria-labelledby="headingTwo2" data-bs-parent="#accordionExampleb2">
+                                                    <div class="accordion-body card-body pr--0">
+                                                        <ul class="rbt-course-main-content liststyle">
+
+                                                            @foreach (var item in Model.AdvisorCourseRelation)
+                                                            {
+                                                                <li>
+                                                                    <a asp-action="Detail" asp-controller="CourseUi" asp-route-id="@item.Course.CourseId">
+                                                                        <div class="course-content-left">
+                                                                            <i class="feather-play-circle"></i> <span class="text">@item.Course.Name</span>
+                                                                        </div>
+                                                                    </a>
+                                                                </li>
+                                                            }
+
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Course Content  -->
+                        </div>
+                        <!-- End Course Details  -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="rbt-separator-mid">
+    <div class="container">
+        <hr class="rbt-separator m-0">
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+
+        $('#AllBasket').click(function (e) {
+            e.preventDefault();
+
+            var AdvisorId = @Model.AdvisorId;
+
+            $.ajax({
+                url: '/Basket/Save',
+                type: 'POST',
+                data: { Advisorid: AdvisorId },
+                success: function (result) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Danışmanlık Sepete Eklendi',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                },
+                error: function (xhr, status, error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Hata',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                }
+            });
+        });
+
+    });
+</script>

@@ -1,0 +1,79 @@
+﻿@model List<ProfessionCourseRelation>
+@{
+    Pager pager = new Pager();
+    int pageNo = 0;
+    if (ViewBag.Pager != null)
+    {
+        pager = ViewBag.Pager;
+        pageNo = pager.CurrentPage;
+    }
+    int adet = Convert.ToInt32(pager.PageSize);
+}
+
+<!--begin::Table-->
+<div class="table-responsive">
+
+    @if (Model.Count() > 0)
+    {
+        <table class="table table-bordered mb-200">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Kurs</th>
+                    <th scope="col">Uzmanlık Alanı</th>
+
+                    <th scope="col">Durum</th>
+                    <th scope="col">İşlem</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td scope="row">@item.ProfessionCourseRelationId</td>
+                        <td>@item.Course.Name</td>
+                        <td>@item.Profession.Name </td>
+
+                        <td>
+                            <div class="badge badge-light-@(item.Aktif ? "success" : "danger")">
+                                @(item.Aktif ? "Aktif" : "Pasif")
+                            </div>
+                        </td>
+                        <!--begin::Action=-->
+                        <td>
+                            <!-- Example single danger button -->
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    İşlemler
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a class="dropdown-item" event="ProfessionFormPopup" params='{"id":"@item.ProfessionId"}' href="#">Düzenle</a>
+                                        <a class="dropdown-item" event="BaseDurum" params='{"id":@item.ProfessionCourseRelationId, "url":"/ProfessionCourseRelation/durum", "title":"@(item.Aktif?"Pasif Yap":"Aktif Yap")"}' href="#">
+                                            @(item.Aktif ? "Pasif Yap" : "Aktif Yap")
+                                        </a>
+                                        <a class="dropdown-item" event="BaseSil" params='{"id":@item.ProfessionCourseRelationId, "url":"/ProfessionCourseRelation/sil", "title":"Sil"}' href="#">
+                                            Sil
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                        <!--end::Action=-->
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    @if (Model.Count() == 0)
+    {
+        <div class="alert alert-warning">
+            kayıt bulunamadı
+        </div>
+    }
+
+
+
+</div>
+@Html.Partial("/views/shared/_pager.cshtml",pager)
+<!--end::Table-->

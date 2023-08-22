@@ -1,0 +1,102 @@
+﻿@model List<Message>
+@{
+    int customerid = MetaData.baseCustomerId();
+    var customer = MetaData.baseCustomer().Single(x => x.CustomerId == customerid);
+    Lecturer lecturer = @MetaData.baseAdvisor().Single(x => x.AdvisorId == ViewBag.AdvisorId).Lecturer;
+    Advisor advisor = MetaData.baseAdvisor().Single(x => x.AdvisorId == ViewBag.AdvisorId);
+}
+
+<div class="container">
+    <!-- Mesajlar -->
+    <div class="mb-3">
+        <h4>Mesajlar</h4>
+        <div class="border p-3">
+            <div class="mb-3">
+
+                @if (Model.Count() > 0)
+                {
+                    @foreach (var message in Model)
+                    {
+                        @if (message.Type == 1)
+                        {
+                            <!-- Giden Mesaj -->
+                            <div class="d-flex flex-column-reverse flex-md-row justify-content-end mb-3">
+                                <div>
+                                    <div class="bg-primary p-2 rounded-end">
+                                        <p class="mb-1 text-white">@message.Contents</p>
+                                        <small class="text-white-50">@message.EklemeTarihi</small>
+                                    </div>
+                                </div>
+                                <img src="~/assets/images/customer/@customer.Image" class="rounded-circle" style="width: 40px; height: 40px;">
+                            </div>
+                        }
+                        else
+                        {
+                            <!-- Gelen Mesaj -->
+                            <div class="d-flex flex-column flex-md-row mb-3">
+                                <img src="@MetaData.baseAssetsPath()/Lecturer/@lecturer.Image" class="rounded-circle" style="width: 40px; height: 40px;">
+                                <div>
+                                    <div class="bg-light p-2 rounded-start">
+                                        <p class="mb-1">@message.Contents</p>
+                                        <small class="text-secondary">@message.EklemeTarihi</small>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                }
+                else
+                {
+                    <span>Burası Şimdilik Boş.</span>
+                }
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- Mesaj yazma alanı -->
+    <div class="mb-3">
+        <form class="d-flex flex-column flex-md-row" id="sendMessageForm">
+            <input type="hidden" name="AdvisorId" value="@advisor.AdvisorId" />
+            <textarea name="Contents" class="form-control me-0 me-md-2 mb-2 mb-md-0" rows="3" placeholder="Mesajınızı girin"></textarea>
+            <button type="submit" class="btn btn-primary">Gönder</button>
+        </form>
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#sendMessageForm').submit(function (e) {
+            e.preventDefault();
+
+            var form = $(this);
+            var url = form.attr('action');
+            var formData = form.serialize();
+
+            $.ajax({
+                type: 'POST',
+                url: '/AdvisorUi/SaveMessage',
+                data: formData,
+                success: function (response) {
+                    var advisorId = $('input[name="AdvisorId"]').val();
+
+                    $('#chats').load('/AdvisorUi/MyAdvisorChat', { AdvisorId: advisorId });
+
+                },
+                error: function (xhr, status, error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Hata',
+                        text: 'Mesaj gönderilirken bir hata oluştu. Lütfen tekrar deneyin.'
+                    });
+                }
+            });
+        });
+    });
+</script>
+
+
+
+

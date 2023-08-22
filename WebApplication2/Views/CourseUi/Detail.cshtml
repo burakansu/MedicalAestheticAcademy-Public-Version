@@ -1,0 +1,979 @@
+﻿@model Course
+@{
+    int CookieCustomerId = MetaData.baseCustomerId();
+    var courses = MetaData.baseCourse();
+    var lecturercourses = MetaData.baseLecturerCourseRelation();
+    var lessons = MetaData.baseLesson();
+    var customerlessonrelations = MetaData.baseCustomerLessonRelation().Where(x => x.CustomerId == CookieCustomerId);
+    int customercourserelationCount = 0;
+    customercourserelationCount = MetaData.baseCustomerCourseRelation().Where(x => x.CustomerId == CookieCustomerId && x.CourseId == Model.CourseId).Count();
+    double rate = 0; int rev5 = 0; int rev4 = 0; int rev3 = 0; int rev2 = 0; int rev1 = 0;
+
+    List<Review> reviews = new List<Review>();
+
+    if (MetaData.baseReview().Where(x => x.Lesson.CourseId == Model.CourseId && x.Approved == true).Count() > 0)
+    {
+        reviews = MetaData.baseReview().Where(x => x.Lesson.CourseId == Model.CourseId && x.Approved == true).ToList();
+        rate = reviews.Sum(x => x.StarRate) / reviews.Count();
+        rev5 = Convert.ToInt32(Convert.ToDecimal(reviews.Where(x => x.StarRate == 5).Count()) * 100 / Convert.ToDecimal(reviews.Count()));
+        rev4 = Convert.ToInt32(Convert.ToDecimal(reviews.Where(x => x.StarRate == 4).Count()) * 100 / Convert.ToDecimal(reviews.Count()));
+        rev3 = Convert.ToInt32(Convert.ToDecimal(reviews.Where(x => x.StarRate == 3).Count()) * 100 / Convert.ToDecimal(reviews.Count()));
+        rev2 = Convert.ToInt32(Convert.ToDecimal(reviews.Where(x => x.StarRate == 2).Count()) * 100 / Convert.ToDecimal(reviews.Count()));
+        rev1 = Convert.ToInt32(Convert.ToDecimal(reviews.Where(x => x.StarRate == 1).Count()) * 100 / Convert.ToDecimal(reviews.Count()));
+    }
+}
+<!-- Start breadcrumb Area -->
+<div class="rbt-breadcrumb-default rbt-breadcrumb-style-3">
+    <div class="breadcrumb-inner">
+        <img src="/assets/images/bg/bg-image-10.jpg">
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="content text-start">
+                    <ul class="page-list">
+                        <li class="rbt-breadcrumb-item"><a>Anasayfa</a></li>
+                        <li>
+                            <div class="icon-right"><i class="feather-chevron-right"></i></div>
+                        </li>
+                        <li class="rbt-breadcrumb-item active">@Model.Category.Name</li>
+                    </ul>
+                    <h2 class="title">@Model.Name</h2>
+                    <p class="description">
+                        @Model.Description
+                    </p>
+
+                    <div class="d-flex align-items-center mb--20 flex-wrap rbt-course-details-feature">
+
+                        <div class="feature-sin best-seller-badge">
+                            <span class="rbt-badge-2">
+                                <span class="image">
+                                    <img src="~/assets/images/icons/card-icon-1.png"
+                                         alt="Best Seller Icon">
+                                </span> Güvenilir Eğitmen
+                            </span>
+                        </div>
+
+                        <div class="feature-sin rating">
+                            <a href="#">@rate</a>
+
+                            @for (int i = 0; i < rate; i++)
+                            {
+                                <a href="#"><i class="fa fa-star"></i></a>
+                            }
+                            @if (rate == 0)
+                            {
+                                <a href="#"><i class="fa fa-star"></i></a>
+                            }
+
+                        </div>
+
+                        <div class="feature-sin total-rating">
+                            <a class="rbt-badge-4">@Model.ProfessionCourseRelation.Count() Uzmanlık Alanı</a>
+                        </div>
+
+                        <div class="feature-sin total-student">
+                            <span>@Model.SkillCourseRelation.Count() Beceri</span>
+                        </div>
+
+                    </div>
+
+                    <div class="rbt-author-meta mb--20">
+                        <div class="rbt-avater">
+                            <a href="#">
+                                <img src="@MetaData.baseAssetsPath()/Lecturer/@Model.LecturerCourseRelation.FirstOrDefault()?.Lecturer.Image">
+                            </a>
+                        </div>
+                        <div class="rbt-author-info">
+
+                            @foreach (var item in Model.LecturerCourseRelation)
+                            {
+                                <a style="margin-right: 3px;" asp-action="Index" asp-controller="CourseUi" asp-route-lecturerid="@item.Lecturer.LecturerId">
+                                    @Html.Raw(item.Lecturer.Name.ToString())
+                                </a>
+                            }
+
+                        </div>
+                    </div>
+
+                    <ul class="rbt-meta">
+                        <li><i class="feather-calendar"></i>Son Güncelleme @Model.GuncellemeTarihi</li>
+                        <li><i class="feather-globe"></i>Türkçe</li>
+                        <li><i class="feather-award"></i>Sertifikalı Kurs</li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Breadcrumb Area -->
+
+<div class="rbt-course-details-area ptb--60">
+    <div class="container">
+        <div class="row g-5">
+
+            <div class="col-lg-8">
+                <div class="course-details-content">
+                    <div class="rbt-course-feature-box rbt-shadow-box thuumbnail">
+                        <img class="w-100" style="border-radius:10px;" src="@MetaData.baseAssetsPath()/Course/@Model.Image">
+                    </div>
+
+                    <div class="rbt-inner-onepage-navigation sticky-top mt--30">
+                        <nav class="mainmenu-nav onepagenav">
+                            <ul class="mainmenu">
+                                <li class="current">
+                                    <a href="#overview">Önizleme</a>
+                                </li>
+                                <li>
+                                    <a href="#details">Detaylar</a>
+                                </li>
+                                <li>
+                                    <a href="#intructor">Derece</a>
+                                </li>
+                                <li>
+                                    <a href="#review">Yorumlar</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <!-- Start Course Feature Box  -->
+                    <div class="rbt-course-feature-box overview-wrapper rbt-shadow-box mt--30 has-show-more" id="overview">
+                        <div class="rbt-course-feature-inner has-show-more-inner-content">
+                            <div class="section-title">
+                                <h4 class="rbt-title-style-3">Kurs Açıklamaları</h4>
+                            </div>
+                            <p>
+                                @Model.Description
+                            </p>
+
+                        </div>
+
+                    </div>
+                    <!-- End Course Feature Box  -->
+                    <!-- Start Course Content  -->
+                    <div class="course-content rbt-shadow-box coursecontent-wrapper mt--30" id="coursecontent">
+                        <div class="rbt-course-feature-inner">
+                            <div class="section-title">
+                                <h4 class="rbt-title-style-3">Detaylar</h4>
+                            </div>
+                            <div class="rbt-accordion-style rbt-accordion-02 accordion">
+                                <div class="accordion" id="accordionExampleb2">
+
+
+
+                                    <div class="accordion-item card">
+                                        <h2 class="accordion-header card-header" id="headingTwo1">
+                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo1" aria-expanded="true" aria-controls="collapseTwo1">
+                                                Kurs Fragmanları <span class="rbt-badge-5 ml--10">Önizleme</span>
+                                            </button>
+                                        </h2>
+                                        <div id="collapseTwo1" class="accordion-collapse collapse show" aria-labelledby="headingTwo1" data-bs-parent="#accordionExampleb2">
+                                            <div class="accordion-body card-body pr--0">
+                                                <ul class="rbt-course-main-content liststyle">
+
+                                                    @foreach (var item in Model.Trailer)
+                                                    {
+                                                        <li>
+                                                            <a target="_blank" href="@item.Source">
+                                                                <div class="course-content-left">
+                                                                    <i class="feather-play-circle"></i> <span class="text">@item.Name</span>
+                                                                </div>
+                                                                <div class="course-content-right">
+                                                                    <span class="min-lable">1 dk</span>
+                                                                    <span class="rbt-badge variation-03 bg-primary-opacity"><i class="feather-eye"></i> Önizleme</span>
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                    }
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="accordion-item card">
+                                        <h2 class="accordion-header card-header" id="headingTwo2">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo2" aria-expanded="false" aria-controls="collapseTwo2">
+                                                Kurs Dersleri <span class="rbt-badge-5 ml--10">@Model.Lesson.Sum(x=>x.Duration) dk</span>
+                                            </button>
+                                        </h2>
+                                        <div id="collapseTwo2" class="accordion-collapse collapse" aria-labelledby="headingTwo2" data-bs-parent="#accordionExampleb2">
+                                            <div class="accordion-body card-body pr--0">
+                                                <ul class="rbt-course-main-content liststyle">
+
+
+                                                    @foreach (var item in Model.Lesson)
+                                                    {
+                                                        if (customerlessonrelations.Where(x => x.LessonId == item.LessonId).Count() > 0 && Model.PackageCourseRelation.Count() == 0)
+                                                        {
+                                                            <li class="col">
+                                                                <img class="col-sm-2 h-50" style="float:left; border-radius:10px;" src="@MetaData.baseAssetsPath()/Lesson/@item.Image">
+                                                                <div class="card p-3 col-sm-10">
+                                                                    <div class="card-header pb-3">
+                                                                        <a class="h6 m-0" asp-action="ViewCourse" asp-controller="CourseUi" asp-route-lessonid="@item.LessonId">
+                                                                            <div class="course-content-left">
+                                                                                <i class="feather-play-circle"></i> <span class="text">@item.Name</span>
+                                                                            </div>
+                                                                            <div class="course-content-right">
+                                                                                <span class="min-lable">@item.Duration dk</span>
+                                                                            </div>
+                                                                        </a>
+                                                                    </div>
+                                                                    <div class="card-body">
+                                                                        <span class="text ml-10">@item.Description</span>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                        }
+                                                        else if (Model.PackageCourseRelation.Count() > 0)
+                                                        {
+                                                            var relation = Model.PackageCourseRelation.FirstOrDefault();
+                                                            if (relation.StartDate <= DateTime.Now && relation.FinishDate >= DateTime.Now)
+                                                            {
+                                                                <li class="col">
+                                                                    <img class="col-sm-2 h-50" style="float:left; border-radius:10px;" src="@MetaData.baseAssetsPath()/Lesson/@item.Image">
+                                                                    <div class="card p-3 col-sm-10">
+                                                                        <div class="card-header pb-3">
+                                                                            <a class="h6 m-0" asp-action="ViewCourse" asp-controller="CourseUi" asp-route-lessonid="@item.LessonId">
+                                                                                <div class="course-content-left">
+                                                                                    <i class="feather-play-circle"></i> <span class="text">@item.Name</span>
+                                                                                </div>
+                                                                                <div class="course-content-right">
+                                                                                    <span class="min-lable">@item.Duration dk</span>
+                                                                                </div>
+                                                                            </a>
+                                                                        </div>
+                                                                        <div class="card-body">
+                                                                            <span class="text ml-10">@item.Description</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                            }
+                                                            else
+                                                            {
+                                                                <li class="col">
+                                                                    <a class="btn btn-secondary mb-3 w-100">Bu Ders (@relation.StartDate.ToString("dd/MM/yyyy")) ve (@relation.FinishDate.ToString("dd/MM/yyyy")) Tarihleri Arasında İzlenebilir.</a>
+                                                                    <img class="col-sm-2 h-50" style="float:left; border-radius:10px;" src="@MetaData.baseAssetsPath()/Lesson/@item.Image">
+                                                                    <div class="card p-3 col-sm-10">
+                                                                        <div class="card-header pb-3">
+                                                                            <a class="h6 m-0">
+                                                                                <div class="course-content-left">
+                                                                                    <i class="feather-play-circle"></i> <span class="text">@item.Name</span>
+                                                                                </div>
+                                                                                <div class="course-content-right">
+                                                                                    <span class="min-lable">@item.Duration dk</span>
+                                                                                </div>
+                                                                            </a>
+                                                                        </div>
+                                                                        <div class="card-body">
+                                                                            <span class="text ml-10">@item.Description</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            <li class="col">
+                                                                <img class="col-sm-2 h-50" style="float:left;border-radius:10px;" src="@MetaData.baseAssetsPath()/Lesson/@item.Image">
+                                                                <div class="card p-3 col-sm-10">
+                                                                    <div class="card-header pb-3">
+                                                                        <a class="h6 m-0">
+                                                                            <div class="course-content-left">
+                                                                                <i class="feather-play-circle"></i> <span class="text">@item.Name</span>
+                                                                            </div>
+                                                                            <div class="course-content-right">
+                                                                                <span class="min-lable">@item.Duration dk</span>
+                                                                                <span class="course-lock"><i class="feather-lock"></i></span>
+                                                                            </div>
+                                                                        </a>
+                                                                    </div>
+                                                                    <div class="card-body">
+                                                                        <p class="text" style="overflow:hidden; white-space: nowrap; text-overflow: ellipsis;">@item.Description</p>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                        }
+                                                    }
+
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Course Content  -->
+                    <!-- Start Course Feature Box  -->
+                    <div class="rbt-course-feature-box rbt-shadow-box details-wrapper mt--30" id="details">
+                        <div class="row g-5">
+                            <!-- Start Feture Box  -->
+                            <div class="col-lg-6">
+                                <div class="section-title">
+                                    <h4 class="rbt-title-style-3 mb--20">Uzmanlık Alanları</h4>
+                                </div>
+                                <ul class="rbt-list-style-1">
+
+
+                                    @foreach (var item in Model.ProfessionCourseRelation)
+                                    {
+                                        <li>
+                                            <i class="feather-check"></i>@item.Profession.Name
+                                        </li>
+                                    }
+
+
+                                </ul>
+                            </div>
+                            <!-- End Feture Box  -->
+                            <!-- Start Feture Box  -->
+                            <div class="col-lg-6">
+                                <div class="section-title">
+                                    <h4 class="rbt-title-style-3 mb--20">Beceriler</h4>
+                                </div>
+                                <ul class="rbt-list-style-1">
+
+
+                                    @foreach (var item in Model.SkillCourseRelation)
+                                    {
+                                        <li>
+                                            <i class="feather-check"></i>@item.Skill.Name
+                                        </li>
+                                    }
+
+
+                                </ul>
+                            </div>
+                            <!-- End Feture Box  -->
+                        </div>
+                    </div>
+                    <!-- End Course Feature Box  -->
+                    <!-- Start Intructor Area  -->
+                    <div class="rbt-instructor rbt-shadow-box intructor-wrapper mt--30" id="intructor">
+                        <div class="about-author border-0 pb--0 pt--0">
+                            <div class="section-title mb--30">
+                                <h4 class="rbt-title-style-3">Eğitmen</h4>
+                            </div>
+                            <div class="media align-items-center">
+                                <div class="thumbnail">
+                                    <a href="#">
+                                        <img src="@MetaData.baseAssetsPath()/Lecturer/@Model.LecturerCourseRelation.FirstOrDefault()?.Lecturer.Image">
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <div class="author-info">
+                                        <h5 class="title">
+                                            <a class="hover-flip-item-wrapper" asp-action="Index" asp-controller="CourseUi" asp-route-lecturerid="@lecturercourses.OrderBy(x=>x.Sira).FirstOrDefault()?.Lecturer.LecturerId">@lecturercourses.OrderBy(x=>x.Sira).FirstOrDefault()?.Lecturer.Name</a>
+                                        </h5>
+                                        <span class="b3 subtitle">Uzman</span>
+                                        <ul class="rbt-meta mb--20 mt--10">
+                                            <li><a asp-action="Index" asp-controller="CourseUi" asp-route-lecturerid="@lecturercourses.OrderBy(x=>x.Sira).FirstOrDefault()?.Lecturer.LecturerId"><i class="feather-users"></i>@MetaData.baseLesson().Where(x=>x.LecturerId == @Model.LecturerCourseRelation.FirstOrDefault()?.Lecturer.LecturerId).Count() Ders</a></li>
+                                            <li><a asp-action="Index" asp-controller="CourseUi" asp-route-lecturerid="@lecturercourses.OrderBy(x=>x.Sira).FirstOrDefault()?.Lecturer.LecturerId"><i class="feather-video"></i>@lecturercourses.Where(x=> x.LecturerId == Model.LecturerCourseRelation.OrderBy(x=>x.Sira).FirstOrDefault()?.Lecturer.LecturerId).Count() Kurs</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="content">
+                                        <p class="description">
+                                            Verona Medikal Eğitmeni
+                                        </p>
+
+                                        <ul class="social-icon social-default icon-naked justify-content-start">
+                                            <li>
+                                                <a href="https://www.facebook.com/">
+                                                    <i class="feather-facebook"></i>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="https://www.twitter.com">
+                                                    <i class="feather-twitter"></i>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="https://www.instagram.com/">
+                                                    <i class="feather-instagram"></i>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="https://www.linkdin.com/">
+                                                    <i class="feather-linkedin"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Intructor Area  -->
+                    <!-- Start Edu Review List  -->
+                    <div class="rbt-review-wrapper rbt-shadow-box review-wrapper mt--30" id="review">
+                        <div class="course-content">
+                            <div class="section-title">
+                                <h4 class="rbt-title-style-3">Yorumlar</h4>
+                            </div>
+                            <div class="row g-5 align-items-center">
+                                <div class="col-lg-3">
+                                    <div class="rating-box">
+                                        <div class="rating-number">@rate</div>
+                                        <div class="rating">
+
+                                            @for (int i = 0; i < rate; i++)
+                                            {
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                                </svg>
+                                            }
+
+
+                                        </div>
+                                        <span class="sub-title">Kurs Puanı</span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-9">
+                                    <div class="review-wrapper">
+                                        <div class="single-progress-bar">
+                                            <div class="rating-text">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                                </svg>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                                </svg>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                                </svg>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                                </svg>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                                </svg>
+                                            </div>
+                                            <div class="progress">
+                                                <div class="progress-bar" role="progressbar" style="width: @rev5%" aria-valuenow="@rev5" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                            <span class="value-text">@rev5%</span>
+                                        </div>
+
+                                        <div class="single-progress-bar">
+                                            <div class="rating-text">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                                </svg>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                                </svg>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                                </svg>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                                </svg>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
+                                                    <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z" />
+                                                </svg>
+                                            </div>
+                                            <div class="progress">
+                                                <div class="progress-bar" role="progressbar" style="width: @rev4%" aria-valuenow="@rev5" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                            <span class="value-text">@rev4%</span>
+                                        </div>
+
+                                        <div class="single-progress-bar">
+                                            <div class="rating-text">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                                </svg>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                                </svg>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                                </svg>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
+                                                    <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z" />
+                                                </svg>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
+                                                    <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z" />
+                                                </svg>
+                                            </div>
+                                            <div class="progress">
+                                                <div class="progress-bar" role="progressbar" style="width: @rev3%" aria-valuenow="@rev3" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                            <span class="value-text">@rev3%</span>
+                                        </div>
+
+                                        <div class="single-progress-bar">
+                                            <div class="rating-text">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                                </svg>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                                </svg>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
+                                                    <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z" />
+                                                </svg>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
+                                                    <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z" />
+                                                </svg>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
+                                                    <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z" />
+                                                </svg>
+                                            </div>
+                                            <div class="progress">
+                                                <div class="progress-bar" role="progressbar" style="width: @rev2%" aria-valuenow="@rev2" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                            <span class="value-text">@rev2%</span>
+                                        </div>
+
+                                        <div class="single-progress-bar">
+                                            <div class="rating-text">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                                </svg>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
+                                                    <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z" />
+                                                </svg>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
+                                                    <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z" />
+                                                </svg>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
+                                                    <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z" />
+                                                </svg>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
+                                                    <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z" />
+                                                </svg>
+                                            </div>
+                                            <div class="progress">
+                                                <div class="progress-bar" role="progressbar" style="width: @rev1%" aria-valuenow="@rev1" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                            <span class="value-text">@rev1%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            @if (Model.Lesson.Count() > 0)
+                            {
+                                <div class="rbt-course-review about-author mt-5">
+                                    <div class="media row">
+                                        <div class="thumbnail col-sm-3">
+                                            @if (CookieCustomerId != 0)
+                                            {
+                                                <img style="border-radius:10px;" src="~/assets/images/customer/@MetaData.baseCustomer().Single(x=>x.CustomerId == CookieCustomerId).Image">
+                                            }
+
+                                        </div>
+                                        <div class="media-body col-sm-9">
+                                            <div class="author-info">
+                                                <h5 class="title">
+                                                    <a class="hover-flip-item-wrapper" href="#">
+                                                        @MetaData.baseCustomer().SingleOrDefault(x=>x.CustomerId == MetaData.baseCustomerId())?.NameSurname
+                                                    </a>
+                                                </h5>
+                                            </div>
+                                            <div class="content">
+
+                                                @if (CookieCustomerId != 0)
+                                                {
+                                                    <form id="reviewForm">
+                                                        <input type="hidden" id="courseId" name="courseId" value="@Model.CourseId">
+
+
+                                                        <input type="hidden" id="lessonId" name="lessonId" value="@Model.Lesson.FirstOrDefault()?.LessonId">
+
+
+                                                        <div class="form-group">
+                                                            <label for="starRate">Yıldız Derecesi:</label>
+                                                            <input type="number" class="form-control" id="starRate" name="starRate" min="1" max="5">
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="description">Açıklama:</label>
+                                                            <textarea class="form-control" id="description" name="description"></textarea>
+                                                        </div>
+
+                                                        <div class="add-to-card-button mt--15">
+                                                            <button class="rbt-btn btn-gradient icon-hover w-100 d-block text-center rbt-cart-sidenav-activation" type="submit">
+                                                                <span class="btn-text">İncelemeyi Gönder</span>
+                                                                <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+                                                            </button>
+                                                        </div>
+                                                    </form>
+
+
+                                                }
+                                                else if (CookieCustomerId == 0)
+                                                {
+                                                    <input type="hidden" id="courseId" name="courseId" value="@Model.CourseId">
+                                                    <div class="add-to-card-button mt--15">
+                                                        <a asp-action="Index" asp-controller="LoginUi" class="rbt-btn btn-gradient icon-hover w-100 d-block text-center rbt-cart-sidenav-activation">
+                                                            <span class="btn-text">Giriş Yap</span>
+                                                            <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+                                                        </a>
+                                                    </div>
+                                                }
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <!-- End Edu Review List  -->
+
+
+                    @if (reviews.Count>0)
+                    {
+                        <div class="about-author-list rbt-shadow-box featured-wrapper mt--30 has-show-more">
+                            <div class="section-title">
+                                <h4 class="rbt-title-style-3">Öneriler Yorumlar</h4>
+                            </div>
+                            <div id="reviews_partial" class="has-show-more-inner-content rbt-featured-review-list-wrapper">
+                            </div>
+                        </div>
+                    }
+                    
+
+                </div>
+                <div class="related-course mt--60">
+                    <div class="row g-5 align-items-end mb--40">
+                        <div class="col-lg-8 col-md-8 col-12">
+                            <div class="section-title">
+                                <span class="subtitle bg-pink-opacity">Üst Sıralar</span>
+                                <h4 class="title">Daha Fazla Kurs    <strong class="color-primary">@Model.LecturerCourseRelation.OrderBy(x=>x.Sira).FirstOrDefault()?.Lecturer.Name</strong></h4>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-12">
+                            <div class="read-more-btn text-start text-md-end">
+                                <a class="rbt-btn rbt-switch-btn btn-border btn-sm" asp-controller="CourseUi" asp-action="Index" asp-route-lecturerid="@Model.LecturerCourseRelation.OrderBy(x=>x.Sira).FirstOrDefault()?.Lecturer.LecturerId">
+                                    <span data-text="Tüm Kursları Gör">Tüm Kursları Gör</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="course-sidebar sticky-top rbt-shadow-box course-sidebar-top rbt-gradient-border">
+                    <div class="inner">
+
+                        <!-- Start Viedo Wrapper  -->
+                        <a class="video-popup-with-text video-popup-wrapper text-center popup-video sidebar-video-hidden mb--15" href="@Model.Trailer.SingleOrDefault()?.Source">
+                            <div class="video-content">
+                                <img class="w-100 rbt-radius" src="@MetaData.baseAssetsPath()/Course/@Model.Image">
+                                <div class="position-to-top">
+                                    <span class="rbt-btn rounded-player-2 with-animation">
+                                        <span class="play-icon"></span>
+                                    </span>
+                                </div>
+                                <span class="play-view-text d-block color-white"><i class="feather-eye"></i> Kursu Önizle</span>
+                            </div>
+                        </a>
+                        <!-- End Viedo Wrapper  -->
+
+                        <div class="content-item-content">
+                            <div class="rbt-price-wrapper d-flex flex-wrap align-items-center justify-content-between">
+                                <div class="rbt-price">
+                                    <span class="current-price">@Model.Price @Model.Currency.Name.ToLower()</span>
+                                    <span class="off-price">
+
+                                        @{
+                                            int price = Model.Price;
+                                            price += 40;
+                                        }
+                                        @price
+                                        @Model.Currency.Name
+
+                                    </span>
+                                </div>
+                                <div class="discount-time">
+                                    <span class="rbt-badge color-danger bg-color-danger-opacity">
+                                        <i class="feather-clock"></i> 3 Gün!
+                                    </span>
+                                </div>
+                            </div>
+
+                            @if (CookieCustomerId != 0)
+                            {
+                                @if (customercourserelationCount > 0)
+                                {
+                                    <div class="buy-now-btn mt--15">
+                                        <a class="rbt-btn btn-border icon-hover w-100 d-block text-center">
+                                            <span class="btn-text">Satın Alınmış</span>
+                                            <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+                                        </a>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="add-to-card-button mt--15">
+                                        <a id="AllBasket" class="rbt-btn btn-gradient icon-hover w-100 d-block text-center" href="#">
+                                            <span class="btn-text">Tümünü Sepete Ekle</span>
+                                            <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+                                        </a>
+                                    </div>
+                                    <div class="add-to-card-button mt--15">
+                                        <a class="rbt-btn btn-gradient icon-hover w-100 d-block text-center rbt-cart-sidenav-activation" courseId="@Model.CourseId" href="#" tip="kurs">
+                                            <span class="btn-text">Ders Seç</span>
+                                            <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+                                        </a>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <div class="buy-now-btn mt--15">
+                                    <a asp-action="Index" asp-controller="LoginUi" class="rbt-btn btn-border icon-hover w-100 d-block text-center">
+                                        <span class="btn-text">Giriş Yap</span>
+                                        <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+                                    </a>
+                                </div>
+                            }
+
+                            <span class="subtitle">
+                                <i class="feather-rotate-ccw"></i> 30 Gün İçinde Para İade Garantisi
+                            </span>
+
+
+                            <div class="rbt-widget-details has-show-more">
+                                <ul class="has-show-more-inner-content rbt-course-details-list-wrapper">
+                                    <li>
+                                        <span>Kurs Süresi</span><span class="rbt-feature-value rbt-badge-5">@Model.Lesson.Sum(x=>x.Duration) dk</span>
+                                    </li>
+                                    <li><span>Eğitmenler</span><span class="rbt-feature-value rbt-badge-5">@Model.LecturerCourseRelation.Count()</span></li>
+                                    <li><span>Beceriler</span><span class="rbt-feature-value rbt-badge-5">@Model.SkillCourseRelation.Count()</span></li>
+                                    <li><span>Uzmanlık Alanları</span><span class="rbt-feature-value rbt-badge-5">@Model.ProfessionCourseRelation.Count()</span></li>
+                                   
+                                    @if (Model.PackageCourseRelation.Count() > 0)
+                                    {
+                                        <li><span>Pakete Dahil</span><span class="rbt-feature-value rbt-badge-5">Evet</span></li>
+                                    }
+                                    else
+                                    {
+                                        <li><span>Pakete Dahil</span><span class="rbt-feature-value rbt-badge-5">Hayır</span></li>
+                                    }
+
+                                    <li><span>Dil</span><span class="rbt-feature-value rbt-badge-5">Türkçe</span></li>
+                                </ul>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="rbt-separator-mid">
+    <div class="container">
+        <hr class="rbt-separator m-0">
+    </div>
+</div>
+
+<div class="rbt-related-course-area bg-color-white pt--60 rbt-section-gapBottom">
+    <div class="container">
+        <div class="section-title mb--30">
+            <h4 class="title">Önerilen Kurslar</h4>
+        </div>
+        <div class="row g-5">
+
+
+
+
+            @foreach (var item in courses.OrderBy(x => x.EklemeTarihi).Take(3))
+            {
+                <!-- Start Single Card  -->
+                <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                    <div class="rbt-card variation-01 rbt-hover">
+                        <div class="rbt-card-img">
+                            <a asp-action="Detail" asp-controller="CourseUi" asp-route-id="@item.CourseId">
+                                <img src="@MetaData.baseAssetsPath()/Course/@item.Image" alt="Card image">
+                            </a>
+                        </div>
+                        <div class="rbt-card-body">
+                            <div class="rbt-card-top">
+                                <div class="rbt-review">
+                                    <div class="rating">
+                                        @{
+                                            rate = 0;
+                                            if (MetaData.baseReview().Where(x => x.Lesson.CourseId == item.CourseId).Count() > 0)
+                                            {
+                                                reviews = MetaData.baseReview().Where(x => x.Lesson.CourseId == item.CourseId).ToList();
+                                                rate = reviews.Sum(x => x.StarRate) / reviews.Count();
+                                            }
+                                        }
+                                        @for (int i = 0; i < rate; i++)
+                                        {
+                                            <i class="fas fa-star"></i>
+                                        }
+                                    </div>
+                                    <span class="rating-count"> (@MetaData.baseReview().Where(x=>x.Lesson.CourseId == item.CourseId).Count() Yorum)</span>
+                                </div>
+                            </div>
+                            <h4 class="rbt-card-title">
+                                <a asp-action="Detail" asp-controller="CourseUi" asp-route-id="@item.CourseId">@item.Name</a>
+                            </h4>
+                            <ul class="rbt-meta">
+                                <li><i class="feather-book"></i>@lessons.Where(x=>x.CourseId == item.CourseId).Count() Ders</li>
+                                <li><i class="feather-users"></i>@item.ProfessionCourseRelation.Count() Uzmanlık Alanı</li>
+                                <li><i class="feather-clock"></i>@item.Lesson.Sum(x=>x.Duration) dk</li>
+                            </ul>
+
+                            <p class="rbt-card-text" style="overflow:hidden; height:50px; text-overflow: ellipsis;">
+                                @item.Description
+                            </p>
+
+                            <div class="rbt-author-meta mb--20">
+                                <div class="rbt-avater">
+                                    <a href="#">
+                                        <img src="@MetaData.baseAssetsPath()/Lecturer/@item.LecturerCourseRelation.FirstOrDefault()?.Lecturer.Image">
+                                    </a>
+                                </div>
+                                <div class="rbt-author-info">
+                                    <a asp-action="Index" asp-controller="CourseUi" asp-route-lecturerid="@item.LecturerCourseRelation.FirstOrDefault()?.Lecturer.LecturerId">
+                                        
+                                        @if (@item.LecturerCourseRelation.Count() > 0)
+                                        {
+                                            @item.LecturerCourseRelation.FirstOrDefault()?.Lecturer.Name
+                                        }
+                                        else
+                                        {
+                                            Html.Raw("Eğitmen Bulunamadı");
+                                        }
+
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="rbt-card-bottom">
+                                <div class="rbt-price">
+                                    <span class="current-price">
+                                        @item.Price @item.Currency.Name.ToLower()
+                                    </span>
+                                </div>
+                                <a class="rbt-btn-link" asp-action="Detail" asp-controller="CourseUi" asp-route-id="@item.CourseId">
+                                    Daha Fazla<i class="feather-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Single Card  -->
+            }
+
+
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#reviewForm').submit(function (e) {
+            e.preventDefault();
+            var formData = $(this).serialize();
+            $.ajax({
+                url: '/CourseUi/Review',
+                type: 'POST',
+                data: formData,
+                success: function (response) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Başarılı, Yorumunuzun Aktif Olması İçin Öncelikle Onaylanması Gerekmektedir.',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    loadReviews();
+                },
+                error: function (xhr, status, error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Hata',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                }
+            });
+        });
+
+        function loadReviews() {
+            var formData = $(this).serialize();
+            var courseId = $('#courseId').val();
+            $.ajax({
+                url: '/CourseUi/Reviews',
+                type: 'GET',
+                data: { id: courseId },
+                success: function (response) {
+                    $('#reviews_partial').html(response);
+                },
+                error: function (xhr, status, error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Hata',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                }
+            });
+        }
+
+        loadReviews();
+
+
+        $('#AllBasket').click(function (e) {
+            e.preventDefault();
+
+            var courseId = @Model.CourseId;
+
+            $.ajax({
+                url: '/Basket/Save',
+                type: 'POST',
+                data: { courseid: courseId },
+                success: function (result) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Kurs Sepete Eklendi',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                },
+                error: function (xhr, status, error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Hata',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                }
+            });
+        });
+
+
+
+        $("#starRate").on("input", function () {
+            var value = parseInt($(this).val());
+
+            if (value < 1) {
+                $(this).val(1);
+            } else if (value > 5) {
+                $(this).val(5);
+            }
+        });
+
+    });
+</script>

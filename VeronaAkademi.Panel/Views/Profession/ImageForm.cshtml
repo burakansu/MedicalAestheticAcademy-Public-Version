@@ -1,0 +1,62 @@
+﻿@model Profession
+
+
+<form id="myForm" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="ProfessionId" value="@Model.ProfessionId" />
+
+            <div class="fv-row fv-plugins-icon-container row">
+                <label class="required form-label">Resim</label>
+                <div class="col-sm-6">
+                    <input type="file" name="file" class="form-control" />
+                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                </div>
+                <div class="col-sm-4">
+                    <img src="/assets/Images/Profession/@Model.Image" alt="Gallery Images" style="height:50px;">
+                </div>
+                <div class="col-sm-2">
+                    <button type="submit" class="btn btn-primary">Kaydet</button>
+                </div>
+            </div>
+</form>
+
+
+
+
+<script src="/assets/js/vendor/imageloaded.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#myForm').on('submit', function (e) {
+            e.preventDefault();
+            debugger;
+
+            var formData = new FormData(this);
+            var ProfessionId = $('[name="ProfessionId"]').val();
+
+            formData.append('ProfessionId', ProfessionId);
+
+            var fileInput = $('[name="file"]');
+            if (fileInput.length > 0 && fileInput[0].files.length > 0) {
+                var file = fileInput[0].files[0];
+                formData.append('file', file);
+            }
+
+            $.ajax({
+                url: '/Profession/Upload',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    Swal.fire({
+                        title: "Kayıt Başarılı",
+                        text: "Resim başarıyla kaydedildi.",
+                        icon: "success"
+                    });
+                },
+                error: function (xhr, status, error) {
+
+                }
+            });
+        });
+    });
+</script>

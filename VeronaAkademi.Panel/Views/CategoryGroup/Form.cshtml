@@ -1,0 +1,22 @@
+﻿@model CategoryGroup;
+
+<form id="CategoryGroupForm">
+    <input type="hidden" name="tempId" value="@(Model?.CategoryGroupId)" />
+    <div class="card card-flush py-4">
+        <div class="card-body pt-0">
+
+            <div class="fv-row fv-plugins-icon-container">
+                <label class="required form-label">Adı</label>
+                <input type="text" name="Name" class="form-control mb-2" placeholder="Kategori Grubu adı" value="@(Model?.Name)" />
+                <div class="fv-plugins-message-container invalid-feedback"></div>
+            </div>
+            <div class="fv-row fv-plugins-icon-container">
+                <label class="required form-label">Sıra</label>
+                <input type="text" name="Sira" class="form-control mb-2" value="@(Model?.Sira)" />
+                <div class="fv-plugins-message-container invalid-feedback"></div>
+            </div>
+
+        </div>
+    </div>
+</form>
+

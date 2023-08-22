@@ -1,0 +1,57 @@
+﻿@model Trailer;
+@{
+    int id = ViewBag.relationId;
+}
+<form id="TrailerForm">
+    <input type="hidden" name="tempId" value="@(Model?.TrailerId)" />
+    <div class="card card-flush py-4">
+        <div class="card-body pt-0">
+            <div class="fv-row fv-plugins-icon-container">
+                <label class="required form-label">Adı</label>
+                <input type="text" name="Name" class="form-control mb-2" placeholder="Trailer adı" value="@(Model?.Name)" />
+                <div class="fv-plugins-message-container invalid-feedback"></div>
+            </div>
+            <div class="fv-row fv-plugins-icon-container">
+                <label class="required form-label">Açıklama</label>
+                <input type="text" name="Description" class="form-control mb-2" value="@(Model?.Description)" />
+                <div class="fv-plugins-message-container invalid-feedback"></div>
+            </div>
+
+
+
+            <div class="fv-row fv-plugins-icon-container">
+                <label class="required form-label">Kurs</label>
+                <div class="">
+                    <select class="form-control selectpicker" name="CourseId">
+                        
+                        @foreach (var item in MetaData.baseCourse())
+                        {
+                            var slc = item.CourseId == Model?.CourseId ? "selected" : "";
+                            <!option selected="@slc" value="@item.CourseId">@item.Name</!option>
+                        }
+                        @if (id != 0)
+                        {
+                            <!option value="@id" selected>@MetaData.baseCourse().Single(x=>x.CourseId == id).Name</!option>
+                        }
+                    </select>
+                </div>
+            </div>
+
+
+
+            <div class="fv-row fv-plugins-icon-container">
+                <label class="required form-label">Video Kaynağı</label>
+                <input type="text" name="Source" class="form-control mb-2" placeholder="URL" value="@(Model?.Source)" />
+                <div class="fv-plugins-message-container invalid-feedback"></div>
+            </div>
+
+            <div class="fv-row fv-plugins-icon-container">
+                <label class="required form-label">Sıra</label>
+                <input type="text" name="Sira" class="form-control mb-2" value="@(Model?.Sira)" />
+                <div class="fv-plugins-message-container invalid-feedback"></div>
+            </div>
+
+        </div>
+    </div>
+</form>
+

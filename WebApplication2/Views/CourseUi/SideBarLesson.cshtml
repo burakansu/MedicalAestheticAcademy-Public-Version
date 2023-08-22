@@ -1,0 +1,320 @@
+﻿@model List<Lesson>
+@{
+    Layout = null;
+    int CookieCustomerId = MetaData.baseCustomerId();
+    int courseid = Model.FirstOrDefault().Course.CourseId;
+    int courseprice = MetaData.baseCourse().Single(x => x.CourseId == courseid).Price;
+    var baskets = MetaData.baseBasket().Where(x => x.CustomerId == CookieCustomerId );
+    var customerLessonRelations = MetaData.baseCustomerLessonRelation().Where(x => x.CustomerId == CookieCustomerId);
+    int BasketCount = baskets.Where(x => x.CustomerId == MetaData.baseCustomerId() ).Count();
+
+    int ThisCourseBasketCount = 0;
+    List<Lesson> lessons = MetaData.baseLesson().Where(x => x.CourseId == courseid).ToList();
+    foreach (var item in lessons)
+    {
+        if (baskets.Where(x => x.Product.ProductId == item.LessonId).Count() > 0)
+        {
+            ThisCourseBasketCount++;
+        }
+    }
+
+    string t = "";
+}
+
+<div class="inner-wrapper">
+    <div class="inner-top">
+        <div class="content">
+            <div class="title">
+                <h4 class="title mb--0">
+                    @Model.FirstOrDefault()?.Course.Name
+                </h4>
+                <h5>
+                    @if (BasketCount > 0) { t = "Sepete Eklenenler"; } @t
+                </h5>
+            </div>
+            <div class="rbt-btn-close" id="btn_sideNavClose">
+                <button class="minicart-close-button rbt-round-btn"><i class="feather-x"></i></button>
+            </div>
+        </div>
+    </div>
+
+
+
+    <nav class="side-nav w-100">
+        <form id="lessonForm">
+            <ul class="rbt-minicart-wrapper">
+
+
+                @foreach (var item in Model)
+                {
+                    if (customerLessonRelations.Where(x => x.LessonId == item.LessonId).Count() > 0)
+                    {
+                        <li class="minicart-item" data-lesson-id="@item.LessonId">
+                            <div class="thumbnail">
+                                <a asp-action="Detail" asp-controller="CourseUi" asp-route-id="@item.CourseId">
+                                    <img src="@MetaData.baseAssetsPath()/Lesson/@item.Image">
+                                </a>
+                            </div>
+                            <div class="product-content">
+                                <h6 class="title"><a style="overflow:hidden; white-space: nowrap; text-overflow: ellipsis;" asp-action="Detail" asp-controller="CourseUi" asp-route-id="@item.CourseId">@item.Name : Satın Alınmış</a></h6>
+
+                                <span class="quantity">@item.Duration<span class="price">dk</span></span>
+                                <span class="quantity">@item.Price <span class="price">@item.Currency.Name</span></span>
+                            </div>
+                        </li>
+                    }
+                    else if (baskets.Where(x => x.Product.ProductId == item.LessonId).Count() > 0)
+                    {
+                        <li class="minicart-item" data-lesson-id="@item.LessonId">
+                            <div class="form-check form-switch px-3">
+                                <input class="form-check-input" type="checkbox" id="@item.LessonId" name="darkmode" value="yes" data-price="@item.Price" checked>
+                            </div>
+                            <div class="thumbnail">
+                                <a asp-action="Detail" asp-controller="CourseUi" asp-route-id="@item.CourseId">
+                                    <img src="@MetaData.baseAssetsPath()/Lesson/@item.Image">
+                                </a>
+                            </div>
+                            <div class="product-content">
+                                <h6 style="overflow:hidden; white-space: nowrap; text-overflow: ellipsis;" class="title"><a asp-action="Detail" asp-controller="CourseUi" asp-route-id="@item.CourseId">@item.Name</a></h6>
+                                <label style="overflow:hidden; white-space: nowrap; text-overflow: ellipsis;">@item.Description</label>
+                                <span class="quantity">@item.Duration<span class="price">dk</span></span>
+                                <span class="quantity">@item.Price <span class="price">@item.Currency.Name</span></span>
+                            </div>
+                            <div class="close-btn">
+                            </div>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="minicart-item" data-lesson-id="@item.LessonId">
+                            <div class="form-check form-switch px-3">
+                                <input class="form-check-input" type="checkbox" id="@item.LessonId" name="darkmode" value="yes" data-price="@item.Price">
+                            </div>
+                            <div class="thumbnail">
+                                <a href="#">
+                                    <img src="@MetaData.baseAssetsPath()/Lesson/@item.Image">
+                                </a>
+                            </div>
+                            <div class="product-content">
+                                <h6 class="title"><a href="#">@item.Name</a></h6>
+                                <label>@item.Description</label>
+                                <span class="quantity">@item.Duration<span class="price">dk</span></span>
+                                <span class="quantity">@item.Price <span class="price">@item.Currency.Name</span></span>
+                            </div>
+                            <div class="close-btn">
+                            </div>
+                        </li>
+                    }
+                }
+
+
+            </ul>
+        </form>
+    </nav>
+
+
+
+    <div class="rbt-minicart-footer">
+        <hr class="mb--0">
+        <div class="rbt-cart-subttotal">
+            <p class="subtotal">
+                <strong>
+
+                    Seçilenlerin Toplamı:
+
+                </strong>
+            </p>
+            <p class="pricetotal"></p>
+        </div>
+        <hr class="mb--0">
+        <div class="rbt-minicart-bottom mt--20">
+
+            @if (CookieCustomerId == 0)
+            {
+                <div class="view-cart-btn">
+                    <a class="rbt-btn btn-border icon-hover w-100 text-center" asp-controller="LoginUi" asp-action="Index">
+                        <span class="btn-text">Giriş Yap</span>
+                        <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+                    </a>
+                </div>
+            }
+            else
+            {
+                @if (BasketCount > 0 && ThisCourseBasketCount > 0)
+                {
+                    <div class="view-cart-btn">
+                        <a class="rbt-btn btn-border icon-hover w-100 text-center" href="#" id="sendButton">
+                            <span class="btn-text">Sepete Ekle</span>
+                            <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+                        </a>
+                    </div>
+                    <div class="view-cart-btn mt-5">
+                        <a class="rbt-btn btn-border icon-hover w-100 text-center" href="#" id="ClearCourseBasket">
+                            <span class="btn-text">Dersleri Temizle</span>
+                            <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+                        </a>
+                    </div>
+                    <div class="checkout-btn mt--20">
+                        <a asp-action="Cart" asp-controller="Basket" class="rbt-btn btn-gradient icon-hover w-100 text-center">
+                            <span class="btn-text">Ödemeye Geç</span>
+                            <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+                        </a>
+                    </div>
+                }
+                else
+                {
+                    <div class="view-cart-btn">
+                        <a class="rbt-btn btn-border icon-hover w-100 text-center" href="#" id="sendButton">
+                            <span class="btn-text">Sepete Ekle</span>
+                            <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+                        </a>
+                    </div>
+                    <div class="checkout-btn mt--20">
+                        <a asp-action="Cart" asp-controller="Basket" class="rbt-btn btn-gradient icon-hover w-100 text-center">
+                            <span class="btn-text">Ödemeye Geç</span>
+                            <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+                        </a>
+                    </div>
+                }
+            }
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+
+        function calculateTotalPrice() {
+            var selectedCheckboxes = $("input[type='checkbox']:checked");
+            var totalPrice = 0;
+
+            if (selectedCheckboxes.length === $("input[type='checkbox']").length && selectedCheckboxes.length === $(".minicart-item").length) {
+                totalPrice = parseFloat(@courseprice);
+            } else {
+                selectedCheckboxes.each(function () {
+                    var price = parseFloat($(this).data("price"));
+                    totalPrice += price;
+                });
+            }
+
+            $(".pricetotal").text(totalPrice);
+        }
+
+        $("input[type='checkbox']").change(calculateTotalPrice);
+
+        calculateTotalPrice();
+
+
+
+        $('#sendButton').click(function (e) {
+            e.preventDefault();
+
+            var selectedLessonIds = getSelectedLessonIds();
+
+            if (selectedLessonIds.length === 0) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Uyarı',
+                    text: 'Seçili ders yok.',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                return;
+            }
+
+            $.ajax({
+                url: '/Basket/Save',
+                type: 'POST',
+                data: { selectedLessonIds: selectedLessonIds },
+                success: function (response) {
+                    $("#btn_sideNavClose").trigger("click");
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Ürünler Sepete Eklendi',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                },
+                error: function (xhr, status, error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Hata',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
+            });
+        });
+
+
+        function getSelectedLessonIds() {
+            var selectedLessonIds = [];
+
+            $('.form-check-input:checked').each(function () {
+                selectedLessonIds.push($(this).attr('id'));
+            });
+
+            return selectedLessonIds;
+        }
+
+
+        $('.rbt-minicart-wrapper').on('click', '.sendButtonn', function () {
+            var lessonId = $(this).closest('.minicart-item').data('lesson-id');
+
+            $.ajax({
+                url: '/Basket/Delete',
+                type: 'POST',
+                data: { lessonId: lessonId },
+                success: function (result) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Ürünler Sepetten Kaldırıldı',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                },
+                error: function (error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Hata',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                },
+                
+            });
+        });
+
+        $('#ClearCourseBasket').click(function (e) {
+            e.preventDefault();
+
+            var courseid = @courseid;
+
+            $.ajax({
+                url: '/Basket/ClearCourseBasket',
+                type: 'POST',
+                data: { courseid: courseid },
+                success: function (response) {
+                    $("#btn_sideNavClose").trigger("click");
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Dersler Temizlendi',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                },
+                error: function (xhr, status, error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Hata',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                }
+            });
+        });
+
+    });
+</script>

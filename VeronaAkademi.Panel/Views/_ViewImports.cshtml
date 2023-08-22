@@ -1,0 +1,17 @@
+﻿@using VeronaAkademi.Panel
+@using VeronaAkademi.Data.Custom;
+@using VeronaAkademi.Data.Entities;
+@using VeronaAkademi.Data.Entities.Base;
+@using VeronaAkademi.Core.Helper;
+@using Newtonsoft.Json;
+@using VeronaAkademi.Panel.Custom;
+@inject VeronaAkademi.Panel.Custom.IPageMetaData MetaData;
+
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    string userSessionVal = Context.Session.GetString("Personel");
+    var currentUser = JsonConvert.DeserializeObject<Personel>(userSessionVal);
+  
+}

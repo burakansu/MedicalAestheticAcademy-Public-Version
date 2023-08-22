@@ -1,0 +1,30 @@
+﻿@model Lecturer
+@{
+    Layout = "";
+}
+<form id="LecturerForm">
+    <input type="hidden" name="tempId" value="@(Model?.LecturerId)" />
+    <input type="hidden" name="Image" value="@(Model?.Image)" />
+    <input type="hidden" name="EklemeTarihi" value="@(Model?.EklemeTarihi)" />
+    <input type="hidden" name="Sira" value="@(Model?.Sira)" />
+
+    <div class="card card-flush pb-3">
+        <div class="card-body pt-0">
+            <div class="fv-row fv-plugins-icon-container">
+                <label class="required form-label">Adı</label>
+                <input type="text" name="Name" class="form-control mb-2" placeholder="Eğitmen Adı" value="@(Model?.Name)" />
+                <div class="fv-plugins-message-container invalid-feedback"></div>
+            </div>
+        </div>
+    </div>
+    <div class="card card-flush">
+        <div class="card-body pt-0">
+            <div class="fv-row fv-plugins-icon-container">
+                <label class="required form-label">Email</label>
+                <input type="text" name="Email" class="form-control mb-2" placeholder="Eğitmen Adı" value="@(Model?.Email)" />
+                <div class="fv-plugins-message-container invalid-feedback"></div>
+            </div>
+        </div>
+    </div>
+</form>
+

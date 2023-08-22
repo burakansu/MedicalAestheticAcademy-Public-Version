@@ -1,0 +1,41 @@
+﻿@{
+    Layout = null;
+    var Customer = MetaData.baseCustomer().Find(x => x.CustomerId == MetaData.baseCustomerId());
+
+}
+<div class="content">
+    <div class="section-title">
+        <h4 class="rbt-title-style-3">Kullanıcı Profili</h4>
+    </div>
+    <!-- Start Profile Row  -->
+    <div class="rbt-profile-row row row--15">
+        <div class="col-lg-4 col-md-4">
+            <div class="rbt-profile-content b2">Katılma Tarihi</div>
+        </div>
+        <div class="col-lg-8 col-md-8">
+            <div class="rbt-profile-content b2">@Customer?.EklemeTarihi</div>
+        </div>
+    </div>
+    <!-- End Profile Row  -->
+    <!-- Start Profile Row  -->
+    <div class="rbt-profile-row row row--15 mt--15">
+        <div class="col-lg-4 col-md-4">
+            <div class="rbt-profile-content b2">Ad Soyad</div>
+        </div>
+        <div class="col-lg-8 col-md-8">
+            <div class="rbt-profile-content b2">@Customer?.NameSurname</div>
+        </div>
+    </div>
+    <!-- End Profile Row  -->
+    <!-- Start Profile Row  -->
+    <div class="rbt-profile-row row row--15 mt--15">
+        <div class="col-lg-4 col-md-4">
+            <div class="rbt-profile-content b2">Email</div>
+        </div>
+        <div class="col-lg-8 col-md-8">
+            <div class="rbt-profile-content b2">@Customer?.Email</div>
+        </div>
+    </div>
+    <!-- End Profile Row  -->
+
+</div>

@@ -1,0 +1,63 @@
+﻿@model PracticeLesson
+@{
+    int id = ViewBag.relationId;
+}
+<form id="PracticeLessonForm">
+    <input type="hidden" name="tempId" value="@(Model?.PracticeLessonId)" />
+    <input type="hidden" name="PracticeLessonId" value="@(Model?.PracticeLessonId)" />
+
+    <div class="card card-flush py-4">
+
+        <div class="card-body pt-0">
+            <div class="fv-row fv-plugins-icon-container">
+                <label class="required form-label">Adı</label>
+                <input type="text" name="Name" class="form-control mb-2" placeholder="Pratik Ders adı" value="@(Model?.Name)" />
+                <div class="fv-plugins-message-container invalid-feedback"></div>
+            </div>
+
+            <div class="fv-row fv-plugins-icon-container">
+                <label class="required form-label">Açıklama</label>
+                <input type="text" name="Description" class="form-control mb-2" value="@(Model?.Description)" />
+                <div class="fv-plugins-message-container invalid-feedback"></div>
+            </div>
+
+            <div class="fv-row fv-plugins-icon-container">
+                <label class="required form-label">Bitirilmesi Gereken Kurslar</label>
+                <select class="form-control selectpicker manytomany" relationName="PracticeLessonCourseRelation" propertyName="CourseId" multiple>
+                    @foreach (var item in MetaData.baseCourse())
+                    {
+                        var fromDb = Model?.PracticeLessonCourseRelation?.ToList().Select(i => i.CourseId);
+                        <!option value="@(item?.CourseId)">@item?.Name</!option>
+                    }
+                </select>
+            </div>
+
+
+            @if (id != 0)
+            {
+                <select style="display:none !important" class="form-control  manytomany" relationName="PackagePracticeLessonRelation" propertyName="PackageId" multiple>
+                    <!option value="@(id)" selected>@id</!option>
+                </select>
+            }
+
+            <div class="fv-row fv-plugins-icon-container">
+                <label class="required form-label">Tarih</label>
+                <input type="date" class="form-control mb-2" Name="Date" value="@Model?.Date" />
+                <div class="fv-plugins-message-container invalid-feedback"></div>
+            </div>
+
+            <div class="fv-row fv-plugins-icon-container">
+                <label class="required form-label">Sıra</label>
+                <input type="text" name="Sira" class="form-control mb-2" value="@(Model?.Sira)" />
+                <div class="fv-plugins-message-container invalid-feedback"></div>
+            </div>
+
+        </div>
+    </div>
+</form>
+
+<script>
+    $(document).ready(function () {
+        $('.selectpicker').select2();
+    });
+</script>

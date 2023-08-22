@@ -1,0 +1,79 @@
+﻿@model Lesson
+@{
+    Layout = "";
+}
+
+
+<form id="LessonForm">
+    <input type="hidden" name="tempId" value="@(Model?.LessonId)" />
+    <div class="form-group row">
+        <div class="col-lg-6">
+
+            <div class="form-group">
+                <label>Adı:</label>
+                <input type="text" name="Name" class="form-control mb-2" placeholder="Kurs adı" value="@(Model.Name)" />
+            </div>
+            <div class="form-group">
+                <label>Açıklama:</label>
+                <input type="text" name="Description" class="form-control mb-2" value="@(Model?.Description)" />
+            </div>
+            <div class="form-group">
+                <label>Para Birimi:</label>
+                <select class="form-control selectpicker" name="CurrencyId">
+                    
+                    @foreach (var item in MetaData.baseCurrency())
+                    {
+                        var slc = item.CurrencyId == Model?.CurrencyId ? "selected" : "";
+                        <!option @slc value="@item.CurrencyId">@item.Name</!option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Eğitmen:</label>
+                <select class="form-control selectpicker" name="LecturerId">
+                    
+                    @foreach (var item in MetaData.baseLecturer())
+                    {
+                        var slc = item.LecturerId == Model?.LecturerId ? "selected" : "";
+                        <!option @slc value="@item.LecturerId">@item.Name</!option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Video Kaynağı:</label>
+                <input type="text" name="Source" class="form-control mb-2" value="@(Model?.Source)" />
+            </div>
+
+
+        </div>
+        <div class="col-lg-6">
+
+            <div class="form-group">
+                <label>Ücret:</label>
+                <input type="text" name="Price" class="form-control mb-2" value="@(Model?.Price)" />
+            </div>
+            <div class="form-group">
+                <label>Kurs:</label>
+                <select class="form-control selectpicker" name="CourseId">
+                    
+                    @foreach (var item in MetaData.baseCourse())
+                    {
+                        var slc = item.CourseId == Model?.CourseId ? "selected" : "";
+                        <!option @slc value="@item.CourseId">@item.Name</!option>
+                    }
+                </select>
+            </div>
+            <div class="form-group mt-5">
+                <label>Sıra:</label>
+                <input type="text" name="Sira" class="form-control mb-2" placeholder="Kurs adı" value="@(Model.Sira)" />
+            </div>
+
+        </div>
+    </div>
+</form>
+
+<script>
+    $(document).ready(function () {
+        $('.selectpicker').select2();
+    });
+</script>

@@ -1,0 +1,24 @@
+﻿@model Course
+
+<form id="ProfessionsForm">
+    <input type="hidden" name="tempId" value="@(Model?.CourseId)" />
+    <div class="fv-row fv-plugins-icon-container">
+        <label class="required form-label">Uzmanlık Alanları</label>
+        <div class="">
+            <select class="form-control selectpicker manytomany" relationName="ProfessionCourseRelation" propertyName="ProfessionId" multiple>
+                
+                @foreach (var item in MetaData.baseProfession())
+                {
+                    var fromDb = Model?.ProfessionCourseRelation?.ToList().Select(i => i.ProfessionId);
+                    <!option value="@(item?.ProfessionId)">@item?.Name</!option>
+                }
+            </select>
+        </div>
+    </div>
+</form>
+
+<script>
+    $(document).ready(function () {
+        $('.selectpicker').select2();
+    });
+</script>

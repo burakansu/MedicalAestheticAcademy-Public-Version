@@ -1,0 +1,170 @@
+﻿@model List<Message>
+@{
+    Lecturer lecturer = @MetaData.baseAdvisor().Single(x => x.AdvisorId == ViewBag.AdvisorIds).Lecturer;
+    Customer customer = MetaData.baseCustomer().Single(x => x.CustomerId == ViewBag.CustomerIds);
+    Advisor advisor = MetaData.baseAdvisor().Single(x => x.AdvisorId == ViewBag.AdvisorIds);
+    int Id = ViewBag.Ids;
+}
+
+<!--begin::Main-->
+<div class="app-main flex-column flex-row-fluid" id="kt_app_main">
+    <!--begin::Content wrapper-->
+    <div class="d-flex flex-column flex-column-fluid">
+        <!--begin::Toolbar-->
+        <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
+            <!--begin::Toolbar container-->
+            <div id="kt_app_toolbar_container" class="app-container  d-flex flex-stack">
+                <!--begin::Page title-->
+                <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+                    <!--begin::Title-->
+                    <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">@advisor.Name Sohbetler</h1>
+                    <!--end::Title-->
+
+                </div>
+                <!--end::Page title-->
+
+            </div>
+            <!--end::Toolbar container-->
+        </div>
+        <!--end::Toolbar-->
+
+        <div id="kt_app_content" class="app-content flex-column-fluid">
+            <!--begin::Content container-->
+            <div id="kt_app_content_container" class="app-container" style="height:100%">
+                <!--begin::Products-->
+                <div class="card card-flush">
+                    <!--begin::Card body-->
+
+
+
+
+                    <div class="card" id="kt_chat_messenger">
+                        <!--begin::Card header-->
+                        <div class="card-header" id="kt_chat_messenger_header">
+                            <!--begin::Title-->
+                            <div class="card-title">
+                                <!--begin::User-->
+                                <div class="d-flex justify-content-center flex-column me-3">
+                                    <a href="#" class="fs-4 fw-bold text-gray-900 text-hover-primary me-1 mb-2 lh-1">@lecturer.Name</a>
+
+                                    <!--begin::Info-->
+                                    <div class="mb-0 lh-1">
+                                        <span class="badge badge-success badge-circle w-10px h-10px me-1"></span>
+                                        <span class="fs-7 fw-semibold text-muted">Aktif</span>
+                                    </div>
+                                    <!--end::Info-->
+                                </div>
+                                <!--end::User-->
+                            </div>
+                            <!--end::Title-->
+                        </div>
+                        <!--end::Card header-->
+
+
+
+
+                        <!--begin::Card body-->
+                        <div class="card-body" id="kt_chat_messenger_body">
+
+                        </div>
+                        <!--end::Card body-->
+
+
+
+
+                        <form>
+                            <!--begin::Card footer-->
+                            <div class="card-footer pt-4" id="kt_chat_messenger_footer">
+                                <!--begin::Input-->
+                                <input type="hidden" name="Type" value="2"/>
+                                <input type="hidden" name="AdvisorId" value="@advisor.AdvisorId" />
+                                <input type="hidden" name="CustomerId" value="@customer.CustomerId" />
+
+                                <textarea name="Contents" class="form-control form-control-flush mb-3" rows="1" data-kt-element="input" placeholder="Mesajınızı Girin"></textarea>
+                                <!--end::Input-->
+                                <!--begin:Toolbar-->
+                                <div class="d-flex flex-stack">
+                                    <!--begin::Actions-->
+                                    <div class="d-flex align-items-center me-2">
+                                        <button class="btn btn-sm btn-icon btn-active-light-primary me-1" type="button" data-bs-toggle="tooltip" aria-label="Coming soon" data-bs-original-title="Coming soon" data-kt-initialized="1">
+                                            <i class="ki-duotone ki-paper-clip fs-3"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-icon btn-active-light-primary me-1" type="button" data-bs-toggle="tooltip" aria-label="Coming soon" data-bs-original-title="Coming soon" data-kt-initialized="1">
+                                            <i class="ki-duotone ki-exit-up fs-3"><span class="path1"></span><span class="path2"></span></i>
+                                        </button>
+                                    </div>
+                                    <!--end::Actions-->
+                                    <!--begin::Send-->
+                                    <a class="btn btn-primary">Gönder</a>
+                                    <!--end::Send-->
+                                </div>
+                                <!--end::Toolbar-->
+                            </div>
+                            <!--end::Card footer-->
+                        </form>
+
+
+
+
+                    </div>
+                    <!--end::Card body-->
+                </div>
+                <!--end::Products-->
+            </div>
+            <!--end::Content container-->
+        </div>
+    </div>
+    <!--end::Content wrapper-->
+
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        loadMessages();
+
+        $('.btn-primary').click(function (event) {
+            event.preventDefault();
+
+            var formData = $('form').serialize();
+
+            $.ajax({
+                url: '/Message/Kaydet',
+                type: 'POST',
+                data: formData,
+                success: function (response) {
+                    loadMessages();
+                },
+                error: function () {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Hata!',
+                        text: 'Mesaj kaydetme sırasında bir hata oluştu',
+                        confirmButtonText: 'Tamam'
+                    });
+                }
+            });
+        });
+
+        function loadMessages() {
+            debugger;
+            var id = @Id;
+            $.ajax({
+                url: '/Message/Messages',
+                type: 'GET',
+                data: { id: id },
+                success: function (response) {
+                    $('#kt_chat_messenger_body').html(response);
+                },
+                error: function () {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Hata!',
+                        text: 'Mesajları yükleme sırasında bir hata oluştu',
+                        confirmButtonText: 'Tamam'
+                    });
+                }
+            });
+        }
+    });
+</script>
+

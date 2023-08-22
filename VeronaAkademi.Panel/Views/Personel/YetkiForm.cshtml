@@ -1,0 +1,38 @@
+﻿@model Personel
+@{
+    var kisitlamalar = (List<Restriction>)ViewBag.kisitlamalar;
+    var seciliKisitlamalar = (List<Restriction>)ViewBag.seciliKisitlamalar;
+}
+
+
+<form class="form" id="YetkiForm">
+    <input type="hidden" id="PersonelId" value="@Model.PersonelId" />
+    <div class="card-body">
+
+        @foreach (var k in kisitlamalar.GroupBy(g => g.Grup))
+        {
+            <div class="form-group row">
+                <label class="col-xl-3 col-lg-3 col-form-label font-weight-bold text-left text-lg-right">@k.Key</label>
+                <div class="col-lg-9 col-xl-6">
+                    <div class="checkbox-list">
+                        @foreach (var item in k)
+                        {
+                            var chk = seciliKisitlamalar.Select(s => s.RestrictionId).Contains(item.RestrictionId) ? "checked" : "";
+                            <div class="form-check" style="margin-top:5px;">
+                                <input class="form-check-input kid" type="checkbox" id="@item.RestrictionId" name="kid" value="@item.RestrictionId" @chk />
+                                <label class="form-check-label" for="@item.RestrictionId">
+                                    @item.Description
+                                </label>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+            <div class="separator separator-dashed my-10"></div>
+        }
+
+    </div>
+</form>
+
+

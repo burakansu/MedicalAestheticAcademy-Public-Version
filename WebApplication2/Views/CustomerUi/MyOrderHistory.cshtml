@@ -1,0 +1,91 @@
+﻿@{
+    Layout = null;
+    int CookieCustomerId = MetaData.baseCustomerId();
+    var orders = MetaData.baseOrder().Where(x => x.CustomerId == CookieCustomerId).OrderBy(x => x.EklemeTarihi);
+}
+<h4>Geçmiş Siparişlerim</h4>
+<div class="cart-table table-responsive mb--60">
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="pro-thumbnail">Resim</th>
+                <th class="pro-title">Ders</th>
+                <th class="pro-price">Fiyat</th>
+                <th class="pro-remove">Satın Alınma Tarihi</th>
+                <th class="pro-remove">Bitiş Tarihi</th>
+            </tr>
+        </thead>
+        <tbody>
+
+
+            @foreach (var item in orders)
+            {
+                if (item.Product.Type == 1)
+                {
+                    Lesson lesson = MetaData.baseLesson().Single(x => x.LessonId == item.Product.ProductId);
+                    <tr>
+                        <td class="pro-thumbnail">
+                            <img src="@MetaData.baseAssetsPath()/Lesson/@lesson.Image">
+                        </td>
+                        <td class="pro-title">
+                            <a href="#">@lesson.Name</a>
+                        </td>
+                        <td class="pro-price">
+                            <span>@lesson.Price @lesson.Currency.Name</span>
+                        </td>
+                        <td>
+                            <span>@item.EklemeTarihi</span>
+                        </td>
+                        <td>
+                            <span>@item.FinishDate</span>
+                        </td>
+                    </tr>
+                }
+                else if (item.Product.Type == 2)
+                {
+                    Package package = MetaData.basePackage().Single(x => x.PackageId == item.Product.ProductId);
+                    <tr>
+                        <td class="pro-thumbnail">
+                            @*<img src="@MetaData.baseAssetsPath()/Course/@package">*@
+                        </td>
+                        <td class="pro-title">
+                            <a href="#">@package.Name</a>
+                        </td>
+                        <td class="pro-price">
+                            <span>@package.Price @package.Currency.Name</span>
+                        </td>
+                        <td>
+                            <span>@item.EklemeTarihi</span>
+                        </td>
+                        <td>
+                            <span>@item.FinishDate</span>
+                        </td>
+                    </tr>
+                }
+                else if (item.Product.Type == 3)
+                {
+                    Advisor advisor = MetaData.baseAdvisor().Single(x => x.AdvisorId == item.Product.ProductId);
+                    <tr>
+                        <td class="pro-thumbnail">
+                            @*<img src="@MetaData.baseAssetsPath()/Course/@package">*@
+                        </td>
+                        <td class="pro-title">
+                            <a href="#">@advisor.Name</a>
+                        </td>
+                        <td class="pro-price">
+                            <span>@advisor.Price @advisor.Currency.Name</span>
+                        </td>
+                        <td>
+                            <span>@item.EklemeTarihi</span>
+                        </td>
+                        <td>
+                            <span>@item.FinishDate</span>
+                        </td>
+                    </tr>
+                }
+            }
+
+
+        </tbody>
+    </table>
+</div>

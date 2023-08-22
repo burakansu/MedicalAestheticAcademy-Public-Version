@@ -1,0 +1,31 @@
+﻿@model SkillCourseRelation;
+
+<form id="SkillCourseRelationForm">
+    <div class="card card-flush py-4">
+        <div class="card-body pt-0">
+            <input type="hidden" name="CourseId" value="@(Model?.CourseId)" />
+
+            <div class="fv-row fv-plugins-icon-container">
+                <label class="required form-label">Beceri</label>
+                <div class="col-md-10">
+                    <select class="form-control selectpicker" name="SkillId">
+                        <option value="">İlişkilendirilecek Beceri Seçiniz</option>
+                        @foreach (var item in MetaData.baseSkill())
+                        {
+                            var slc = item.SkillId == Model?.SkillId ? "selected" : "";
+                            <!option @slc value="@item.SkillId">@item.Name</!option>
+                        }
+                    </select>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</form>
+
+
+
+
+
+
+
