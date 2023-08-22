@@ -1,2 +1,2 @@
 # MedicalAestheticAcademy-Public-Version
-Ecommerce and Online Course Like Udemy
+Ecommerce and Online Course medicalestheticacedemy.com
