@@ -1,1 +1,256 @@
-﻿
+﻿@{
+    var categories = MetaData.baseCategory();
+    var lecturers = MetaData.baseLecturer();
+    var advisors = MetaData.baseAdvisor();
+    string typestring = "";
+}
+<div class="rbt-page-banner-wrapper">
+    <!-- Start Banner BG Image  -->
+    <div class="rbt-banner-image"></div>
+    <!-- End Banner BG Image  -->
+    <div class="rbt-banner-content">
+
+        <!-- Start Banner Content Top  -->
+        <div class="rbt-banner-content-top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <!-- Start Breadcrumb Area  -->
+                        <ul class="page-list">
+                            <li class="rbt-breadcrumb-item"><a>Anasayfa</a></li>
+                            <li>
+                                <div class="icon-right"><i class="feather-chevron-right"></i></div>
+                            </li>
+                            <li class="rbt-breadcrumb-item active">
+                                Tüm Danışmanlık ve Hizmetler
+                            </li>
+                        </ul>
+                        <!-- End Breadcrumb Area  -->
+
+                        <div class=" title-wrapper">
+                            <h1 class="title mb--0">
+                                Danışmanlık ve Hizmetler
+                            </h1>
+                            <a href="#" class="rbt-badge-2">
+                                <div class="image">🎉</div> @advisors.Count() Danışmanlık ve Hizmet
+                            </a>
+                        </div>
+
+                        <p class="description">Yeni başlayanların gerçek uzman olmasına yardımcı olan hazır Danışmanlık ve Hizmetler. </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Banner Content Top  -->
+        <!-- Start Course Top  -->
+        <div class="rbt-course-top-wrapper mt--40 mt_sm--20">
+            <div class="container">
+                <div class="row g-5 align-items-center">
+
+                    <div class="col-lg-5 col-md-12">
+                        <div class="rbt-sorting-list d-flex flex-wrap align-items-center">
+                            <div class="rbt-short-item switch-layout-container">
+                                <ul class="course-switch-layout">
+                                    <li class="course-switch-item"><button class="rbt-grid-view active" title="Grid Layout"><i class="feather-grid"></i> <span class="text">Kutu</span></button></li>
+                                    <li class="course-switch-item"><button class="rbt-list-view" title="List Layout"><i class="feather-list"></i> <span class="text">Liste</span></button></li>
+                                </ul>
+                            </div>
+                            <div class="rbt-short-item">
+                                @*<span class="course-index">Showing 1-9 of 19 results</span>*@
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-7 col-md-12">
+                        @* <div class="rbt-sorting-list d-flex flex-wrap align-items-center justify-content-start justify-content-lg-end">
+                        <div class="rbt-short-item">
+                        <form action="#" class="rbt-search-style me-0">
+                        <input type="text" placeholder="Ara">
+                        <button type="submit" class="rbt-search-btn rbt-round-btn">
+                        <i class="feather-search"></i>
+                        </button>
+                        </form>
+                        </div>
+
+                        <div class="rbt-short-item">
+                        <div class="view-more-btn text-start text-sm-end">
+                        <button class="discover-filter-button discover-filter-activation rbt-btn btn-white btn-md radius-round">Filtrele<i class="feather-filter"></i></button>
+                        </div>
+                        </div>
+                        </div>*@
+                    </div>
+                </div>
+
+                <!-- Start Filter Toggle  -->
+                <div class="default-exp-wrapper default-exp-expand">
+                    <div class="filter-inner">
+                        <div class="filter-select-option">
+                            <div class="filter-select rbt-modern-select">
+                                <span class="select-label d-block">Filtrele</span>
+                                <select>
+                                    <option>Varsayılan</option>
+                                    <option>En Son</option>
+                                    <option>Popülerlik</option>
+                                    <option>Trend</option>
+                                    <option>Ücret: Azdan çoğa</option>
+                                    <option>Ücret: Çokdan Aza</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="filter-select-option">
+                            <div class="filter-select rbt-modern-select">
+                                <span class="select-label d-block">Eğitmene Göre</span>
+                                <select data-live-search="true" title="Seç" multiple data-size="7" data-actions-box="true" data-selected-text-format="count > 2">
+
+                                    @foreach (var item in lecturers)
+                                    {
+                                        <option data-subtext="Experts">@item.Name</option>
+                                    }
+
+
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="filter-select-option">
+                            <div class="filter-select rbt-modern-select">
+                                <span class="select-label d-block">Ücrete Göre</span>
+                                <select>
+                                    <option>Ücretsiz</option>
+                                    <option>Ücretli</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="filter-select-option">
+                            <div class="filter-select rbt-modern-select">
+                                <span class="select-label d-block">Kategoriye Göre</span>
+                                <select data-live-search="true">
+
+                                    @foreach (var item in categories)
+                                    {
+                                        <option>@item.Name</option>
+                                    }
+
+
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="filter-select-option">
+                            <div class="filter-select">
+                                <span class="select-label d-block">Ücret Aralığı</span>
+
+                                <div class="price_filter s-filter clear">
+                                    <form action="#" method="GET">
+                                        <div id="slider-range"></div>
+                                        <div class="slider__range--output">
+                                            <div class="price__output--wrap">
+                                                <div class="price--output">
+                                                    <span>Price :</span><input type="text" id="amount">
+                                                </div>
+                                                <div class="price--filter">
+                                                    <a class="rbt-btn btn-gradient btn-sm" href="#">Filtrele</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Filter Toggle  -->
+            </div>
+        </div>
+        <!-- End Course Top  -->
+    </div>
+</div>
+
+
+
+<!-- Start Card Style -->
+<div class="rbt-section-overlayping-top rbt-section-gapBottom">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="rbt-course-grid-column">
+
+
+                    @foreach (var item in advisors)
+                    {
+                        <!-- Start Single Card  -->
+                        <div class="course-grid-3">
+                            <div class="rbt-card variation-01 rbt-hover">
+                                <div class="rbt-card-body">
+                                    <h4 class="rbt-card-title">
+                                        <a asp-action="Detail" asp-controller="AdVisorUi" asp-route-id="@item.AdvisorId">@item.Name</a>
+                                    </h4>
+
+                                    <p class="rbt-card-text" style="overflow:hidden; height:50px; text-overflow: ellipsis;">
+                                        @{
+                                            if (item.Type == 1)
+                                            {
+                                                typestring = "Şeffaf Plak Danışmanlığı";
+                                            }
+                                            if (item.Type == 2)
+                                            {
+                                                typestring = "Vaka Danışmanlığı";
+                                            }
+                                        }
+
+                                        @typestring
+                                    </p>
+
+                                    <div class="rbt-meta">
+                                        <div class="rbt-widget-details has-show-more">
+                                            <ul class="has-show-more-inner-content rbt-course-details-list-wrapper">
+                                                <li><span>Danışman</span><span class="rbt-feature-value rbt-badge-5"><a asp-action="Detail" asp-controller="CourseUi" asp-route-id="@item.LecturerId">@item.Lecturer.Name</a></span></li>
+
+                                                @foreach (var obj in item.AdvisorCourseRelation)
+                                                {
+                                                    <li><span>Bitirilmesi Zorunlu</span><span class="rbt-feature-value rbt-badge-5"><a asp-action="Detail" asp-controller="CourseUi" asp-route-id="@item.AdvisorCourseRelation.First().CourseId">Görüntüle</a></span></li>
+                                                }
+                                                @if (item.AdvisorCourseRelation.Count() == 0)
+                                                {
+                                                    <li><span>Ön Koşullar</span><span class="rbt-feature-value rbt-badge-5">Yok</span></li>
+                                                }
+                                                @if (item.PackageAdvisorRelation.Count() > 0)
+                                                {
+                                                    <li><span>Pakete Dahil</span><span class="rbt-feature-value rbt-badge-5"><a asp-action="Detail" asp-controller="PackageUi" asp-route-id="@item.PackageAdvisorRelation.First().PackageId">Görüntüle</a></span></li>
+                                                }
+                                                else
+                                                {
+                                                    <li><span>Pakete Dahil</span><span class="rbt-feature-value rbt-badge-5">Hayır</span></li>
+                                                }
+
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="rbt-card-bottom">
+                                        <div class="rbt-price">
+                                            <span class="current-price">
+                                                @item.Price @item.Currency.Name.ToLower()
+                                            </span>
+                                        </div>
+                                        <a class="rbt-btn-link" asp-action="Detail" asp-controller="AdVisorUi" asp-route-id="@item.AdvisorId">
+                                            Daha Fazla<i class="feather-arrow-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Single Card  -->
+                    }
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Card Style -->

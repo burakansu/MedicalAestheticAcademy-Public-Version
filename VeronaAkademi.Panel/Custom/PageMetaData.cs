@@ -1,11 +1,9 @@
 ﻿
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
 using System.Reflection;
 using VeronaAkademi.Data.Context;
 using VeronaAkademi.Data.Entities;
-using VeronaAkademi.Data.Entities.Base;
 
 namespace VeronaAkademi.Panel.Custom
 {
@@ -52,8 +50,6 @@ namespace VeronaAkademi.Panel.Custom
                     .ThenBy(x => x.Order)
                     .ToList();
             return controlleractionlist;
-
-
         }
         public string EnvironmentVersion()
         {
@@ -97,7 +93,9 @@ namespace VeronaAkademi.Panel.Custom
         }
         public List<Lesson> baseLesson()
         {
-            return _db.Lesson.ToList();
+            return _db.Lesson
+                .Include(x=>x.Currency)
+                .ToList();
         }
         public List<Trailer> baseTrailer()
         {
@@ -105,12 +103,15 @@ namespace VeronaAkademi.Panel.Custom
         }
         public List<Package> basePackage()
         {
-            return _db.Package.ToList();
+            return _db.Package
+                .Include(x => x.Currency)
+                .ToList();
         }
         public List<Advisor> baseAdvisor()
         {
             return _db.Advisor
-                .Include(x=>x.Lecturer)
+                .Include(x => x.Lecturer)
+                .Include(x => x.Currency)
                 .ToList();
         }
         public List<PracticeLesson> basePracticeLesson()
@@ -124,6 +125,8 @@ namespace VeronaAkademi.Panel.Custom
         public List<Order> baseOrder()
         {
             return _db.Order
+                .Include(x => x.Product)
+                .Include(x=>x.Customer)
                 .ToList();
         }
         public string baseAssetsPath()

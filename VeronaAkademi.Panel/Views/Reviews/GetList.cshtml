@@ -45,6 +45,9 @@
                         # <i class="@orderIcon orderIcon" style="@(pager.OrderBy=="Id"?"":"display:none;")"></i>
                     </th>
                     <th scope="col" class="sortable" event="sortable" order="Name">
+                        Kurs Adı <i class="@orderIcon orderIcon" style="@(pager.OrderBy=="Name"?"":"display:none;")"></i>
+                    </th>
+                    <th scope="col" class="sortable" event="sortable" order="Name">
                         Ders Adı <i class="@orderIcon orderIcon" style="@(pager.OrderBy=="Name"?"":"display:none;")"></i>
                     </th>
                     <th scope="col" class="sortable" event="sortable" order="Description">
@@ -53,13 +56,13 @@
                     <th scope="col" class="sortable" event="sortable" order="Course">
                         İçerik <i class="@orderIcon orderIcon" style="@(pager.OrderBy=="CourseId"?"":"display:none;")"></i>
                     </th>
-                    <th scope="col" class="sortable" event="sortable" order="Package">
+                    <th scope="col" class="sortable" event="sortable" order="Package" style="width:110px;">
                         Derece <i class="@orderIcon orderIcon" style="@(pager.OrderBy=="PackageId"?"":"display:none;")"></i>
                     </th>
-                    <th scope="col" class="sortable" event="sortable" order="Package">
-                        Onaylanma Durumu <i class="@orderIcon orderIcon" style="@(pager.OrderBy=="PackageId"?"":"display:none;")"></i>
+                    <th scope="col" class="sortable" event="sortable" order="Package" style="width:65px;">
+                        Onay<i class="@orderIcon orderIcon" style="@(pager.OrderBy=="PackageId"?"":"display:none;")"></i>
                     </th>
-                    <th scope="col" class="sortable" event="sortable" order="Sira">
+                    <th scope="col" class="sortable" event="sortable" order="Sira" style="width:130px;">
                         Tarih <i class="@orderIcon orderIcon" style="@(pager.OrderBy=="Sira"?"":"display:none;")"></i>
                     </th>
 
@@ -79,10 +82,18 @@
                         </td>
 
                         <td>@item.ReviewId</td>
+                        <td>@item.Lesson.Course.Name</td>
                         <td>@item.Lesson.Name</td>
                         <td>@item.Customer.NameSurname</td>
                         <td>@item.Description</td>
-                        <td>@item.StarRate / 5</td>
+                        <td>
+
+                            @for (int j = 1; j <= item.StarRate; j++)
+                            {
+                                <span class="fa fa-star checked"></span>
+                            }
+
+                        </td>
                         <td>
                             @if (item.Approved == true)
                             {
@@ -92,10 +103,19 @@
                             {
                                 a = "Onaylanmadı";
                             }
-                            @a
-                            
+
+                            @switch (a)
+                            {
+                                case "Onaylandı":
+                                    <a class="btn btn-primary btn-sm">✓</a>
+                                    break;
+                                case "Onaylanmadı":
+                                    <a class="btn btn-secondary btn-sm">X</a>
+                                    break;
+                            }
+
                         </td>
-                        <td>@item.EklemeTarihi</td>
+                        <td><div class="mx-auto" style="width:74px;">@item.EklemeTarihi</div></td>
 
                         <td>
                             <div class="badge badge-light-@(item.Aktif ? "success" : "danger")">

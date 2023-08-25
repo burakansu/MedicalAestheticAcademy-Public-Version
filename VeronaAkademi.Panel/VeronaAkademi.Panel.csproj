@@ -9,6 +9,9 @@
   <ItemGroup>
     <None Include="Views\Home\Index.cshtml" />
     <None Include="Views\Home\Privacy.cshtml" />
+    <None Include="Views\Reviews\FilterForm.cshtml" />
+    <None Include="Views\Reviews\GetList.cshtml" />
+    <None Include="Views\Reviews\Index.cshtml" />
     <None Include="Views\Shared\_Layout.cshtml" />
     <None Include="Views\Shared\_ValidationScriptsPartial.cshtml" />
     <None Include="Views\_ViewImports.cshtml" />
@@ -89,19 +92,6 @@
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Views\Reviews\FilterForm.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="Views\Reviews\FilterForm.cshtml" />
-    <_ContentIncludedByDefault Remove="Views\Reviews\GetList.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Views\Reviews\GetList.cshtml" />
   </ItemGroup>
 
 </Project>
