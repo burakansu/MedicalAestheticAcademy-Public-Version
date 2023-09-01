@@ -8,11 +8,10 @@ namespace VeronaAkademi.Panel.Custom
         public static Personel CurrentUser(this HttpContext context)
         {
             var sessionVal = context.Session.GetString("Personel");
-            if (sessionVal != null) {
+            if (sessionVal != null) 
                 return JsonConvert.DeserializeObject<Personel>(sessionVal);
-            }
+
             return null;
-            
         }
     }
 }

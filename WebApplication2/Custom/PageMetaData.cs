@@ -22,7 +22,7 @@ namespace VeronaAkademi.Ui.Custom
         {
             return _db.Category
                 .Include(x => x.CategoryGroup)
-                .Where(x => !x.Silindi)
+                .Where(x => !x.Deleted)
                 .ToList();
         }
         public List<Skill> baseSkill()
@@ -30,7 +30,7 @@ namespace VeronaAkademi.Ui.Custom
             return _db.Skill
                 .Include(x => x.SkillGroup)
                 .Include(x => x.SkillCourseRelation)
-                .Where(x => !x.Silindi)
+                .Where(x => !x.Deleted)
                 .ToList();
         }
         public List<SkillGroup> baseSkillGroup()
@@ -65,7 +65,7 @@ namespace VeronaAkademi.Ui.Custom
                 .Include(x => x.Lesson)
                 .Include(x => x.Trailer)
                 .Include(x => x.Category)
-                .Where(x => !x.Silindi)
+                .Where(x => !x.Deleted)
                 .ToList();
         }
 
@@ -95,7 +95,7 @@ namespace VeronaAkademi.Ui.Custom
         {
             return _db.Trailer
                 .Include(x => x.Course)
-                .Where(x => !x.Silindi)
+                .Where(x => !x.Deleted)
                 .ToList();
         }
         public List<ProfessionCourseRelation> baseProfessionCourseRelation()
@@ -103,8 +103,8 @@ namespace VeronaAkademi.Ui.Custom
             return _db.ProfessionCourseRelation
                 .Include(x => x.Course)
                 .Include(x => x.Profession)
-                .Where(x => !x.Silindi)
-                .OrderBy(x => x.GuncellemeTarihi)
+                .Where(x => !x.Deleted)
+                .OrderBy(x => x.UpdateDate)
                 .Take(8)
                 .ToList();
         }
@@ -153,7 +153,8 @@ namespace VeronaAkademi.Ui.Custom
                 .Include(x => x.Customer)
                 .Include(x => x.Lesson)
                 .Include(x => x.Lesson.Course)
-                .Where(x => !x.Silindi)
+                .Where(x => x.Active)
+                .Where(x => !x.Deleted)
                 .ToList();
         }
         public List<Package> basePackage()
@@ -166,7 +167,7 @@ namespace VeronaAkademi.Ui.Custom
                 .Include("PackagePracticeLessonRelation.PracticeLesson")
                 .Include(x => x.PackageAdvisorRelation)
                 .Include("PackageAdvisorRelation.Advisor")
-                .Where(x => !x.Silindi)
+                .Where(x => !x.Deleted)
                 .ToList();
         }
         public List<Advisor> baseAdvisor()
@@ -178,7 +179,7 @@ namespace VeronaAkademi.Ui.Custom
                     .ThenInclude(x => x.Course)
                 .Include(x => x.Currency)
                 .Include(x => x.Lecturer)
-                .Where(x => !x.Silindi)
+                .Where(x => !x.Deleted)
                 .ToList();
         }
         public List<CustomerPackageRelation> baseCustomerPackageRelation()
@@ -195,17 +196,35 @@ namespace VeronaAkademi.Ui.Custom
             .Include(x => x.PackagePracticeLessonRelation)
                 .ThenInclude(x => x.Package)
             .Include(x => x.PracticeLessonGallery)
-            .Where(x => !x.Silindi)
+            .Where(x => !x.Deleted)
             .ToList();
         }
+        public WebSiteData baseWebSiteData()
+        {
+            return _db.WebSiteData.First();
+        }
+        public List<Form> baseForm()
+        {
+            return _db.Form.ToList();
+        }
+        public List<Anamnez> baseAnamnez()
+        {
+            return _db.Anamnez.ToList();
+        }
+        public List<ClinicalExam> baseClinicalExam()
+        {
+            return _db.ClinicalExam.ToList();
+        }
+
+
         public int baseCustomerId()
         {
             CookieHelper cookieHelper = new CookieHelper();
             string id = cookieHelper.Get("CustomerId");
+
             if (!string.IsNullOrEmpty(id))
-            {
                 return Int32.Parse(id);
-            }
+            
             return 0;
         }
         public string baseAssetsPath()

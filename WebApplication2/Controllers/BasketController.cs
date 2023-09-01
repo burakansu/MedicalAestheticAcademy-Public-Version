@@ -22,7 +22,7 @@ namespace VeronaAkademi.Ui.Controllers
             {
                 if (_db == null)
                     _db = new Db();
-
+                
                 return _db;
             }
         }
@@ -90,9 +90,10 @@ namespace VeronaAkademi.Ui.Controllers
             }
 
             if (baskets.Count > 0)
+            {
                 Db.Basket.AddRange(baskets);
-
-            Db.SaveChanges();
+                Db.SaveChanges();
+            }
 
             return Json(new { success = true });
         }
@@ -189,9 +190,10 @@ namespace VeronaAkademi.Ui.Controllers
                 }
 
                 if (baskets.Count > 0)
+                {
                     Db.Basket.AddRange(baskets);
-
-                Db.SaveChanges();
+                    Db.SaveChanges();
+                }
             }
 
             int Price = CalculateTotalPrice(customerid, courseids);
@@ -226,11 +228,11 @@ namespace VeronaAkademi.Ui.Controllers
             var packages = Db.Package
                 .Include(x => x.Currency)
                 .Include(x => x.PackageCourseRelation)
-                    .ThenInclude(x => x.Course)
+                .Include("PackageCourseRelation.Course")
                 .Include(x => x.PackagePracticeLessonRelation)
-                    .ThenInclude(x => x.PracticeLesson)
+                .Include("PackagePracticeLessonRelation.PracticeLesson")
                 .Include(x => x.PackageAdvisorRelation)
-                    .ThenInclude(x => x.Advisor)
+                .Include("PackageAdvisorRelation.Advisor")
                 .Where(x => basketPackageIdList.Contains(x.PackageId))
                 .ToList();
 
@@ -283,7 +285,7 @@ namespace VeronaAkademi.Ui.Controllers
             {
                 Order order = new Order();
                 order.CustomerId = customerid;
-                order.EklemeTarihi = DateTime.Now;
+                order.CreateDate = DateTime.Now;
 
                 switch (item.Product.Type)
                 {
@@ -309,12 +311,22 @@ namespace VeronaAkademi.Ui.Controllers
             }
 
             if (orders.Count > 0)
+            {
                 Db.Order.AddRange(orders);
+                Db.SaveChanges();
+            }
 
             Db.RemoveRange(Db.Basket.Where(x => x.CustomerId == customerid));
             Db.SaveChanges();
 
-            try { cookieHelper.Set("CustomerId", customerid.ToString(), DateTime.Now.AddYears(1)); } finally { }
+            try
+            {
+                cookieHelper.Set("CustomerId", customerid.ToString(), DateTime.Now.AddYears(1));
+            }
+            catch (Exception)
+            {
+                return View();
+            }
 
             return View();
         }
@@ -326,7 +338,15 @@ namespace VeronaAkademi.Ui.Controllers
         // Common Methods
         private int GetCustomerId()
         {
-            return Int32.Parse(cookieHelper.Get("CustomerId"));
+            try
+            {
+                return Int32.Parse(cookieHelper.Get("CustomerId"));
+            }
+            catch (Exception)
+            {
+
+                return 0;
+            }
         }
 
         private void AddProductToBasket(int customerId, int productId, int productType, List<Basket> baskets = null)
@@ -590,8 +610,8 @@ namespace VeronaAkademi.Ui.Controllers
             }
 
             Options options = new Options();
-            options.ApiKey = "***********************";
-            options.SecretKey = "***********************";
+            options.ApiKey = "sandbox-5kRqha41xZsaFTSdhzMyFioKdXIgrPUu";
+            options.SecretKey = "sandbox-waJoyD3RFYk4Os3TfEdBbAOQSv4lhi4i";
             options.BaseUrl = "https://sandbox-api.iyzipay.com";
 
 
@@ -733,10 +753,10 @@ namespace VeronaAkademi.Ui.Controllers
             RetrieveCheckoutFormRequest request = new RetrieveCheckoutFormRequest();
             request.Token = data;
             CheckoutForm checkoutForm = CheckoutForm.Retrieve(request, options);
-
             if (checkoutForm.PaymentStatus == "SUCCESS")
+            {
                 return RedirectToAction("Confirmation");
-            
+            }
 
             return View();
         }

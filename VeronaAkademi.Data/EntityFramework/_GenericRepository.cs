@@ -23,7 +23,6 @@ namespace VeronaAkademi.Data.EntityFramework
             try
             {
                 dbset.AddRange(items);
-                //db.SaveChanges(CurrentUserId);
                 db.SaveChanges();
                 _response.Success = true;
                 _response.Description = "Kayıtlar Eklendi";
@@ -58,7 +57,6 @@ namespace VeronaAkademi.Data.EntityFramework
             try
             {
                 dbset.Remove(p);
-                //db.SaveChanges(CurrentUserId);
                 db.SaveChanges();
                 _response.Success = true;
                 _response.Description = "Kayıt Silindi";
@@ -77,7 +75,6 @@ namespace VeronaAkademi.Data.EntityFramework
             try
             {
                 dbset.Remove(p);
-                //db.SaveChanges(CurrentUserId);
                 db.SaveChanges();
                 _response.Success = true;
                 _response.Description = "Kayıt Silindi";
@@ -112,7 +109,6 @@ namespace VeronaAkademi.Data.EntityFramework
             {
                 dbset.Add(p);
                 db.SaveChanges();
-                //db.SaveChanges(CurrentUserId);
                 _response.Success = true;
                 _response.Description = "Kayıt Eklendi";
                 return _response;
@@ -130,7 +126,6 @@ namespace VeronaAkademi.Data.EntityFramework
             {
                 dbset.Add(p);
                 db.SaveChanges();
-                //db.SaveChanges(CurrentUserId);
                 _response.Success = true;
                 _response.Description = "Kayıt Eklendi";
                 return _response;
@@ -148,7 +143,6 @@ namespace VeronaAkademi.Data.EntityFramework
             {
                 dbset.RemoveRange(items);
                 db.SaveChanges();
-                //db.SaveChanges(CurrentUserId);
                 _response.Success = true;
                 _response.Description = "Kayıtlar Silindi";
                 return _response;
@@ -181,7 +175,6 @@ namespace VeronaAkademi.Data.EntityFramework
         {
             try
             {
-                //db.SaveChanges(CurrentUserId);
                 db.SaveChanges();
                 _response.Success = true;
                 _response.Description = "Kayıt Kaydedildi";

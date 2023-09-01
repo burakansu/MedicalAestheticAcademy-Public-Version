@@ -6,20 +6,20 @@ namespace VeronaAkademi.Data.Entities.Base
     {
         [Key]
         public int PersonelId { get; set; }
-        public string Adi { get; set; }
-        public string Kod { get; set; }
-        public string Unvan { get; set; }
-        public string Eposta { get; set; }
-        public string Telefon { get; set; }
-        public string Parola { get; set; }
+        public string Name { get; set; }
+        public string Code { get; set; }
+        public string Head { get; set; }
+        public string Email { get; set; }
+        public string Phone { get; set; }
+        public string Password { get; set; }
 
         [NotMapped]
-        public string? YeniParola { get; set; }
-        public int PersonelTipId { get; set; }
-        public PersonelType? PersonelTip { get; set; }
-        public int DepartmanId { get; set; }
-        public Department? Departman { get; set; }
-        public virtual ICollection<RestrictionPersonelUi>? PersonelArayuzKisitlama { get; set; }
-        public virtual ICollection<PersonelRestrictionRelation>? PersonelKisitlamaRelation { get; set; }
+        public string? NewPassword { get; set; }
+        public int PersonelTypeId { get; set; }
+        public PersonelType? PersonelType { get; set; }
+        public int DepartmentId { get; set; }
+        public Department? Department { get; set; }
+        public virtual ICollection<PersonelInterfaceRestriction>? PersonelInterfaceRestriction { get; set; }
+        public virtual ICollection<PersonelInterfaceRestrictionRelation>? PersonelInterfaceRestrictionRelation { get; set; }
     }
 }

@@ -13,11 +13,12 @@ namespace VeronaAkademi.Panel.Controllers
         [Menu("Web Site Ayarları", "fa-solid fa-gear", "Ayarlar", 0, 99)]
         public IActionResult Index()
         {
-            return View(Db.WebSiteData.First());
+            return View(repo.GetAll().First());
         }
+
         public void Save(WebSiteData data)
         {
-            data.GuncellemeTarihi =DateTime.Now;
+            data.UpdateDate = DateTime.Now;
             Db.Update(data);
             Db.SaveChanges();
         }

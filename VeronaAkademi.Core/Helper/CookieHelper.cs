@@ -40,9 +40,7 @@ namespace VeronaAkademi.Core.Helper
         public void Delete(string key)
         {
             if (Exists(key))
-            {
                 contextAccessor?.HttpContext?.Response.Cookies.Delete(key);
-            }
         }
 
     }

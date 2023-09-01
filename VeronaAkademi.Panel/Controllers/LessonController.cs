@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using VeronaAkademi.Core.Attributes;
-using VeronaAkademi.Core.Helper;
 using VeronaAkademi.Data.Entities;
-using Microsoft.EntityFrameworkCore;
+using VeronaAkademi.Data.EntityFramework;
 
 namespace VeronaAkademi.Panel.Controllers
 {
@@ -10,6 +9,7 @@ namespace VeronaAkademi.Panel.Controllers
     {
         public LessonController(IConfiguration config, IHttpContextAccessor httpcontext, IWebHostEnvironment webHostEnvironment) : base(config, httpcontext, webHostEnvironment)
         {
+            repo = new LessonRepository();
         }
 
         [Menu("Dersler", "fa-sharp fa-solid fa-paste", "Kurs", 0, 8)]
@@ -21,91 +21,38 @@ namespace VeronaAkademi.Panel.Controllers
         [Yetki("Dersler", "Lesson", "")]
         public override IActionResult GetList(int page = 1, int adet = 5)
         {
-            var searchText = "";
-            var model = Db.Lesson
-                .Include(x => x.Currency)
-                .Include(x => x.Lecturer)
-                .Include(x => x.Course)
-                .Where(x => !x.Silindi)
-                .AsQueryable();
-
-            if (page < 1)
-            {
-                page = 1;
-            }
+            var searchText = Request.Query["searchText"].ToString();
+            var model = repo.GetAll();
 
             if (!string.IsNullOrEmpty(searchText))
-            {
-                model = model
-                    .Where(x => x.Name.Contains(searchText) || x.LessonId.ToString() == searchText);
-            }
+                model = model.Where(x => x.Name.Contains(searchText));
 
-            var durum = Request.Query["Durum"].ToString();
-            if (!string.IsNullOrEmpty(durum))
-            {
-                bool d = Convert.ToBoolean(durum);
-                model = model.Where(x => x.Aktif == d);
-            }
-
-            var count = model.Count();
-            var pager = new Pager(count, page, adet);
-            pager.SearchText = searchText;
-
-            model = model.OrderByDescending(x => x.EklemeTarihi);
-            //sayfala
-            model = model.Skip((page - 1) * adet).Take(adet);
-
-            ViewBag.Pager = pager;
-            ViewBag.Toplam = count;
-            var data = model.ToList();
-
-            return PartialView(data);
+            return base.GetListModel(model, page, adet);
         }
-
 
         [Yetki("Dersler", "Lesson", "")]
         public IActionResult GetLesson(int id)
         {
-            var model = Db.Lesson
-                .Include(x => x.Currency)
-                .Include(x => x.Lecturer)
-                .Include(x => x.Course)
-                .Where(x => x.Course.CourseId == id)
-            .Where(x => !x.Silindi);
-
-            return PartialView(model.ToList());
+            return PartialView(repo.GetAll().Where(x => x.CourseId == id).ToList());
         }
-
 
         [Yetki("Dersler", "Lesson", "")]
         public IActionResult Detail(int id)
         {
-            var model = Db.Lesson
-                .Include(x => x.Currency)
-                .Include(x => x.Course)
-                .Single(x => x.LessonId == id);
-
-            return View(model);
+            return View(repo.Get(id));
         }
-
 
         [Yetki("Dersler", "Lesson", "")]
         public IActionResult DetailForm(int id)
         {
-            var model = Db.Lesson
-                .Include(x => x.Currency)
-                .Include(x => x.Course)
-                .Single(x => x.LessonId == id);
-            return View(model);
+            return View(repo.Get(id));
         }
-
 
         [Yetki("Dersler", "Lesson", "")]
         public IActionResult ImageForm(int id)
         {
-            return PartialView(Db.Lesson.Single(x => x.LessonId == id));
+            return PartialView(repo.Get(id));
         }
-
 
         [HttpPost]
         public IActionResult Upload([FromForm] IFormFile file, [FromForm] int lessonId)
@@ -134,20 +81,19 @@ namespace VeronaAkademi.Panel.Controllers
             return BadRequest("Geçersiz dosya veya kurs bulunamadı!");
         }
 
-
         [Yetki("Dersler", "Lesson", "")]
-        public override JsonResult Save(Lesson form)
+        public override JsonResult Kaydet(Lesson form)
         {
             if (form.LessonId == 0)
             {
                 form.Image = "-";
             }
-            return base.Save(form);
+            return base.Kaydet(form);
         }
 
         public void Update(Lesson form)
         {
-            form.Aktif = true;
+            form.Active = true;
             Db.Lesson.Update(form);
             Db.SaveChanges();
         }

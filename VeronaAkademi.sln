@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VeronaAkademi.Data", "VeronaAkademi.Data\VeronaAkademi.Data.csproj", "{FAD2C654-AAB8-4301-A08B-1BCDC742DDC1}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VeronaAkademi.Core", "VeronaAkademi.Core\VeronaAkademi.Core.csproj", "{3BA0DE36-84B7-4B50-845E-806D21F178DE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VeronaAkademi.Panel", "VeronaAkademi.Panel\VeronaAkademi.Panel.csproj", "{BE31A586-B5E5-4C5B-9999-0B2E21CC3B3D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VeronaAkademi.Ui", "WebApplication2\VeronaAkademi.Ui.csproj", "{8152F4A4-859E-4281-A746-52D085454442}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VeronaAkademi.Data", "VeronaAkademi.Data\VeronaAkademi.Data.csproj", "{CD085B59-B9E7-4365-AAB9-305C006196C5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{FAD2C654-AAB8-4301-A08B-1BCDC742DDC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FAD2C654-AAB8-4301-A08B-1BCDC742DDC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FAD2C654-AAB8-4301-A08B-1BCDC742DDC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FAD2C654-AAB8-4301-A08B-1BCDC742DDC1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3BA0DE36-84B7-4B50-845E-806D21F178DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3BA0DE36-84B7-4B50-845E-806D21F178DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3BA0DE36-84B7-4B50-845E-806D21F178DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,6 +29,10 @@ Global
 		{8152F4A4-859E-4281-A746-52D085454442}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8152F4A4-859E-4281-A746-52D085454442}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8152F4A4-859E-4281-A746-52D085454442}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD085B59-B9E7-4365-AAB9-305C006196C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD085B59-B9E7-4365-AAB9-305C006196C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD085B59-B9E7-4365-AAB9-305C006196C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD085B59-B9E7-4365-AAB9-305C006196C5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

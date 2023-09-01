@@ -59,7 +59,6 @@ public class ExceptionHandlingMiddleware
                 response.StatusCode = (int)HttpStatusCode.InternalServerError;
                 errorResponse.Message = message;
                 errorResponse.StackTrace = exception.StackTrace;
-                //errorResponse.ex = exception;
                 break;
         }
         _logger.LogError(exception.Message);

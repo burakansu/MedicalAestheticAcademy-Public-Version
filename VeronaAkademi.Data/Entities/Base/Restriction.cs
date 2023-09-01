@@ -14,8 +14,7 @@ namespace VeronaAkademi.Data.Entities.Base
         public string NameSpace { get; set; }
         public string TargetDivId { get; set; }
 
-        public virtual ICollection<PersonelRestrictionRelation> PersonelRestrictionRelation { get; set; }
+        public virtual ICollection<PersonelInterfaceRestrictionRelation> PersonelInterfaceRestrictionRelation { get; set; }
         public virtual ICollection<RestrictionControllerAction> RestrictionControllerAction { get; set; }
-
     }
 }

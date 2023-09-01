@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using VeronaAkademi.Core.Attributes;
-using VeronaAkademi.Core.Helper;
 using VeronaAkademi.Data.Entities;
 
 namespace VeronaAkademi.Panel.Controllers
@@ -18,73 +17,49 @@ namespace VeronaAkademi.Panel.Controllers
             return View();
         }
 
-
         [Yetki("Müşteriler", "Customer", "")]
-        public override IActionResult GetList(int page = 1, int adet = 5)
+        public override IActionResult GetList(int page = 1, int adet = 10)
         {
-            var searchText = "";
-            var model = repo.GetAll(x => !x.Silindi);
-
-            if (page < 1)
-            {
-                page = 1;
-            }
+            var model = repo.GetAll();
+            var searchText = Request.Query["searchText"].ToString();
 
             if (!string.IsNullOrEmpty(searchText))
-            {
-                model = model
-                    .Where(x => x.NameSurname.Contains(searchText) || x.CustomerId.ToString() == searchText);
-            }
+                model = model.Where(x => x.NameSurname.Contains(searchText));
 
-            var durum = Request.Query["Durum"].ToString();
-            if (!string.IsNullOrEmpty(durum))
-            {
-                bool d = Convert.ToBoolean(durum);
-                model = model.Where(x => x.Aktif == d);
-            }
-
-            var count = model.Count();
-            var pager = new Pager(count, page, adet);
-            pager.SearchText = searchText;
-
-            model = model.OrderByDescending(x => x.EklemeTarihi);
-            //sayfala
-            model = model.Skip((page - 1) * adet).Take(adet);
-
-            ViewBag.Pager = pager;
-            ViewBag.Toplam = count;
-            var data = model.ToList();
-
-            return PartialView(data);
+            return base.GetListModel(model, page, adet);
         }
 
         [Yetki("Müşteriler", "Customer", "")]
         public IActionResult Detail(int id)
         {
-            var model = Db.Customer.Single(x => x.CustomerId == id);
-
-            return View(model);
+            return View(repo.Get(id));
         }
 
         [Yetki("Müşteriler", "Customer", "")]
         public IActionResult DetailForm(int id)
         {
-            var model = Db.Customer
-                .Single(x => x.CustomerId == id);
-
-            return PartialView(model);
+            return PartialView(repo.Get(id));
         }
 
         [Yetki("Müşteriler", "Customer", "")]
         public IActionResult GetLesson(int id)
         {
+            var list = new List<Lesson>();
             var model = Db.Order
                 .Where(x => x.CustomerId == id)
+                .Include(x=>x.Product)
                 .ToList();
 
-            ViewBag.customerid = id;
+            foreach (var item in model)
+            {
+                if (Db.Lesson.Where(x => x.LessonId == item.Product.ProductId).Count() > 0)
+                {
+                    list.Add(Db.Lesson.Include(x => x.Course).Single(x => x.LessonId == item.Product.ProductId));
+                }
+            }
 
-            return PartialView(model);
+            ViewBag.customerid = id;
+            return PartialView(list);
         }
 
         [Yetki("Müşteriler", "Customer", "")]
@@ -93,20 +68,20 @@ namespace VeronaAkademi.Panel.Controllers
             var model = Db.Order
                 .Where(x => x.CustomerId == id)
                 .Include(x => x.Customer)
+                .Include(x => x.Product)
                 .ToList();
 
             ViewBag.customerid = id;
-
             return PartialView(model);
         }
 
         [Yetki("Müşteriler", "Customer", "")]
-        public override JsonResult Save(Customer form)
+        public override JsonResult Kaydet(Customer form)
         {
             if (form.CurrencyId == 0)
                 form.CurrencyId = 1;
 
-            return base.Save(form);
+            return base.Kaydet(form);
         }
     }
 }

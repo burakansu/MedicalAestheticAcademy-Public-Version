@@ -16,8 +16,9 @@ namespace VeronaAkademi.Ui.Controllers
             get
             {
                 if (_db == null)
+                {
                     _db = new Db();
-                
+                }
                 return _db;
             }
         }
@@ -67,7 +68,7 @@ namespace VeronaAkademi.Ui.Controllers
                 .Include(x => x.Lesson)
                 .Include(x => x.Trailer)
                 .Include(x => x.Category)
-                .Where(x => !x.Silindi)
+                .Where(x => !x.Deleted)
                 .Single(x => x.CourseId == id);
             return View(model);
         }
@@ -85,8 +86,8 @@ namespace VeronaAkademi.Ui.Controllers
         [HttpPost]
         public IActionResult Review(Review review)
         {
-            review.Aktif = true;
-            review.EklemeTarihi = DateTime.Now;
+            review.Active = true;
+            review.CreateDate = DateTime.Now;
             review.CustomerId = Int32.Parse(cookieHelper.Get("CustomerId"));
 
             try

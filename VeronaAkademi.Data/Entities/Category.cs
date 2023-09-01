@@ -16,7 +16,5 @@ namespace VeronaAkademi.Data.Entities
         public int CategoryGroupId { get; set; }
         public CategoryGroup CategoryGroup { get; set; }
         public ICollection<Category> SubCategory { get; } = new List<Category>();
-
-
     }
 }

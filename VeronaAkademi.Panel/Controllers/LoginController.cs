@@ -55,11 +55,11 @@ namespace VeronaAkademi.Panel.Controllers
             var db = new Db();
 
             var user = db.Personel
-                .Include("PersonelTip")
-                .Include("PersonelArayuzKisitlama")
-                .Include("PersonelKisitlamaRelation")
-                .Include("PersonelKisitlamaRelation.Kisitlama")
-                .FirstOrDefault(i => i.Eposta == email && i.Parola == password);
+                .Include(x => x.PersonelType)
+                .Include(y => y.PersonelInterfaceRestriction)
+                .Include(y => y.PersonelInterfaceRestrictionRelation)
+                    .ThenInclude(x => x.Restriction)
+                .FirstOrDefault(i => i.Email == email && i.Password == password);
 
             if (user != null)
             {
@@ -78,39 +78,31 @@ namespace VeronaAkademi.Panel.Controllers
 
                 var contextAccessor = new HttpContextAccessor();
 
-
                 HttpContext.Session.SetString("Personel", JsonConvert.SerializeObject(user, Formatting.Indented, new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore }));
 
                 //giriş yapan kullanıcının yetkilerini kaydet
-                var kisitlamalar = user.PersonelKisitlamaRelation?.AsEnumerable()
+                var Restrictions = user.PersonelInterfaceRestrictionRelation?.AsEnumerable()
                     .Select(x => new Restriction
                     {
-                        RestrictionId = x.KisitlamaId,
-                        Name = x.Kisitlama.Name,
-                        Grup = x.Kisitlama.Grup,
-                        Controller = x.Kisitlama.Controller,
-                        Action = x.Kisitlama.Action,
-                        NameSpace = x.Kisitlama.NameSpace,
+                        RestrictionId = x.RestrictionId,
+                        Name = x.Restriction.Name,
+                        Group = x.Restriction.Group,
+                        Controller = x.Restriction.Controller,
+                        Action = x.Restriction.Action,
+                        NameSpace = x.Restriction.NameSpace,
 
-                    })
-                    .ToList();
+                    }).ToList();
 
-                contextAccessor.HttpContext?.Session.SetString("Kisitlamalar", JsonConvert.SerializeObject(kisitlamalar));
-
-
+                contextAccessor.HttpContext?.Session.SetString("Restrictions", JsonConvert.SerializeObject(Restrictions));
 
                 var url = !string.IsNullOrEmpty(returnUrl) ? returnUrl : "/";
                 return Redirect(url);
-
-
             }
             else
-            {
                 ViewBag.err = "Kullanıcı adı yada şifre hatalı";
-                return View();
-            }
-        }
 
+            return View();
+        }
 
         [Route("logout")]
         public IActionResult Logout()

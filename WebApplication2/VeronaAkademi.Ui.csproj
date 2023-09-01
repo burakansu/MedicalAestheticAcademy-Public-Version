@@ -7,27 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Views\Shared\_Layout.cshtml.css" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="Views\Basket\Cart.cshtml" />
-    <_ContentIncludedByDefault Remove="Views\Basket\Checked.cshtml" />
-    <_ContentIncludedByDefault Remove="Views\Basket\SideBarBasket.cshtml" />
-    <_ContentIncludedByDefault Remove="Views\Basket\Table.cshtml" />
-    <_ContentIncludedByDefault Remove="Views\CourseUi\Detail.cshtml" />
-    <_ContentIncludedByDefault Remove="Views\CourseUi\Index.cshtml" />
-    <_ContentIncludedByDefault Remove="Views\CourseUi\Reviews.cshtml" />
-    <_ContentIncludedByDefault Remove="Views\CourseUi\SideBarLesson.cshtml" />
-    <_ContentIncludedByDefault Remove="Views\CourseUi\ViewCourse.cshtml" />
-    <_ContentIncludedByDefault Remove="Views\CustomerUi\Index.cshtml" />
-    <_ContentIncludedByDefault Remove="Views\CustomerUi\MyLessons.cshtml" />
-    <_ContentIncludedByDefault Remove="Views\CustomerUi\MyOrderHistory.cshtml" />
-    <_ContentIncludedByDefault Remove="Views\CustomerUi\MyReviews.cshtml" />
-    <_ContentIncludedByDefault Remove="Views\CustomerUi\Profile.cshtml" />
-    <_ContentIncludedByDefault Remove="Views\CustomerUi\Settings.cshtml" />
-    <_ContentIncludedByDefault Remove="Views\LoginUi\Index.cshtml" />
-    <_ContentIncludedByDefault Remove="Views\RegisterUi\Index.cshtml" />
     <_ContentIncludedByDefault Remove="wwwroot\assets\css\plugins\all.min.css" />
     <_ContentIncludedByDefault Remove="wwwroot\assets\css\plugins\animation.css" />
     <_ContentIncludedByDefault Remove="wwwroot\assets\css\plugins\bootstrap-select.min.css" />
@@ -1021,35 +1000,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\VeronaAkademi.Core\VeronaAkademi.Core.csproj" />
-    <ProjectReference Include="..\VeronaAkademi.Data\VeronaAkademi.Data.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="Views\Home\Index.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Update="Views\Home\NavBar.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Update="Views\Shared\Error.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Update="Views\Shared\_ValidationScriptsPartial.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Update="Views\_ViewImports.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
     <Content Update="wwwroot\css\site.css">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Update="wwwroot\favicon.ico">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
@@ -1285,74 +1239,6 @@
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Views\Basket\Cart.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Views\Basket\Checked.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Views\Basket\SideBarBasket.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Views\Basket\Table.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Views\CourseUi\Detail.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Views\CourseUi\Index.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Views\CourseUi\Reviews.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Views\CourseUi\SideBarLesson.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Views\CourseUi\ViewCourse.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Views\CustomerUi\Index.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Views\CustomerUi\MyLessons.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Views\CustomerUi\MyOrderHistory.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Views\CustomerUi\MyReviews.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Views\CustomerUi\Profile.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Views\CustomerUi\Settings.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Views\RegisterUi\Index.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Views\LoginUi\Index.cshtml" />
   </ItemGroup>
 
 </Project>

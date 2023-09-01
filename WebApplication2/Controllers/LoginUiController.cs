@@ -21,6 +21,7 @@ namespace VeronaAkademi.Ui.Controllers
             _config = config;
 
             CustomerIdTag = _config.GetValue<string>("CookieSettings:CustomerIdTag");
+
         }
 
         private Db _db;
@@ -30,7 +31,7 @@ namespace VeronaAkademi.Ui.Controllers
             {
                 if (_db == null)
                     _db = new Db();
-                
+
                 return _db;
             }
         }
@@ -44,17 +45,17 @@ namespace VeronaAkademi.Ui.Controllers
         }
         public IActionResult Entering(Customer customer)
         {
-            int count = Db.Customer.Where(x => x.Email == customer.Email && x.Password == customer.Password).Count();
-
-            if (count > 0)
+            if (Db.Customer
+                .Where(x => x.Email == customer.Email && x.Password == customer.Password)
+                .Count() > 0)
             {
                 CustomerIdTag = "CustomerId";
                 cookieHelper.Set(CustomerIdTag, Db.Customer.First(x => x.Email == customer.Email && x.Password == customer.Password).CustomerId.ToString(), DateTime.Now.AddYears(1));
 
                 return RedirectToAction("Index", "Home");
             }
-            else
-                return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Home");
+
         }
         public IActionResult Logout()
         {

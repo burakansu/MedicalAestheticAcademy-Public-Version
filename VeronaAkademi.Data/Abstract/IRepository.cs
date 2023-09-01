@@ -1,6 +1,5 @@
 ﻿using VeronaAkademi.Data.Custom;
 using System.Linq.Expressions;
-using VeronaAkademi.Data.Entities;
 
 namespace VeronaAkademi.Data.Abstract
 {

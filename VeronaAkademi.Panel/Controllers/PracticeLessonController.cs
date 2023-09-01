@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using VeronaAkademi.Core.Attributes;
-using VeronaAkademi.Core.Helper;
 using VeronaAkademi.Data.Entities;
 
 namespace VeronaAkademi.Panel.Controllers
@@ -21,67 +20,18 @@ namespace VeronaAkademi.Panel.Controllers
         public override IActionResult GetList(int page = 1, int adet = 10)
         {
             var searchText = Request.Query["searchText"].ToString();
-            var orderBy = Request.Query["orderBy"].ToString();
-            var orderWay = Request.Query["orderWay"].ToString();
-
             var model = Db.PracticeLesson
                 .Include(x => x.PracticeLessonCourseRelation)
                     .ThenInclude(x => x.Course)
                 .Include(x => x.PackagePracticeLessonRelation)
                     .ThenInclude(x => x.Package)
-                .Where(x => !x.Silindi)
+                .Where(x => !x.Deleted)
                 .AsQueryable();
 
-            if (page < 1)
-            {
-                page = 1;
-            }
-
             if (!string.IsNullOrEmpty(searchText))
-            {
-                model = model.Where(
-                    x => x.Name.Contains(searchText)
-                    || x.PracticeLessonId.ToString() == searchText
-                    );
-            }
+                model = model.Where(x => x.Name.Contains(searchText));
 
-            var durum = Request.Query["Durum"].ToString();
-            if (!string.IsNullOrEmpty(durum))
-            {
-                bool d = Convert.ToBoolean(durum);
-                model = model.Where(x => x.Aktif == d);
-            }
-
-            var count = model.Count();
-            var pager = new Pager(count, page, adet);
-            pager.SearchText = searchText;
-
-
-            if (!string.IsNullOrEmpty(orderBy))
-            {
-                var _orderWay = !string.IsNullOrEmpty(orderWay) ? orderWay : "Desc";
-                //model = model.OrderBy(orderBy + " " + _orderWay);
-                pager.OrderBy = orderBy;
-                pager.OrderWay = orderWay;
-            }
-            else
-            {
-                model = model.OrderByDescending(x => x.EklemeTarihi);
-            }
-            //sayfala
-            model = model.Skip((page - 1) * adet).Take(adet);
-
-           // ViewBag.Pager = pager;
-            ViewBag.Toplam = count;
-            var data = model.ToList();
-            foreach (var practiceLesson in data)
-            {
-                practiceLesson.PracticeLessonGallery = Db.PracticeLessonGallery
-                    .Where(x => x.PracticeLessonId == practiceLesson.PracticeLessonId)
-                    .ToList();
-            }
-
-            return PartialView(data);
+            return base.GetListModel(model, page, adet);
         }
 
         [Yetki("Pratik Dersler", "PracticeLesson", "")]
@@ -120,8 +70,8 @@ namespace VeronaAkademi.Panel.Controllers
                 {
                     practiceLessonGallery.Image = fileName;
                     practiceLessonGallery.PracticeLessonId = PracticeLessonId;
-                    practiceLessonGallery.EklemeTarihi = DateTime.Now;
-                    practiceLessonGallery.Aktif = true;
+                    practiceLessonGallery.CreateDate = DateTime.Now;
+                    practiceLessonGallery.Active = true;
                     Db.PracticeLessonGallery.Add(practiceLessonGallery);
                     Db.SaveChanges();
 
@@ -132,9 +82,9 @@ namespace VeronaAkademi.Panel.Controllers
             return BadRequest("Geçersiz dosya!");
         }
 
-        public override JsonResult Save(PracticeLesson form)
+        public override JsonResult Kaydet(PracticeLesson form)
         {
-            return base.Save(form);
+            return base.Kaydet(form);
         }
     }
 }

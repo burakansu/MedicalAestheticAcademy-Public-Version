@@ -15,8 +15,9 @@ namespace VeronaAkademi.Ui.Controllers
             get
             {
                 if (_db == null)
+                {
                     _db = new Db();
-                
+                }
                 return _db;
             }
         }

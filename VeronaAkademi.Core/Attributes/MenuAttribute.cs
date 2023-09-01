@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace VeronaAkademi.Core.Attributes
+﻿namespace VeronaAkademi.Core.Attributes
 {
     public class MenuAttribute : Attribute
     {
@@ -18,7 +16,5 @@ namespace VeronaAkademi.Core.Attributes
         public string Parent { get; set; }
         public int Order { get; set; }
         public int ParentOrder { get; set; }
-
-
     }
 }

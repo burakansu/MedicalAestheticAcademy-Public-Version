@@ -10,11 +10,12 @@ namespace VeronaAkademi.Panel.Controllers
         public PracticeLessonGalleryController(IConfiguration config, IHttpContextAccessor httpcontext, IWebHostEnvironment webHostEnvironment) : base(config, httpcontext, webHostEnvironment)
         {
         }
+
         public IActionResult GetImages(int id)
         {
             var model = Db.PracticeLessonGallery.Where(x => x.PracticeLessonId == id)
                 .Include(x => x.PracticeLesson)
-                .Where(x => x.Silindi != true)
+                .Where(x => x.Deleted != true)
                 .ToList();
 
             return PartialView(model);

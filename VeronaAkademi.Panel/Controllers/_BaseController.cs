@@ -13,8 +13,6 @@ using VeronaAkademi.Data.Entities.Base;
 using VeronaAkademi.Data.EntityFramework;
 using System.Linq.Dynamic.Core;
 using System.Collections;
-using System.Collections.Generic;
-using VeronaAkademi.Data.Entities;
 
 namespace VeronaAkademi.Panel.Controllers
 {
@@ -36,7 +34,6 @@ namespace VeronaAkademi.Panel.Controllers
             _webHostEnv = webHostEnv;
             _httpContextAccessor = httpContextAccessor;
             _includeHelper = new DbIncludeHelper();
-
         }
 
 
@@ -46,7 +43,7 @@ namespace VeronaAkademi.Panel.Controllers
             {
                 if (_db == null)
                     _db = new Db();
-                
+
                 return _db;
             }
         }
@@ -121,7 +118,7 @@ namespace VeronaAkademi.Panel.Controllers
                     .Where(x => x.Attributes.Contains(pre))
                     .OrderBy(x => x.Controller).ThenBy(x => x.Action).ToList<dynamic>();
 
-            var kisitlamaListe = Db.Kisitlama.ToList();
+            var RestrictionListe = Db.Restriction.ToList();
             foreach (var yetki in controlleractionlist)
             {
                 var ks = new Restriction();
@@ -134,11 +131,11 @@ namespace VeronaAkademi.Panel.Controllers
                 ks.NameSpace = yetki.NameSpace;
 
 
-                var _yetki = kisitlamaListe.FirstOrDefault(x => x.Controller == yetki.Controller && x.Action == yetki.Action);
+                var _yetki = RestrictionListe.FirstOrDefault(x => x.Controller == yetki.Controller && x.Action == yetki.Action);
                 if (_yetki == null)
                 {
                     //veri tabanına yetkiyi ekle
-                    Db.Kisitlama.Add(ks);
+                    Db.Restriction.Add(ks);
                 }
                 else
                 {
@@ -170,8 +167,8 @@ namespace VeronaAkademi.Panel.Controllers
                 var personelId = Convert.ToInt32(cookieHelper.Get(_personelId));
 
                 var _currentUser = _db.Personel
-                    .Include(x => x.PersonelKisitlamaRelation)
-                    .Include("PersonelKisitlamaRelation.Kisitlama")
+                    .Include(x => x.PersonelInterfaceRestrictionRelation)
+                        .ThenInclude(x => x.Restriction)
                     .FirstOrDefault(i => i.PersonelId == personelId);
 
                 if (HttpContext.Session.GetString("Personel") == null)
@@ -190,10 +187,10 @@ namespace VeronaAkademi.Panel.Controllers
                 {
                     if (RestrictionControlActionList().Any(i => i.Controller == controllerName && i.Action == actionName))
                     {
-                        var yetkiList = _currentUser.PersonelKisitlamaRelation?.Select(s => s.Kisitlama).ToList();
-                        var yetki = yetkiList?.FirstOrDefault(i => i.Controller == controllerName && i.Action == actionName);
-                        var _yetki = Db.Kisitlama.FirstOrDefault(i => i.Controller == controllerName && i.Action == actionName);
-                        if (yetki == null)
+                        var RestrictionList = _currentUser.PersonelInterfaceRestrictionRelation?.Select(s => s.Restriction).ToList();
+                        var Restriction = RestrictionList?.FirstOrDefault(i => i.Controller == controllerName && i.Action == actionName);
+                        var _Restriction = Db.Restriction.FirstOrDefault(i => i.Controller == controllerName && i.Action == actionName);
+                        if (Restriction == null)
                         {
                             var type = filterContext.HttpContext.Request.Headers["X-Requested-With"].ToString();
                             if (type == "XMLHttpRequest")
@@ -205,7 +202,7 @@ namespace VeronaAkademi.Panel.Controllers
                                 {
                                     Description = "Bu işlemi yapmak için yetkiniz yok",
                                     Success = false,
-                                    Data = _yetki?.TargetDivId
+                                    Data = _Restriction?.TargetDivId
 
                                 };
 
@@ -226,7 +223,6 @@ namespace VeronaAkademi.Panel.Controllers
             }
             base.OnActionExecuting(filterContext);
         }
-
     }
 
     public class BaseController<T> : BaseController where T : BaseEntity
@@ -248,16 +244,16 @@ namespace VeronaAkademi.Panel.Controllers
         {
         }
 
-        public virtual JsonResult Save(T form)
+        public virtual JsonResult Kaydet(T form)
         {
 
             var response = new Response<List<string>>();
 
             if (form.tempId == 0)
             {
-                form.EklemeTarihi = DateTime.Now;
-                form.Aktif = true;
-                form.Silindi = false;
+                form.CreateDate = DateTime.Now;
+                form.Active = true;
+                form.Deleted = false;
                 dbset.Add(form);
                 Db.SaveChanges();
                 response.Success = true;
@@ -280,9 +276,7 @@ namespace VeronaAkademi.Panel.Controllers
                     entity = model.FirstOrDefault(o => EF.Property<int>(o, Db.Model.FindEntityType(typeof(T)).FindPrimaryKey().Properties[0].Name) == form.tempId);
                 }
                 else
-                {
                     entity = dbset.Find(form.tempId);
-                }
 
 
                 if (entity != null)
@@ -296,7 +290,7 @@ namespace VeronaAkademi.Panel.Controllers
                             prop.SetValue(entity, form.GetType().GetProperty(prop.Name).GetValue(form, null));
                         }
                     }
-                    entity.GuncellemeTarihi = DateTime.Now;
+                    entity.UpdateDate = DateTime.Now;
 
                     // İlişkili özellikler
                     var relatedPropList = entity.GetType().GetProperties().Where(prop => prop.PropertyType.IsGenericType && prop.PropertyType.GetGenericTypeDefinition() == typeof(ICollection<>)).ToList();
@@ -334,25 +328,24 @@ namespace VeronaAkademi.Panel.Controllers
                     response.Success = false;
                     response.Description = "kayıt bulunamadı.";
                 }
-
             }
 
             return Json(response);
         }
 
-        public virtual JsonResult Sitation(int id)
+        public virtual JsonResult Durum(int id)
         {
             var response = new Response();
             var model = dbset.Find(id);
             if (model != null)
             {
-                var durum = model.Aktif == true ? false : true;
-                var title = model.Aktif == true ? "Pasif" : "Aktif";
-                model.Aktif = durum;
-                if (durum == true)
-                {
-                    model.Silindi = false;
-                }
+                var status = model.Active == true ? false : true;
+                var title = model.Active == true ? "Pasif" : "Aktif";
+                model.Active = status;
+
+                if (status == true)
+                    model.Deleted = false;
+                
                 Db.SaveChanges();
                 response.Success = true;
                 response.Description = "kayıt " + title + " edildi";
@@ -363,14 +356,14 @@ namespace VeronaAkademi.Panel.Controllers
             return Json(response);
         }
 
-        public virtual JsonResult Delete(int id)
+        public virtual JsonResult Sil(int id)
         {
             var response = new Response();
             var model = dbset.Find(id);
             if (model != null)
             {
-                model.Aktif = false;
-                model.Silindi = true;
+                model.Active = false;
+                model.Deleted = true;
                 Db.SaveChanges();
                 response.Success = true;
                 response.Description = "kayıt silindi";
@@ -388,7 +381,6 @@ namespace VeronaAkademi.Panel.Controllers
 
             var dbInclude = _includeHelper.GetField(typeof(T).Name);
 
-
             if (dbInclude != null)
             {
                 foreach (var include in dbInclude)
@@ -398,9 +390,7 @@ namespace VeronaAkademi.Panel.Controllers
                 model = list.FirstOrDefault(o => EF.Property<int>(o, Db.Model.FindEntityType(typeof(T)).FindPrimaryKey().Properties[0].Name) == id);
             }
             else
-            {
                 model = dbset.Find(id);
-            }
 
             ViewBag.relationId = relationId;
 
@@ -413,41 +403,39 @@ namespace VeronaAkademi.Panel.Controllers
 
         public virtual IActionResult GetList(int page = 1, int adet = 10)
         {
+            return GetListModel(repo.GetAll(x => !x.Deleted), page, adet);
+        }
+        public IActionResult GetListModel(IQueryable<T> model, int page = 1, int adet = 10, List<string> Filter = null)
+        {
             var searchText = Request.Query["searchText"].ToString();
             var orderBy = Request.Query["orderBy"].ToString();
             var orderWay = Request.Query["orderWay"].ToString();
 
-            var model = repo.GetAll(x => !x.Silindi);
-
             if (page < 1)
-            {
                 page = 1;
-            }
 
             var count = model.Count();
             var pager = new Pager(count, page, adet);
             pager.SearchText = searchText;
+
             if (!string.IsNullOrEmpty(orderBy))
             {
                 var _orderWay = !string.IsNullOrEmpty(orderWay) ? orderWay : "Desc";
                 model = model.OrderBy(orderBy + " " + _orderWay);
             }
             else
-            {
-                model = model.OrderByDescending(x => x.EklemeTarihi);
-            }
+                model = model.OrderByDescending(x => x.CreateDate);
 
-            //sayfala
+
             model = model.Skip((page - 1) * adet).Take(adet);
 
             ViewBag.Pager = pager;
             ViewBag.Toplam = count;
-            var data = model.ToList();
 
-            return PartialView(data);
+            return PartialView(model.Where(x => !x.Deleted).ToList());
         }
 
-        public virtual JsonResult MultipleDelete(List<int> selectedValues)
+        public virtual JsonResult TopluSil(List<int> selectedValues)
         {
             var response = new Response();
             int count = 0;
@@ -458,8 +446,8 @@ namespace VeronaAkademi.Panel.Controllers
                     try
                     {
                         var entity = repo.Get(item);
-                        entity.Silindi = true;
-                        entity.Aktif = false;
+                        entity.Deleted = true;
+                        entity.Active = false;
                         repo.Update(entity);
                         count++;
                     }
@@ -479,7 +467,7 @@ namespace VeronaAkademi.Panel.Controllers
             return Json(response);
 
         }
-        public virtual JsonResult MultipleActive(List<int> selectedValues)
+        public virtual JsonResult TopluAktif(List<int> selectedValues)
         {
             var response = new Response();
             int count = 0;
@@ -490,8 +478,8 @@ namespace VeronaAkademi.Panel.Controllers
                     try
                     {
                         var entity = repo.Get(item);
-                        entity.Silindi = false;
-                        entity.Aktif = true;
+                        entity.Deleted = false;
+                        entity.Active = true;
                         repo.Update(entity);
                         count++;
                     }
@@ -508,10 +496,10 @@ namespace VeronaAkademi.Panel.Controllers
                 response.Success = false;
                 response.Description = "en az bir adet kayıt seçmeniz gerekiyor.";
             }
-            return Json(response);
 
+            return Json(response);
         }
-        public virtual JsonResult MultiplePassive(List<int> selectedValues)
+        public virtual JsonResult TopluPasif(List<int> selectedValues)
         {
             var response = new Response();
             int count = 0;
@@ -522,7 +510,7 @@ namespace VeronaAkademi.Panel.Controllers
                     try
                     {
                         var entity = repo.Get(item);
-                        entity.Aktif = false;
+                        entity.Active = false;
                         repo.Update(entity);
                         count++;
                     }
@@ -539,8 +527,8 @@ namespace VeronaAkademi.Panel.Controllers
                 response.Success = false;
                 response.Description = "en az bir adet kayıt seçmeniz gerekiyor.";
             }
-            return Json(response);
 
+            return Json(response);
         }
     }
 

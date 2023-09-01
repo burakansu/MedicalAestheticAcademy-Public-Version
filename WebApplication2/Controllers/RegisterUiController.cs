@@ -29,9 +29,9 @@ namespace VeronaAkademi.Ui.Controllers
             try
             {
                 customer.CurrencyId = 1;
-                customer.EklemeTarihi = DateTime.Now;
-                customer.Aktif = true;
-                customer.Silindi = false;
+                customer.CreateDate = DateTime.Now;
+                customer.Active = true;
+                customer.Deleted = false;
                 if (customer.Image == null)
                     customer.Image = "AvatarNull.png";
                 Db.Customer.Add(customer);

@@ -30,17 +30,17 @@ namespace VeronaAkademi.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AdvisorId"));
 
-                    b.Property<bool>("Aktif")
+                    b.Property<bool>("Active")
                         .HasColumnType("bit");
+
+                    b.Property<DateTime?>("CreateDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("CurrencyId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("EklemeTarihi")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("GuncellemeTarihi")
-                        .HasColumnType("datetime2");
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
 
                     b.Property<int>("LecturerId")
                         .HasColumnType("int");
@@ -49,17 +49,17 @@ namespace VeronaAkademi.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Price")
+                    b.Property<int?>("Order")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Silindi")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("Sira")
+                    b.Property<int>("Price")
                         .HasColumnType("int");
 
                     b.Property<int>("Type")
                         .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("AdvisorId");
 
@@ -78,26 +78,26 @@ namespace VeronaAkademi.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AdvisorCourseRelationId"));
 
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
                     b.Property<int>("AdvisorId")
                         .HasColumnType("int");
-
-                    b.Property<bool>("Aktif")
-                        .HasColumnType("bit");
 
                     b.Property<int>("CourseId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("EklemeTarihi")
+                    b.Property<DateTime?>("CreateDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("GuncellemeTarihi")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("Silindi")
+                    b.Property<bool>("Deleted")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("Sira")
+                    b.Property<int?>("Order")
                         .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("AdvisorCourseRelationId");
 
@@ -108,65 +108,232 @@ namespace VeronaAkademi.Data.Migrations
                     b.ToTable("AdvisorCourseRelation");
                 });
 
-            modelBuilder.Entity("VeronaAkademi.Data.Entities.Base.ArayuzKisitlama", b =>
+            modelBuilder.Entity("VeronaAkademi.Data.Entities.Anamnez", b =>
                 {
-                    b.Property<int>("ArayuzKisitlamaId")
+                    b.Property<int>("AnamnezId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ArayuzKisitlamaId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AnamnezId"));
 
-                    b.Property<string>("Aciklama")
-                        .IsRequired()
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("AdvisorId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Allergies")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Adi")
-                        .IsRequired()
+                    b.Property<DateTime?>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Diagnosis")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Grup")
-                        .IsRequired()
+                    b.Property<string>("FullName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ArayuzKisitlamaId");
+                    b.Property<int?>("Order")
+                        .HasColumnType("int");
 
-                    b.ToTable("ArayuzKisitlama");
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("AnamnezId");
+
+                    b.HasIndex("AdvisorId");
+
+                    b.HasIndex("CustomerId");
+
+                    b.ToTable("Anamnez");
                 });
 
-            modelBuilder.Entity("VeronaAkademi.Data.Entities.Base.Departman", b =>
+            modelBuilder.Entity("VeronaAkademi.Data.Entities.Base.Department", b =>
                 {
-                    b.Property<int>("DepartmanId")
+                    b.Property<int>("DepartmentId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DepartmanId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DepartmentId"));
 
-                    b.Property<string>("Adi")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("DepartmanId");
+                    b.HasKey("DepartmentId");
 
-                    b.ToTable("Departman");
+                    b.ToTable("Department");
                 });
 
-            modelBuilder.Entity("VeronaAkademi.Data.Entities.Base.Kisitlama", b =>
+            modelBuilder.Entity("VeronaAkademi.Data.Entities.Base.InterfaceRestriction", b =>
                 {
-                    b.Property<int>("KisitlamaId")
+                    b.Property<int>("InterfaceRestrictionId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("KisitlamaId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("InterfaceRestrictionId"));
 
-                    b.Property<string>("Aciklama")
+                    b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Group")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("InterfaceRestrictionId");
+
+                    b.ToTable("InterfaceRestriction");
+                });
+
+            modelBuilder.Entity("VeronaAkademi.Data.Entities.Base.Personel", b =>
+                {
+                    b.Property<int>("PersonelId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PersonelId"));
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("DepartmentId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Head")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Order")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PersonelTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("PersonelId");
+
+                    b.HasIndex("DepartmentId");
+
+                    b.HasIndex("PersonelTypeId");
+
+                    b.ToTable("Personel");
+                });
+
+            modelBuilder.Entity("VeronaAkademi.Data.Entities.Base.PersonelInterfaceRestriction", b =>
+                {
+                    b.Property<int>("PersonelInterfaceRestrictionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PersonelInterfaceRestrictionId"));
+
+                    b.Property<int>("InterfaceRestrictionId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PersonelId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PersonelInterfaceRestrictionId");
+
+                    b.HasIndex("InterfaceRestrictionId");
+
+                    b.HasIndex("PersonelId");
+
+                    b.ToTable("PersonelInterfaceRestriction");
+                });
+
+            modelBuilder.Entity("VeronaAkademi.Data.Entities.Base.PersonelInterfaceRestrictionRelation", b =>
+                {
+                    b.Property<int>("PersonelInterfaceRestrictionRelationId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PersonelInterfaceRestrictionRelationId"));
+
+                    b.Property<int>("PersonelId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RestrictionId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PersonelInterfaceRestrictionRelationId");
+
+                    b.HasIndex("PersonelId");
+
+                    b.HasIndex("RestrictionId");
+
+                    b.ToTable("PersonelInterfaceRestrictionRelation");
+                });
+
+            modelBuilder.Entity("VeronaAkademi.Data.Entities.Base.PersonelType", b =>
+                {
+                    b.Property<int>("PersonelTypeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PersonelTypeId"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("PersonelTypeId");
+
+                    b.ToTable("PersonelType");
+                });
+
+            modelBuilder.Entity("VeronaAkademi.Data.Entities.Base.Restriction", b =>
+                {
+                    b.Property<int>("RestrictionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RestrictionId"));
 
                     b.Property<string>("Action")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Adi")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -174,7 +341,15 @@ namespace VeronaAkademi.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Grup")
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Group")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -186,18 +361,18 @@ namespace VeronaAkademi.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("KisitlamaId");
+                    b.HasKey("RestrictionId");
 
-                    b.ToTable("Kisitlama");
+                    b.ToTable("Restriction");
                 });
 
-            modelBuilder.Entity("VeronaAkademi.Data.Entities.Base.KisitlamaControllerAction", b =>
+            modelBuilder.Entity("VeronaAkademi.Data.Entities.Base.RestrictionControllerAction", b =>
                 {
-                    b.Property<int>("KisitlamaControllerActionId")
+                    b.Property<int>("RestrictionControllerActionId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("KisitlamaControllerActionId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RestrictionControllerActionId"));
 
                     b.Property<string>("Action")
                         .IsRequired()
@@ -207,139 +382,14 @@ namespace VeronaAkademi.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("KisitlamaId")
+                    b.Property<int>("RestrictionId")
                         .HasColumnType("int");
 
-                    b.HasKey("KisitlamaControllerActionId");
+                    b.HasKey("RestrictionControllerActionId");
 
-                    b.HasIndex("KisitlamaId");
+                    b.HasIndex("RestrictionId");
 
-                    b.ToTable("KisitlamaControllerAction");
-                });
-
-            modelBuilder.Entity("VeronaAkademi.Data.Entities.Base.Personel", b =>
-                {
-                    b.Property<int>("PersonelId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PersonelId"));
-
-                    b.Property<string>("Adi")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Aktif")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("DepartmanId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("EklemeTarihi")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Eposta")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("GuncellemeTarihi")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Kod")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Parola")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PersonelTipId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("Silindi")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("Sira")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Telefon")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Unvan")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("PersonelId");
-
-                    b.HasIndex("DepartmanId");
-
-                    b.HasIndex("PersonelTipId");
-
-                    b.ToTable("Personel");
-                });
-
-            modelBuilder.Entity("VeronaAkademi.Data.Entities.Base.PersonelArayuzKisitlama", b =>
-                {
-                    b.Property<int>("PersonelArayuzKisitlamaId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PersonelArayuzKisitlamaId"));
-
-                    b.Property<int>("ArayuzKisitlamaId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PersonelId")
-                        .HasColumnType("int");
-
-                    b.HasKey("PersonelArayuzKisitlamaId");
-
-                    b.HasIndex("ArayuzKisitlamaId");
-
-                    b.HasIndex("PersonelId");
-
-                    b.ToTable("PersonelArayuzKisitlama");
-                });
-
-            modelBuilder.Entity("VeronaAkademi.Data.Entities.Base.PersonelKisitlamaRelation", b =>
-                {
-                    b.Property<int>("PersonelKisitlamaRelationId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PersonelKisitlamaRelationId"));
-
-                    b.Property<int>("KisitlamaId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PersonelId")
-                        .HasColumnType("int");
-
-                    b.HasKey("PersonelKisitlamaRelationId");
-
-                    b.HasIndex("KisitlamaId");
-
-                    b.HasIndex("PersonelId");
-
-                    b.ToTable("PersonelKisitlamaRelation");
-                });
-
-            modelBuilder.Entity("VeronaAkademi.Data.Entities.Base.PersonelTip", b =>
-                {
-                    b.Property<int>("PersonelTipId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PersonelTipId"));
-
-                    b.Property<string>("Adi")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("PersonelTipId");
-
-                    b.ToTable("PersonelTip");
+                    b.ToTable("RestrictionControllerAction");
                 });
 
             modelBuilder.Entity("VeronaAkademi.Data.Entities.Basket", b =>
@@ -378,30 +428,30 @@ namespace VeronaAkademi.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CategoryId"));
 
-                    b.Property<bool>("Aktif")
+                    b.Property<bool>("Active")
                         .HasColumnType("bit");
 
                     b.Property<int>("CategoryGroupId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("EklemeTarihi")
+                    b.Property<DateTime?>("CreateDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("GuncellemeTarihi")
-                        .HasColumnType("datetime2");
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("Order")
+                        .HasColumnType("int");
+
                     b.Property<int?>("ParentId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Silindi")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("Sira")
-                        .HasColumnType("int");
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("CategoryId");
 
@@ -420,28 +470,78 @@ namespace VeronaAkademi.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CategoryGroupId"));
 
-                    b.Property<bool>("Aktif")
+                    b.Property<bool>("Active")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime?>("EklemeTarihi")
+                    b.Property<DateTime?>("CreateDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("GuncellemeTarihi")
-                        .HasColumnType("datetime2");
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("Silindi")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("Sira")
+                    b.Property<int?>("Order")
                         .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("CategoryGroupId");
 
                     b.ToTable("CategoryGroup");
+                });
+
+            modelBuilder.Entity("VeronaAkademi.Data.Entities.ClinicalExam", b =>
+                {
+                    b.Property<int>("ClinicalExamId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ClinicalExamId"));
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("AdvisorId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ExamDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ExamType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Order")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Results")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Temperature")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("ClinicalExamId");
+
+                    b.HasIndex("AdvisorId");
+
+                    b.HasIndex("CustomerId");
+
+                    b.ToTable("ClinicalExam");
                 });
 
             modelBuilder.Entity("VeronaAkademi.Data.Entities.Course", b =>
@@ -452,24 +552,24 @@ namespace VeronaAkademi.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CourseId"));
 
-                    b.Property<bool>("Aktif")
+                    b.Property<bool>("Active")
                         .HasColumnType("bit");
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime?>("CreateDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("CurrencyId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("EklemeTarihi")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("GuncellemeTarihi")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("Image")
                         .IsRequired()
@@ -479,18 +579,18 @@ namespace VeronaAkademi.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Price")
+                    b.Property<int?>("Order")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Silindi")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("Sira")
+                    b.Property<int>("Price")
                         .HasColumnType("int");
 
                     b.Property<string>("Source")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("CourseId");
 
@@ -526,21 +626,21 @@ namespace VeronaAkademi.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CustomerId"));
 
-                    b.Property<bool>("Aktif")
+                    b.Property<bool>("Active")
                         .HasColumnType("bit");
+
+                    b.Property<DateTime?>("CreateDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("CurrencyId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("EklemeTarihi")
-                        .HasColumnType("datetime2");
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("GuncellemeTarihi")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("Image")
                         .IsRequired()
@@ -550,6 +650,9 @@ namespace VeronaAkademi.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("Order")
+                        .HasColumnType("int");
+
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -558,11 +661,8 @@ namespace VeronaAkademi.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("Silindi")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("Sira")
-                        .HasColumnType("int");
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("CustomerId");
 
@@ -692,6 +792,107 @@ namespace VeronaAkademi.Data.Migrations
                     b.ToTable("CustomerPracticeLessonRelation");
                 });
 
+            modelBuilder.Entity("VeronaAkademi.Data.Entities.Form", b =>
+                {
+                    b.Property<int>("FormId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FormId"));
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("AdvisorId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("BottomOkluzal")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("FrontProfile")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FrontProfileMounth")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FrontProfileRelax")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FrontProfileSmile")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HandAnkleFilm")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LeftProfile")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Order")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PanaromicXRay")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProfileMounth")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProfileRelax")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProfileSmile")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RightProfile")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpperAndLowerPlasterModel_WaxClosure")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UpperOkluzal")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("İnnerNoiseSmilePhoto")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("FormId");
+
+                    b.HasIndex("AdvisorId");
+
+                    b.HasIndex("CustomerId");
+
+                    b.ToTable("Form");
+                });
+
             modelBuilder.Entity("VeronaAkademi.Data.Entities.Lecturer", b =>
                 {
                     b.Property<int>("LecturerId")
@@ -700,18 +901,18 @@ namespace VeronaAkademi.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LecturerId"));
 
-                    b.Property<bool>("Aktif")
+                    b.Property<bool>("Active")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime?>("EklemeTarihi")
+                    b.Property<DateTime?>("CreateDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("GuncellemeTarihi")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("Image")
                         .IsRequired()
@@ -721,11 +922,11 @@ namespace VeronaAkademi.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("Silindi")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("Sira")
+                    b.Property<int?>("Order")
                         .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("LecturerId");
 
@@ -740,26 +941,26 @@ namespace VeronaAkademi.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LecturerCourseRelationId"));
 
-                    b.Property<bool>("Aktif")
+                    b.Property<bool>("Active")
                         .HasColumnType("bit");
 
                     b.Property<int>("CourseId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("EklemeTarihi")
+                    b.Property<DateTime?>("CreateDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("GuncellemeTarihi")
-                        .HasColumnType("datetime2");
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
 
                     b.Property<int>("LecturerId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Silindi")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("Sira")
+                    b.Property<int?>("Order")
                         .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("LecturerCourseRelationId");
 
@@ -778,14 +979,20 @@ namespace VeronaAkademi.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LessonId"));
 
-                    b.Property<bool>("Aktif")
+                    b.Property<bool>("Active")
                         .HasColumnType("bit");
 
                     b.Property<int>("CourseId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime?>("CreateDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("CurrencyId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -793,12 +1000,6 @@ namespace VeronaAkademi.Data.Migrations
 
                     b.Property<int>("Duration")
                         .HasColumnType("int");
-
-                    b.Property<DateTime?>("EklemeTarihi")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("GuncellemeTarihi")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("Image")
                         .IsRequired()
@@ -811,18 +1012,18 @@ namespace VeronaAkademi.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Price")
+                    b.Property<int?>("Order")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Silindi")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("Sira")
+                    b.Property<int>("Price")
                         .HasColumnType("int");
 
                     b.Property<string>("Source")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("LessonId");
 
@@ -843,33 +1044,33 @@ namespace VeronaAkademi.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MessageId"));
 
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
                     b.Property<int>("AdvisorId")
                         .HasColumnType("int");
-
-                    b.Property<bool>("Aktif")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Contents")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime?>("CreateDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("EklemeTarihi")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("GuncellemeTarihi")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("Silindi")
+                    b.Property<bool>("Deleted")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("Sira")
+                    b.Property<int?>("Order")
                         .HasColumnType("int");
 
                     b.Property<int>("Type")
                         .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("MessageId");
 
@@ -888,32 +1089,32 @@ namespace VeronaAkademi.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderId"));
 
-                    b.Property<bool>("Aktif")
+                    b.Property<bool>("Active")
                         .HasColumnType("bit");
+
+                    b.Property<DateTime?>("CreateDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("EklemeTarihi")
-                        .HasColumnType("datetime2");
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("FinishDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("GuncellemeTarihi")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
+                    b.Property<int?>("Order")
+                        .HasColumnType("int");
+
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Silindi")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("Sira")
-                        .HasColumnType("int");
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("OrderId");
 
@@ -932,34 +1133,34 @@ namespace VeronaAkademi.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PackageId"));
 
-                    b.Property<bool>("Aktif")
+                    b.Property<bool>("Active")
                         .HasColumnType("bit");
+
+                    b.Property<DateTime?>("CreateDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("CurrencyId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("EklemeTarihi")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("GuncellemeTarihi")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("Order")
+                        .HasColumnType("int");
+
                     b.Property<int>("Price")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Silindi")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("Sira")
-                        .HasColumnType("int");
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("PackageId");
 
@@ -976,31 +1177,31 @@ namespace VeronaAkademi.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PackageAdvisorRelationId"));
 
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
                     b.Property<int>("AdvisorId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Aktif")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("EklemeTarihi")
+                    b.Property<DateTime?>("CreateDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("FinishDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("GuncellemeTarihi")
-                        .HasColumnType("datetime2");
+                    b.Property<int?>("Order")
+                        .HasColumnType("int");
 
                     b.Property<int>("PackageId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Silindi")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("Sira")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("UpdateDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("PackageAdvisorRelationId");
@@ -1020,31 +1221,31 @@ namespace VeronaAkademi.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PackageCourseRelationId"));
 
-                    b.Property<bool>("Aktif")
+                    b.Property<bool>("Active")
                         .HasColumnType("bit");
 
                     b.Property<int>("CourseId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("EklemeTarihi")
+                    b.Property<DateTime?>("CreateDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("FinishDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("GuncellemeTarihi")
-                        .HasColumnType("datetime2");
+                    b.Property<int?>("Order")
+                        .HasColumnType("int");
 
                     b.Property<int>("PackageId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Silindi")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("Sira")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("UpdateDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("PackageCourseRelationId");
@@ -1064,17 +1265,20 @@ namespace VeronaAkademi.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PackagePracticeLessonRelationId"));
 
-                    b.Property<bool>("Aktif")
+                    b.Property<bool>("Active")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime?>("EklemeTarihi")
+                    b.Property<DateTime?>("CreateDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("FinishDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("GuncellemeTarihi")
-                        .HasColumnType("datetime2");
+                    b.Property<int?>("Order")
+                        .HasColumnType("int");
 
                     b.Property<int>("PackageId")
                         .HasColumnType("int");
@@ -1082,13 +1286,10 @@ namespace VeronaAkademi.Data.Migrations
                     b.Property<int>("PracticeLessonId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Silindi")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("Sira")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("UpdateDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("PackagePracticeLessonRelationId");
@@ -1108,31 +1309,31 @@ namespace VeronaAkademi.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PracticeLessonId"));
 
-                    b.Property<bool>("Aktif")
+                    b.Property<bool>("Active")
                         .HasColumnType("bit");
+
+                    b.Property<DateTime?>("CreateDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("EklemeTarihi")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("GuncellemeTarihi")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("Silindi")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("Sira")
+                    b.Property<int?>("Order")
                         .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("PracticeLessonId");
 
@@ -1147,26 +1348,26 @@ namespace VeronaAkademi.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PracticeLessonCourseRelationId"));
 
-                    b.Property<bool>("Aktif")
+                    b.Property<bool>("Active")
                         .HasColumnType("bit");
 
                     b.Property<int>("CourseId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("EklemeTarihi")
+                    b.Property<DateTime?>("CreateDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("GuncellemeTarihi")
-                        .HasColumnType("datetime2");
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("Order")
+                        .HasColumnType("int");
 
                     b.Property<int>("PracticeLessonId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Silindi")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("Sira")
-                        .HasColumnType("int");
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("PracticeLessonCourseRelationId");
 
@@ -1185,27 +1386,27 @@ namespace VeronaAkademi.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PracticeLessonGalleryId"));
 
-                    b.Property<bool>("Aktif")
+                    b.Property<bool>("Active")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime?>("EklemeTarihi")
+                    b.Property<DateTime?>("CreateDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("GuncellemeTarihi")
-                        .HasColumnType("datetime2");
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Image")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("Order")
+                        .HasColumnType("int");
+
                     b.Property<int>("PracticeLessonId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Silindi")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("Sira")
-                        .HasColumnType("int");
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("PracticeLessonGalleryId");
 
@@ -1241,14 +1442,14 @@ namespace VeronaAkademi.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProfessionId"));
 
-                    b.Property<bool>("Aktif")
+                    b.Property<bool>("Active")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime?>("EklemeTarihi")
+                    b.Property<DateTime?>("CreateDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("GuncellemeTarihi")
-                        .HasColumnType("datetime2");
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Image")
                         .IsRequired()
@@ -1258,11 +1459,11 @@ namespace VeronaAkademi.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("Silindi")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("Sira")
+                    b.Property<int?>("Order")
                         .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("ProfessionId");
 
@@ -1277,26 +1478,26 @@ namespace VeronaAkademi.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProfessionCourseRelationId"));
 
-                    b.Property<bool>("Aktif")
+                    b.Property<bool>("Active")
                         .HasColumnType("bit");
 
                     b.Property<int>("CourseId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("EklemeTarihi")
+                    b.Property<DateTime?>("CreateDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("GuncellemeTarihi")
-                        .HasColumnType("datetime2");
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("Order")
+                        .HasColumnType("int");
 
                     b.Property<int>("ProfessionId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Silindi")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("Sira")
-                        .HasColumnType("int");
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("ProfessionCourseRelationId");
 
@@ -1315,36 +1516,36 @@ namespace VeronaAkademi.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ReviewId"));
 
-                    b.Property<bool>("Aktif")
+                    b.Property<bool>("Active")
                         .HasColumnType("bit");
 
                     b.Property<bool>("Approved")
                         .HasColumnType("bit");
 
+                    b.Property<DateTime?>("CreateDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("EklemeTarihi")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("GuncellemeTarihi")
-                        .HasColumnType("datetime2");
-
                     b.Property<int>("LessonId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Silindi")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("Sira")
+                    b.Property<int?>("Order")
                         .HasColumnType("int");
 
                     b.Property<int>("StarRate")
                         .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("ReviewId");
 
@@ -1363,27 +1564,27 @@ namespace VeronaAkademi.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SkillId"));
 
-                    b.Property<bool>("Aktif")
+                    b.Property<bool>("Active")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime?>("EklemeTarihi")
+                    b.Property<DateTime?>("CreateDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("GuncellemeTarihi")
-                        .HasColumnType("datetime2");
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("Silindi")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("Sira")
+                    b.Property<int?>("Order")
                         .HasColumnType("int");
 
                     b.Property<int>("SkillGroupId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("SkillId");
 
@@ -1400,26 +1601,26 @@ namespace VeronaAkademi.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SkillCourseRelationId"));
 
-                    b.Property<bool>("Aktif")
+                    b.Property<bool>("Active")
                         .HasColumnType("bit");
 
                     b.Property<int>("CourseId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("EklemeTarihi")
+                    b.Property<DateTime?>("CreateDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("GuncellemeTarihi")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("Silindi")
+                    b.Property<bool>("Deleted")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("Sira")
+                    b.Property<int?>("Order")
                         .HasColumnType("int");
 
                     b.Property<int>("SkillId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("SkillCourseRelationId");
 
@@ -1438,77 +1639,28 @@ namespace VeronaAkademi.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SkillGroupId"));
 
-                    b.Property<bool>("Aktif")
+                    b.Property<bool>("Active")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime?>("EklemeTarihi")
+                    b.Property<DateTime?>("CreateDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("GuncellemeTarihi")
-                        .HasColumnType("datetime2");
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("Silindi")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("Sira")
+                    b.Property<int?>("Order")
                         .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("SkillGroupId");
 
                     b.ToTable("SkillGroup");
-                });
-
-            modelBuilder.Entity("VeronaAkademi.Data.Entities.Test", b =>
-                {
-                    b.Property<int>("TestId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TestId"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("TestId");
-
-                    b.ToTable("Test");
-                });
-
-            modelBuilder.Entity("VeronaAkademi.Data.Entities.TestEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<bool>("Aktif")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("EklemeTarihi")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("GuncellemeTarihi")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Silindi")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("Sira")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TestEntity");
                 });
 
             modelBuilder.Entity("VeronaAkademi.Data.Entities.Trailer", b =>
@@ -1519,41 +1671,108 @@ namespace VeronaAkademi.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TrailerId"));
 
-                    b.Property<bool>("Aktif")
+                    b.Property<bool>("Active")
                         .HasColumnType("bit");
 
                     b.Property<int>("CourseId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime?>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("EklemeTarihi")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("GuncellemeTarihi")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("Silindi")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("Sira")
+                    b.Property<int?>("Order")
                         .HasColumnType("int");
 
                     b.Property<string>("Source")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("TrailerId");
 
                     b.HasIndex("CourseId");
 
                     b.ToTable("Trailer");
+                });
+
+            modelBuilder.Entity("VeronaAkademi.Data.Entities.WebSiteData", b =>
+                {
+                    b.Property<int>("WebsiteDataId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("WebsiteDataId"));
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Adress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Facebook")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HeaderFirst")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HeaderSecondary")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Instagram")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Linkedin")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Order")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PrivacyPolicy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TextReccommendedCourses")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TextReccommendedSkill")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TextStudentFeedback")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Twitter")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("WebsiteDataId");
+
+                    b.ToTable("WebSiteData");
                 });
 
             modelBuilder.Entity("VeronaAkademi.Data.Entities.Advisor", b =>
@@ -1594,72 +1813,91 @@ namespace VeronaAkademi.Data.Migrations
                     b.Navigation("Course");
                 });
 
-            modelBuilder.Entity("VeronaAkademi.Data.Entities.Base.KisitlamaControllerAction", b =>
+            modelBuilder.Entity("VeronaAkademi.Data.Entities.Anamnez", b =>
                 {
-                    b.HasOne("VeronaAkademi.Data.Entities.Base.Kisitlama", "Kisitlama")
-                        .WithMany("KisitlamaControllerAction")
-                        .HasForeignKey("KisitlamaId")
+                    b.HasOne("VeronaAkademi.Data.Entities.Advisor", "Advisor")
+                        .WithMany()
+                        .HasForeignKey("AdvisorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Kisitlama");
+                    b.HasOne("VeronaAkademi.Data.Entities.Customer", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Advisor");
+
+                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("VeronaAkademi.Data.Entities.Base.Personel", b =>
                 {
-                    b.HasOne("VeronaAkademi.Data.Entities.Base.Departman", "Departman")
+                    b.HasOne("VeronaAkademi.Data.Entities.Base.Department", "Department")
                         .WithMany("Personel")
-                        .HasForeignKey("DepartmanId")
+                        .HasForeignKey("DepartmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("VeronaAkademi.Data.Entities.Base.PersonelTip", "PersonelTip")
+                    b.HasOne("VeronaAkademi.Data.Entities.Base.PersonelType", "PersonelType")
                         .WithMany("Personel")
-                        .HasForeignKey("PersonelTipId")
+                        .HasForeignKey("PersonelTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Departman");
+                    b.Navigation("Department");
 
-                    b.Navigation("PersonelTip");
+                    b.Navigation("PersonelType");
                 });
 
-            modelBuilder.Entity("VeronaAkademi.Data.Entities.Base.PersonelArayuzKisitlama", b =>
+            modelBuilder.Entity("VeronaAkademi.Data.Entities.Base.PersonelInterfaceRestriction", b =>
                 {
-                    b.HasOne("VeronaAkademi.Data.Entities.Base.ArayuzKisitlama", "ArayuzKisitlama")
-                        .WithMany("PersonelArayuzKisitlama")
-                        .HasForeignKey("ArayuzKisitlamaId")
+                    b.HasOne("VeronaAkademi.Data.Entities.Base.InterfaceRestriction", "InterfaceRestriction")
+                        .WithMany("PersonelInterfaceRestriction")
+                        .HasForeignKey("InterfaceRestrictionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("VeronaAkademi.Data.Entities.Base.Personel", "Personel")
-                        .WithMany("PersonelArayuzKisitlama")
+                        .WithMany("PersonelInterfaceRestriction")
                         .HasForeignKey("PersonelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ArayuzKisitlama");
+                    b.Navigation("InterfaceRestriction");
 
                     b.Navigation("Personel");
                 });
 
-            modelBuilder.Entity("VeronaAkademi.Data.Entities.Base.PersonelKisitlamaRelation", b =>
+            modelBuilder.Entity("VeronaAkademi.Data.Entities.Base.PersonelInterfaceRestrictionRelation", b =>
                 {
-                    b.HasOne("VeronaAkademi.Data.Entities.Base.Kisitlama", "Kisitlama")
-                        .WithMany("PersonelKisitlamaRelation")
-                        .HasForeignKey("KisitlamaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("VeronaAkademi.Data.Entities.Base.Personel", "Personel")
-                        .WithMany("PersonelKisitlamaRelation")
+                        .WithMany("PersonelInterfaceRestrictionRelation")
                         .HasForeignKey("PersonelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Kisitlama");
+                    b.HasOne("VeronaAkademi.Data.Entities.Base.Restriction", "Restriction")
+                        .WithMany("PersonelInterfaceRestrictionRelation")
+                        .HasForeignKey("RestrictionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Personel");
+
+                    b.Navigation("Restriction");
+                });
+
+            modelBuilder.Entity("VeronaAkademi.Data.Entities.Base.RestrictionControllerAction", b =>
+                {
+                    b.HasOne("VeronaAkademi.Data.Entities.Base.Restriction", "Restriction")
+                        .WithMany("RestrictionControllerAction")
+                        .HasForeignKey("RestrictionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Restriction");
                 });
 
             modelBuilder.Entity("VeronaAkademi.Data.Entities.Basket", b =>
@@ -1701,6 +1939,25 @@ namespace VeronaAkademi.Data.Migrations
                     b.Navigation("CategoryGroup");
 
                     b.Navigation("Parent");
+                });
+
+            modelBuilder.Entity("VeronaAkademi.Data.Entities.ClinicalExam", b =>
+                {
+                    b.HasOne("VeronaAkademi.Data.Entities.Advisor", "Advisor")
+                        .WithMany()
+                        .HasForeignKey("AdvisorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("VeronaAkademi.Data.Entities.Customer", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Advisor");
+
+                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("VeronaAkademi.Data.Entities.Course", b =>
@@ -1826,6 +2083,25 @@ namespace VeronaAkademi.Data.Migrations
                     b.Navigation("Customer");
 
                     b.Navigation("PracticeLesson");
+                });
+
+            modelBuilder.Entity("VeronaAkademi.Data.Entities.Form", b =>
+                {
+                    b.HasOne("VeronaAkademi.Data.Entities.Advisor", "Advisor")
+                        .WithMany()
+                        .HasForeignKey("AdvisorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("VeronaAkademi.Data.Entities.Customer", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Advisor");
+
+                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("VeronaAkademi.Data.Entities.LecturerCourseRelation", b =>
@@ -2002,7 +2278,7 @@ namespace VeronaAkademi.Data.Migrations
             modelBuilder.Entity("VeronaAkademi.Data.Entities.PracticeLessonGallery", b =>
                 {
                     b.HasOne("VeronaAkademi.Data.Entities.PracticeLesson", "PracticeLesson")
-                        .WithMany()
+                        .WithMany("PracticeLessonGallery")
                         .HasForeignKey("PracticeLessonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -2098,33 +2374,33 @@ namespace VeronaAkademi.Data.Migrations
                     b.Navigation("PackageAdvisorRelation");
                 });
 
-            modelBuilder.Entity("VeronaAkademi.Data.Entities.Base.ArayuzKisitlama", b =>
-                {
-                    b.Navigation("PersonelArayuzKisitlama");
-                });
-
-            modelBuilder.Entity("VeronaAkademi.Data.Entities.Base.Departman", b =>
+            modelBuilder.Entity("VeronaAkademi.Data.Entities.Base.Department", b =>
                 {
                     b.Navigation("Personel");
                 });
 
-            modelBuilder.Entity("VeronaAkademi.Data.Entities.Base.Kisitlama", b =>
+            modelBuilder.Entity("VeronaAkademi.Data.Entities.Base.InterfaceRestriction", b =>
                 {
-                    b.Navigation("KisitlamaControllerAction");
-
-                    b.Navigation("PersonelKisitlamaRelation");
+                    b.Navigation("PersonelInterfaceRestriction");
                 });
 
             modelBuilder.Entity("VeronaAkademi.Data.Entities.Base.Personel", b =>
                 {
-                    b.Navigation("PersonelArayuzKisitlama");
+                    b.Navigation("PersonelInterfaceRestriction");
 
-                    b.Navigation("PersonelKisitlamaRelation");
+                    b.Navigation("PersonelInterfaceRestrictionRelation");
                 });
 
-            modelBuilder.Entity("VeronaAkademi.Data.Entities.Base.PersonelTip", b =>
+            modelBuilder.Entity("VeronaAkademi.Data.Entities.Base.PersonelType", b =>
                 {
                     b.Navigation("Personel");
+                });
+
+            modelBuilder.Entity("VeronaAkademi.Data.Entities.Base.Restriction", b =>
+                {
+                    b.Navigation("PersonelInterfaceRestrictionRelation");
+
+                    b.Navigation("RestrictionControllerAction");
                 });
 
             modelBuilder.Entity("VeronaAkademi.Data.Entities.Category", b =>
@@ -2192,6 +2468,8 @@ namespace VeronaAkademi.Data.Migrations
                     b.Navigation("PackagePracticeLessonRelation");
 
                     b.Navigation("PracticeLessonCourseRelation");
+
+                    b.Navigation("PracticeLessonGallery");
                 });
 
             modelBuilder.Entity("VeronaAkademi.Data.Entities.Product", b =>

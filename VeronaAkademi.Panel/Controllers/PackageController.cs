@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using VeronaAkademi.Core.Attributes;
 using VeronaAkademi.Data.Entities;
+using VeronaAkademi.Data.EntityFramework;
 
 namespace VeronaAkademi.Panel.Controllers
 {
@@ -9,7 +10,9 @@ namespace VeronaAkademi.Panel.Controllers
     {
         public PackageController(IConfiguration config, IHttpContextAccessor httpcontext, IWebHostEnvironment webHostEnvironment) : base(config, httpcontext, webHostEnvironment)
         {
+            repo = new PackageRepository();
         }
+
         [Menu("Paketler", "fa-solid fa-box", "Paket", 0, 13)]
         public IActionResult Index()
         {
@@ -20,40 +23,18 @@ namespace VeronaAkademi.Panel.Controllers
         public override IActionResult GetList(int page = 1, int adet = 10)
         {
             var searchText = Request.Query["searchText"].ToString();
-            var orderBy = Request.Query["orderBy"].ToString();
-            var orderWay = Request.Query["orderWay"].ToString();
+            var model = repo.GetAll();
 
-            var model = Db.Package
-                .Include(x => x.Currency)
-                .Include(x => x.PackageCourseRelation)
-                .Include("PackageCourseRelation.Course")
-                .Include(x => x.PackagePracticeLessonRelation)
-                .Include("PackagePracticeLessonRelation.PracticeLesson")
-                .Include(x => x.PackageAdvisorRelation)
-                .Include("PackageAdvisorRelation.Advisor")
-                .Where(x => !x.Silindi)
-                .AsQueryable();
+            if (!string.IsNullOrEmpty(searchText))
+                model = model.Where(x => x.Name.Contains(searchText));
 
-
-            var data = model.ToList();
-
-            return PartialView(data);
+            return base.GetListModel(model, page, adet);
         }
 
         [Yetki("Paketler", "Package", "")]
         public IActionResult GetPackage(int id)
         {
-            var model = Db.Package
-                .Include(x => x.Currency)
-                .Include(x => x.PackageCourseRelation)
-                .Include("PackageCourseRelation.Course")
-                .Include(x => x.PackagePracticeLessonRelation)
-                .Include("PackagePracticeLessonRelation.PracticeLesson")
-                .Include(x => x.PackageAdvisorRelation)
-                .Include("PackageAdvisorRelation.Advisor")
-                .Single(x => x.PackageId == id);
-
-            return PartialView(model);
+            return PartialView(repo.Get(id));
         }
 
         [Yetki("Paketler", "Package", "")]
@@ -64,30 +45,24 @@ namespace VeronaAkademi.Panel.Controllers
                     .ThenInclude(x => x.Package)
                 .Where(x => x.PackageId == id)
                 .Select(x => x.Course)
-                .Where(x => !x.Silindi)
-                .ToList()
-                .AsQueryable();
+                .Where(x => !x.Deleted)
+                .ToList();
 
-            var data = model.ToList();
-
-            return PartialView(data);
+            return PartialView(model);
         }
 
         [Yetki("Paketler", "Package", "")]
         public IActionResult GetAdvisor(int id)
         {
             var model = Db.PackageAdvisorRelation
-    .Include(x => x.Advisor.AdvisorCourseRelation)
-        .ThenInclude(x => x.Course)
-    .Include(x => x.Advisor.Currency)
-    .Where(x => x.PackageId == id && !x.Advisor.Silindi)
-    .Select(x => x.Advisor)
-    .ToList()
-    .AsQueryable();
+                .Include(x => x.Advisor.AdvisorCourseRelation)
+                    .ThenInclude(x => x.Course)
+                .Include(x => x.Advisor.Currency)
+                .Where(x => x.PackageId == id && !x.Advisor.Deleted)
+                .Select(x => x.Advisor)
+                .ToList();
 
-
-
-            return PartialView(model.ToList());
+            return PartialView(model);
         }
         [Yetki("Paketler", "Package", "")]
         public IActionResult GetPracticeLesson(int id)
@@ -95,26 +70,16 @@ namespace VeronaAkademi.Panel.Controllers
             var model = Db.PackagePracticeLessonRelation
                 .Where(x => x.PackageId == id)
                 .Select(x => x.PracticeLesson)
-                .Where(x => !x.Silindi)
-                .ToList()
-                .AsQueryable();
+                .Where(x => !x.Deleted)
+                .ToList();
 
-            return PartialView(model.ToList());
+            return PartialView(model);
         }
 
         [Yetki("Paketler", "Package", "")]
         public IActionResult Detail(int id)
         {
-            Package model = Db.Package
-                .Include(x => x.PackageCourseRelation)
-                .Include("PackageCourseRelation.Course")
-                .Include(x => x.PackagePracticeLessonRelation)
-                .Include("PackagePracticeLessonRelation.PracticeLesson")
-                .AsQueryable()
-                .Single(x => x.PackageId == id);
-
-
-            return View(model);
+            return View(repo.Get(id));
         }
 
         [HttpPost]
@@ -124,14 +89,9 @@ namespace VeronaAkademi.Panel.Controllers
             Db.SaveChanges();
         }
 
-        public override JsonResult Save(Package form)
-        {
-            return base.Save(form);
-        }
-
         public void Update(Package form)
         {
-            form.Aktif = true;
+            form.Active = true;
             Db.Package.Update(form);
             Db.SaveChanges();
         }

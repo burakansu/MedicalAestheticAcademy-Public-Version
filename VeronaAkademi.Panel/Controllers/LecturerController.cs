@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using VeronaAkademi.Core.Attributes;
-using VeronaAkademi.Core.Helper;
 using VeronaAkademi.Data.Entities;
 
 namespace VeronaAkademi.Panel.Controllers
@@ -20,62 +19,31 @@ namespace VeronaAkademi.Panel.Controllers
         [Yetki("Eğitmenler", "Lecturer", "")]
         public override IActionResult GetList(int page = 1, int adet = 5)
         {
-            var searchText = "";
-            var model = repo.GetAll(x => !x.Silindi);
-
-            if (page < 1)
-            {
-                page = 1;
-            }
+            var searchText = Request.Query["searchText"].ToString();
+            var model = repo.GetAll();
 
             if (!string.IsNullOrEmpty(searchText))
-            {
-                model = model
-                    .Where(x => x.Name.Contains(searchText) || x.LecturerId.ToString() == searchText);
-            }
+                model = model.Where(x => x.Name.Contains(searchText));
 
-            var durum = Request.Query["Durum"].ToString();
-            if (!string.IsNullOrEmpty(durum))
-            {
-                bool d = Convert.ToBoolean(durum);
-                model = model.Where(x => x.Aktif == d);
-            }
-
-            var count = model.Count();
-            var pager = new Pager(count, page, adet);
-            pager.SearchText = searchText;
-
-            model = model.OrderByDescending(x => x.EklemeTarihi);
-            //sayfala
-            model = model.Skip((page - 1) * adet).Take(adet);
-
-            ViewBag.Pager = pager;
-            ViewBag.Toplam = count;
-            var data = model.ToList();
-
-            return PartialView(data);
+            return base.GetListModel(model, page, adet);
         }
+
         [Yetki("Eğitmenler", "Lecturer", "")]
         public IActionResult Detail(int id)
         {
-            var model = Db.Lecturer.Single(x => x.LecturerId == id);
-
-            return View(model);
+            return View(repo.Get(id));
         }
 
         [Yetki("Eğitmenler", "Lecturer", "")]
         public IActionResult DetailForm(int id)
         {
-            var model = Db.Lecturer
-                .Single(x => x.LecturerId == id);
-
-            return View(model);
+            return View(repo.Get(id));
         }
 
         [Yetki("Eğitmenler", "Lecturer", "")]
         public IActionResult ImageForm(int id)
         {
-            return PartialView(Db.Lecturer.Single(x => x.LecturerId == id));
+            return PartialView(repo.Get(id));
         }
 
         [HttpPost]
@@ -106,14 +74,14 @@ namespace VeronaAkademi.Panel.Controllers
         }
 
         [Yetki("Eğitmenler", "Lecturer", "")]
-        public override JsonResult Save(Lecturer form)
+        public override JsonResult Kaydet(Lecturer form)
         {
-            return base.Save(form);
+            return base.Kaydet(form);
         }
 
         public void Update(Lecturer form)
         {
-            form.Aktif = true;
+            form.Active = true;
             Db.Lecturer.Update(form);
             Db.SaveChanges();
         }

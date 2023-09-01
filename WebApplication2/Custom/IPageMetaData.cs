@@ -28,6 +28,10 @@ namespace VeronaAkademi.Ui.Custom
         List<Advisor> baseAdvisor();
         List<CustomerPackageRelation> baseCustomerPackageRelation();
         List<PracticeLesson> basePracticeLesson();
+        WebSiteData baseWebSiteData();
+        List<Form> baseForm();
+        List<Anamnez> baseAnamnez();
+        List<ClinicalExam> baseClinicalExam();
         int baseCustomerId();
         public string baseAssetsPath();
     }

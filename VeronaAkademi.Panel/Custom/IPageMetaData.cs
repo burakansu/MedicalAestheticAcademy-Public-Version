@@ -26,6 +26,5 @@ namespace VeronaAkademi.Panel.Custom
         List<Customer> baseCustomer();
         List<Order> baseOrder();
         public string baseAssetsPath();
-
     }
 }

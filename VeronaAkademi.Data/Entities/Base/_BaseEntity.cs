@@ -4,12 +4,12 @@ namespace VeronaAkademi.Data.Entities.Base
 {
     public class BaseEntity
     {
-        public DateTime? EklemeTarihi { get; set; }
-        public DateTime? GuncellemeTarihi { get; set; }
-        public bool Aktif { get; set; }
-        public bool Silindi { get; set; }
+        public DateTime? CreateDate { get; set; }
+        public DateTime? UpdateDate { get; set; }
+        public bool Active { get; set; }
+        public bool Deleted { get; set; }
 
-        public int? Sira { get; set; }
+        public int? Order { get; set; }
 
         [NotMapped]
         public List<string> Include { get; set; }

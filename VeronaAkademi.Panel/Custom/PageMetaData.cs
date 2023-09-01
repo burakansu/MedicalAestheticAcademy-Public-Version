@@ -19,7 +19,6 @@ namespace VeronaAkademi.Panel.Custom
             _db = new Db();
         }
 
-
         public List<BaseMenu> baseMenu(string pre = "Menu", string nameSpace = "VeronaAkademi.Panel.Controllers")
         {
             Assembly asm = Assembly.GetExecutingAssembly();

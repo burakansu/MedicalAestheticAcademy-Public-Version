@@ -2,11 +2,10 @@
 {
     public class Pager
     {
-
         public Pager()
         {
-
         }
+
         public Pager(int totalItems, int page, int pageSize)
         {
             int totalPages = (int)Math.Ceiling((decimal)totalItems / (decimal)pageSize);
@@ -24,9 +23,8 @@
             {
                 endPage = totalPages;
                 if (endPage > 5)
-                {
                     startPage = endPage - 4;
-                }
+                
             }
 
             TotalItems = totalItems;
@@ -38,9 +36,7 @@
             ShowingRangeStart = CurrentPage * PageSize - PageSize + 1;
             ShowingRangeEnd = ShowingRangeStart + PageSize - 1;
             if (ShowingRangeEnd > TotalItems)
-            {
                 ShowingRangeEnd = TotalItems;
-            }
         }
 
         public int TotalItems { get; private set; }
